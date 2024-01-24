@@ -13,7 +13,8 @@ const jobSchema = new mongoose.Schema({
     createAt: Date,
     deadline: Date,
     areas: [],
-    status: Boolean
+    status: Boolean,
+    experiences: Number
 });
 
 const Job = mongoose.model("Job", jobSchema, "jobs");

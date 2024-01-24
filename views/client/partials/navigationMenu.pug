@@ -1,0 +1,33 @@
+navigation.navigation 
+    .container 
+        .vitri 
+            .vt 
+                input(type="text" name="position" placeholder="Vị trí tuyển dụng" style="border: none; width: 200px; height: 50px;")
+            .khuvuc  
+                select(name="khuvuc" id="khuvuc")
+                    option(value="kvuc") Tất cả tỉnh/thành phố
+                    option(value="TPHCM") TP Hồ Chí Minh
+                    option(value="HN") Hà Nội
+                    option(value="NT") Nha Trang
+                    option(value="Hue") Huế
+        .kinhnghiem 
+            select(name="exp" id="exp")
+                option(value="kn") Tất cả kinh nghiệm
+                option(value="none") Chưa có kinh nghiệm
+                option(value="duoi1nam") Dưới 1 năm
+                option(value="1nam") 1 năm
+                option(value="2nam") 2 năm
+                option(value="3nam") 3 năm
+                option(value="4nam") 4 năm
+                option(value="5nam") 5 năm
+                option(value="tren5nam") Trên 5 năm
+        .luong 
+            select(name="luong" id="luong")
+                option(value="luong") Chọn mức lương
+                option(value="duoi10") Dưới 10 triệu
+                option(value="10den15") 10 - 15 triệu
+                option(value="15den20") 15 - 20 triệu
+                option(value="tren20") Trên 20 triệu
+        .tim
+        
+            button(type='button') Tìm kiếm

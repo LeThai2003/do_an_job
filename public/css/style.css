@@ -1,0 +1,197 @@
+*{
+    box-sizing: border-box;
+}
+select{
+    outline: none;
+}
+
+:root{
+    --blue-font : #50a5ed;
+    --font-color--hover : #50a5ed;
+    --font-color : #fff;
+
+}
+.header{
+    border-bottom: 1px solid var(--blue-font);
+}
+.container{
+    padding: 12px 0;
+    max-width: 1400px;
+}
+.container .container-logo{
+    font-size: 30px;
+    color: var(--blue-font);
+    font-weight: 700;
+}
+.container .container-logo span{
+    font-size: 40px;
+}
+.notice{
+    padding-right: 15px;
+}
+.notice img{
+    color: var(--blue-font);
+}
+.info{
+    border: 1px solid --blue-font;
+    border-radius: 15px;
+    padding: 3px 8px;
+    font-size: 24px;
+    font-weight: 500;
+}
+span.name{
+    color: var(--blue-font);
+}
+/* Section tim kiem */
+.vt input{
+    outline: none;
+}
+.container {
+    font-size: 16px;
+    display: inline-block;
+    font-family: Arial, Tahoma, 'Times New Roman', sans-serif;
+    .vitri{
+        border-radius: 10px;
+        border: 1px solid var(--blue-font);
+        display: flex;
+        .vt{
+            border-right: 1px solid var(--blue-font); /* Đường viền trái, kích thước 2px, màu đen (#000) */
+            padding-left: 10px;
+        }
+    }
+    display: flex;
+    margin: 40px;
+    justify-content: space-between;
+
+}
+#luong{
+    width: 200px; /* Đặt chiều rộng của hộp là 200px */
+    height: 50px;
+    border: none;
+    background-color: var(--blue-font);
+    color: var(--font-color);
+}
+.kinhnghiem, .luong{
+    padding: 0 10px;
+    background-color: var(--blue-font);
+    border-radius: 15px;
+}
+#exp{
+    width: 200px; /* Đặt chiều rộng của hộp là 200px */
+    height: 50px;
+    border: none;
+    background-color: var(--blue-font);
+    color: var(--font-color);
+    outline: none;
+}
+#khuvuc{
+    width: 200px; /* Đặt chiều rộng của hộp là 200px */
+    height: 50px;
+    border-radius: 10px;
+    border: none;
+}
+.tim button{
+    background-color: var(--blue-font);
+    color: var(--font-color);
+    border: none; 
+    width: 200px;
+    height: 50px; 
+    border-radius: 10px;
+    font-weight: 700;
+}
+
+/* Section list job  */
+.section-list .section-item
+{
+    width: 100%;
+}
+.section-list .section-item .box{
+    border: 3px solid var(--blue-font);
+    position: relative;
+    box-sizing: border-box;
+    margin: 2px;
+}
+.section-list .section-item .item .item-top .item-img{
+    border: 2px solid var(--blue-font);
+    height: 65px;
+    margin-right: 20px;
+}
+.section-list .section-item .item .item-top .name-job, .name-cmp{
+    width: 150px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    margin-bottom: 6px;
+}
+.section-list .section-item .item .item-top .name-job{
+    font-size: 18px;
+    font-weight: 500;
+    word-break: break-all;
+}
+.section-list .section-item .item .item-top img{
+    width: 60px;    
+    height: 60px;
+}
+.section-list .section-item .item .item-bot .info-job span{
+    font-size: 14px;
+    color: var(--blue-font);
+    border: 1px solid var(--blue-font);
+    border-radius: 15px;
+    padding: 2px 5px;
+    margin: 4px;
+}
+.section-list .section-item .item .empty{
+    width: 50%;
+}
+.section-list .section-item .item .ungtuyen{
+    border: 2px solid var(--blue-font);
+    padding: 5px 10px;
+    margin-bottom: -1.5rem;
+    margin-right: -1.5rem;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+    cursor: pointer;
+    font-weight: 400;
+    color: var(--font-color);
+    background-color: var(--blue-font);
+}
+@keyframes wiggle {
+    0%, 7% {
+      transform: rotateZ(0);
+    }
+    15% {
+      transform: rotateZ(-15deg);
+    }
+    20% {
+      transform: rotateZ(10deg);
+    }
+    25% {
+      transform: rotateZ(-10deg);
+    }
+    30% {
+      transform: rotateZ(6deg);
+    }
+    35% {
+      transform: rotateZ(-4deg);
+    }
+    40%, 100% {
+      transform: rotateZ(0);
+    }
+  }
+.section-list .section-item .item .ungtuyen:hover{
+    animation: wiggle 2s linear infinite;
+}
+.section-list .section-item .item .xem{
+    position: absolute;
+    display: none;
+    top: 75px;
+    right: 0;
+    border: 1px solid var(--blue-font);
+    padding: 4px 8px;
+    color: var(--blue-font);
+    font-weight: 400;
+    z-index: 10;
+    cursor: pointer;
+}
+.item:hover .button.xem {
+    display: inline-block;
+  }

@@ -1,9 +1,11 @@
 //------JOB---------
 
-//selec-option-area
+//form search
 const formSearch = document.querySelector("[form-search]");
-var area = "";
-var salary = "";
+let area = "all";
+let experience = "all";
+let salary = "all";
+
 if(formSearch)
 {
     const selectArea = formSearch.querySelector("[select-area]");
@@ -17,21 +19,23 @@ if(formSearch)
         const salary1 = selectSalary.value;
         salary = salary1;
     });
+
+    const selectExperience = formSearch.querySelector("[select-experiece");
+    selectExperience.addEventListener("change", () => {
+        const exp = selectExperience.value;
+        experience = exp;
+    });
 }
 
 formSearch.addEventListener("submit", (e) => {
     e.preventDefault();
-    action = `/job/${area}/${salary}`;
-    console.log(action);
-    formSearch.action = action;
-    formSearch.submit();
+    const url = new URL(window.location.href);
+    url.searchParams.set("area", area);
+    url.searchParams.set("experience", experience);
+    url.searchParams.set("salary", salary);
+    window.location.href = url.href;
 });
-
-//end selec-option-area
-
-//select-option-salary
-
-//end select-option-salary
+//form search
 
 
 

@@ -14,7 +14,7 @@ const jobSchema = new mongoose.Schema({
     deadline: Date,
     areas: [],
     status: Boolean,
-    experiences: Number
+    experiences: String
 });
 
 const Job = mongoose.model("Job", jobSchema, "jobs");

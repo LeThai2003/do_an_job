@@ -1,0 +1,6 @@
+# ---Web tuyển dụng --- 
+Xin chào mọi người, đây là một dự án nhỏ mà nhóm mình hiện đang làm. Đó là tạo một trang web tuyển dụng như 
+ItViec, topCV,... 
+Sao cho có các chức năng cơ bản như vào xem được tin tuyển dụng, ứng tuyển công việc,...
+Chúng mình chủ yếu code giao diện thuần, có sử dụng bootstrap và code be bằng nodejs
+*Hiện tại nhóm mình đang trong quá trình làm, nên sẽ cập nhật tiếp*

@@ -9,6 +9,12 @@ module.exports.getAllJobs = async (req, res) => {
         const company = await CompanyModel.getCompanyById(job.congTyId);
         console.log(company);
         job.company = company
+
+        const ngayTao = new Date(job.ngayTao);
+        const ngayHienTai = new Date();
+        const soNgayTuNgayKhoiTao = Math.floor((ngayHienTai - ngayTao) / (1000 * 60 * 60 * 24));
+
+        job.soNgayTuNgayKhoiTao = soNgayTuNgayKhoiTao;
     }
     
     res.render("client/pages/job/index", {

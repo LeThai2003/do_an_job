@@ -161,6 +161,11 @@ span.name{
     padding: 2px 5px;
     margin: 4px;
 }
+
+.section-list .section-item .item .item-bot .info-job .desr span{
+    border: none;
+}
+
 .section-list .section-item .item .empty{
     width: 50%;
 }

@@ -22,7 +22,11 @@ block main
                         .item-bot
                             .info-job 
                                 span.desr #{job.luong} triệu
-                                span.desr 30 ngày trước 
+                                span.desr 
+                                    if job.soNgayTuNgayKhoiTao == 0
+                                        span Công việc mới tạo 
+                                    else 
+                                        span #{job.soNgayTuNgayKhoiTao} ngày trước 
                             .button-ut.d-flex.justify-content-between
                                 .empty 
                                 .ungtuyen.animate__pulse Ứng tuyển 

@@ -1,4 +1,4 @@
-const {sql} = require("../config/connect");
+const {sql} = require("../config/database")
 
 const getAllSpecialties = async () => {
     try {

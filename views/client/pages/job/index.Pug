@@ -1,4 +1,29 @@
 extends ../../layouts/default.pug 
+include ../../mixins/box-head.pug 
 
 block main 
-    h1 Job list 
+
+    .container-fluid 
+        +box-head(title)
+
+    .section-list.container-fluid
+        .section-item.row.row-cols-1.row-cols-md-2.row-cols-lg-4.p-4
+            for job in jobs 
+                .item.col-sm-12.col-md-6.col-lg-4.col-xl-3.mb-4.p-2
+                    .box.p-4
+                        .item-top.d-flex.mb-2
+                            .item-img
+                                img(src=job.company.logo, alt="logo công ty")
+                            .ttle-job 
+                                .name-job #{job.tenCV}
+                                //- Điền vào tên
+                                .name-comp #{job.company.tenCT}
+                                //- Điền tên công ty 
+                        .item-bot
+                            .info-job 
+                                span.desr #{job.luong} triệu
+                                span.desr 30 ngày trước 
+                            .button-ut.d-flex.justify-content-between
+                                .empty 
+                                .ungtuyen.animate__pulse Ứng tuyển 
+                            .button.xem Xem >>

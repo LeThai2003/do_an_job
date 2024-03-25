@@ -1,42 +1,18 @@
-const Job = require("../../models/job.model");
+const JobModel = require("../../models/Job.model");
+const CompanyModel = require("../../models/Company.model");
 
-//[GET]/job/
-module.exports.index = (req, res) => {
+// [GET] /jobs
+module.exports.getAllJobs = async (req, res) => {
+    const jobs = await JobModel.getAllJobs();
 
-
-    res.render("client/pages/job/index.pug");
-}
-
-
-
-//[POST]/job/:area
-module.exports.searchFormPOST = async (req, res) => {
-    console.log(req.body);
-    const area = req.body.area;
-    var [salary1, salary2] = req.body.salary.split("-");
-
-    const find = {
-        deleted: false,
-
-    };
-
-    if(req.body.area != "area")
-    {
-        find.areas = {$in : [`${area}`]}
+    for (const job of jobs) {
+        const company = await CompanyModel.getCompanyById(job.congTyId);
+        console.log(company);
+        job.company = company
     }
-
-    if(req.body.salary != "salary")
-    {
-        find.$expr= {
-            $and: [
-                { $gte: [{ $toInt: "$salary" }, parseInt(salary1)] },
-                { $lte: [{ $toInt: "$salary" }, parseInt(salary2)] }
-            ]
-        }
-    } 
-
-    const jobs = await Job.find(find);
-
-    console.log(jobs);
-    res.send("---");
+    
+    res.render("client/pages/job/index", {
+        title: "Trang danh sách công việc",
+        jobs: jobs 
+    })
 }

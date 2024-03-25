@@ -236,3 +236,17 @@ span.name{
     font-size: 12px;
     font-weight: 600;
 }
+
+
+/* box - head  */
+.box-head {
+    margin-bottom: 30px;
+    padding-left: 1.5rem;
+}
+
+.box-head .inner-title {
+    margin-bottom: 0;
+    font-size: 28px;
+    font-weight: 600;
+    color: #50a5ed;
+}

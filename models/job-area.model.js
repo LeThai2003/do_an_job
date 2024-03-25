@@ -1,4 +1,4 @@
-const {sql} = require("../config/connect");
+const {sql} = require("../config/database")
 
 const getAllJobArea = async () => {
     try {

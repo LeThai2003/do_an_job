@@ -3,12 +3,12 @@ const app = express();
 const methodOverride = require('method-override')
 const bodyParser = require('body-parser')
 const dotenv = require("dotenv");
-const database = require("./config/database");
+const connect = require("./config/database");
 const routerClient = require("./routes/client/index.route");
 
 dotenv.config();
 
-database.connect(process.env.MONGO_URL);
+connect.connectDB();
 
 const port = process.env.PORT;
 

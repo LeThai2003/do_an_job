@@ -1,22 +1,17 @@
-const mongoose = require("mongoose");
+const {sql} = require("../config/connect");
 
-const jobSchema = new mongoose.Schema({
-    nameCV: String,
-    idCompany: String,
-    salary: String,
-    specialities:[],
-    description: String,
-    deleted:{
-        type: Boolean,
-        default: false 
-    },
-    createAt: Date,
-    deadline: Date,
-    areas: [],
-    status: Boolean,
-    experiences: String
-});
+const getAllJobs = async () => {
+    try {
+        const result = await sql.query`select * from CONGVIEC`;
+        return result.recordset;
+    } catch (err) {
+        console.error('Error getting jobs:', err);
+        return [];
+    }
+}
 
-const Job = mongoose.model("Job", jobSchema, "jobs");
 
-module.exports = Job;
+
+module.exports = {
+    getAllJobs,
+};

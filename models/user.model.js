@@ -1,20 +1,17 @@
-const mongoose = require("mongoose");
+const {sql} = require("../config/connect");
 
-const userSchema = new mongoose.Schema({
-    name: String,
-    phone: String,
-    gender: Boolean,
-    birthday: Date,
-    deleted:{
-        type: Boolean,
-        default: false 
-    },
-    email: String,
-    admin:String
-});
-// mật khẩu tài khoản để làm sau
+const getAllUsers = async () => {
+    try {
+        const result = await sql.query`select * from NGUOIDUNG`;
+        return result.recordset;
+    } catch (err) {
+        console.error('Error getting users:', err);
+        return [];
+    }
+}
 
-const User = mongoose.model("User", userSchema, "Users");
 
-module.exports = User;
 
+module.exports = {
+    getAllUsers,
+};

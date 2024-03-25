@@ -1,8 +1,8 @@
 const {sql} = require("../config/connect");
 
-const getAllAreas = async () => {
+const getAllCompanies = async () => {
     try {
-        const result = await sql.query`select * from KHUVUC`;
+        const result = await sql.query`select * from CONGTY`;
         return result.recordset;
     } catch (err) {
         console.error('Error getting students:', err);
@@ -13,5 +13,5 @@ const getAllAreas = async () => {
 
 
 module.exports = {
-    getAllAreas,
+    getAllCompanies,
 };

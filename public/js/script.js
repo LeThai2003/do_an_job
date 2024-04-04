@@ -35,7 +35,7 @@ if(formSearch)
 
 formSearch.addEventListener("submit", (e) => {
     e.preventDefault();
-    const url = new URL(window.location.href);
+    const url = new URL('http://localhost:3000/jobs');
     url.searchParams.set("vitri", vitri);
     url.searchParams.set("khuvuc", area);
     url.searchParams.set("kinhnghiem", experience);

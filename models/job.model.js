@@ -10,8 +10,18 @@ const getAllJobs = async () => {
     }
 }
 
-
+const getJobsByForm = async (query) => {
+    try {
+        const queryString = query.toString();
+        const result = await sql.query(queryString);
+        return result.recordset;
+    } catch (error) {
+        console.log("Error getting jobs by form search", error);
+        return [];
+    }
+}
 
 module.exports = {
     getAllJobs,
+    getJobsByForm
 };

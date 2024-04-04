@@ -4,40 +4,26 @@ block main
     //- Hien thi trang 1 CV (10 trang)
     .section-list.container-fluid
         .section-item.row.row-cols-1.row-cols-md-2.row-cols-lg-4.p-4
-            //- for job in jobs 
-            //-     .item.col-sm-12.col-md-6.col-lg-4.col-xl-3.mb-4.p-2
-            //-         .box.p-4
-            //-             .item-top.d-flex.mb-2
-            //-                 .item-img
-            //-                     img(src="https://inkythuatso.com/uploads/thumbnails/800/2021/11/logo-fpt-inkythuatso-1-01-01-14-33-35.jpg", alt="logo công ty")
-            //-                 .ttle-job 
-            //-                     .name-job #{job.nameCV}
-            //-                     //- Điền vào tên
-            //-                     .name-comp Fpt Software
-            //-                     //- Điền tên công ty 
-            //-             .item-bot
-            //-                 .info-job 
-            //-                     span.desr #{job.salary} triệu
-            //-                     span.desr 30 ngày trước 
-            //-                 .button-ut.d-flex.justify-content-between
-            //-                     .empty 
-            //-                     .ungtuyen.animate__pulse Ứng tuyển 
-            //-                 .button.xem Xem >>
-            .item.col-sm-12.col-md-6.col-lg-4.col-xl-3.mb-4.p-2
-                .box.p-4
-                    .item-top.d-flex.mb-2
-                        .item-img
-                            img(src="https://inkythuatso.com/uploads/thumbnails/800/2021/11/logo-fpt-inkythuatso-1-01-01-14-33-35.jpg", alt="logo công ty")
-                        .ttle-job 
-                            .name-job FrontEnd
-                            //- Điền vào tên
-                            .name-comp Fpt Software
-                            //- Điền tên công ty 
-                    .item-bot
-                        .info-job 
-                            span.desr $10000
-                            span.desr 30 ngày trước 
-                        .button-ut.d-flex.justify-content-between
-                            .empty 
-                            .ungtuyen.animate__pulse Ứng tuyển 
-                        .button.xem Xem >>
+            for job in jobs 
+                .item.col-sm-12.col-md-6.col-lg-4.col-xl-3.mb-4.p-2
+                    .box.p-4
+                        .item-top.d-flex.mb-2
+                            .item-img
+                                img(src=job.company.logo, alt="logo công ty")
+                            .ttle-job 
+                                .name-job #{job.tenCV}
+                                //- Điền vào tên
+                                .name-comp #{job.company.tenCT}
+                                //- Điền tên công ty 
+                        .item-bot
+                            .info-job 
+                                span.desr #{job.luong} triệu
+                                span.desr 
+                                    if job.soNgayTuNgayKhoiTao == 0
+                                        span Công việc mới tạo 
+                                    else 
+                                        span #{job.soNgayTuNgayKhoiTao} ngày trước 
+                            .button-ut.d-flex.justify-content-between
+                                .empty 
+                                .ungtuyen.animate__pulse Ứng tuyển 
+                            .button.xem Xem >>

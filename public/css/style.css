@@ -22,10 +22,16 @@ p{
     background-color: #fff;
     z-index: 100;
 }
+
 .header .container{
     padding: 12px 0;
     max-width: 1400px;
 }
+.header [link-home]{
+    text-decoration: none;
+    color: var(--blue-font);
+}
+
 .header .container .container-logo{
     font-size: 30px;
     color: var(--blue-font);
@@ -254,4 +260,9 @@ span.name{
     font-size: 28px;
     font-weight: 600;
     color: #50a5ed;
+}
+
+/* section-link */
+.section-link a{
+    text-decoration: none;
 }

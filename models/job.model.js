@@ -5,7 +5,7 @@ const getAllJobs = async () => {
         const result = await sql.query`select * from CONGVIEC`;
         return result.recordset;
     } catch (err) {
-        console.error('Error getting jobs:', err);
+        console.log('Error getting jobs:', err);
         return [];
     }
 }
@@ -21,7 +21,29 @@ const getJobsByForm = async (query) => {
     }
 }
 
+const getJobBySlug = async (slug) => {
+    try {
+        const result = await sql.query`select * from CONGVIEC where slug = ${slug}`;
+        return result.recordset;
+    } catch (err) {
+        console.log('Error getting jobs:', err);
+        return [];
+    }
+}
+
+const getJobOfCompany = async (id) => {
+    try {
+        const result = await sql.query`select * from CONGVIEC where CONGVIEC.congTyId = ${id}`;
+        return result.recordset;
+    } catch (err) {
+        console.log('Error getting jobs:', err);
+        return [];
+    }
+}
+
 module.exports = {
     getAllJobs,
-    getJobsByForm
+    getJobsByForm,
+    getJobBySlug,
+    getJobOfCompany
 };

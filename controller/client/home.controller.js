@@ -1,21 +1,11 @@
 const JobModel = require("../../models/Job.model");
-const CompanyModel = require("../../models/Company.model");
+const timeApplyHelper = require("../../helpers/time-apply.helper")
 
 //[GET]/
 module.exports.index =async (req, res) => {
-    const jobs = await JobModel.getAllJobs();
+    const getJobs = await JobModel.getAllJobs();
 
-    for (const job of jobs) {
-        const company = await CompanyModel.getCompanyById(job.congTyId);
-        // console.log(company);
-        job.company = company
-
-        const ngayTao = new Date(job.ngayTao);
-        const ngayHienTai = new Date();
-        const soNgayTuNgayKhoiTao = Math.floor((ngayHienTai - ngayTao) / (1000 * 60 * 60 * 24));
-
-        job.soNgayTuNgayKhoiTao = soNgayTuNgayKhoiTao;
-    }
+    const jobs = await timeApplyHelper.time(getJobs);
 
     res.render("client/pages/home/index.pug", {
         title: "Trang chủ",

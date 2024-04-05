@@ -8,6 +8,11 @@ p{
     margin-bottom: 10px;
 }
 
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
 :root{
     --blue-font : #50a5ed;
     --font-color--hover : #50a5ed;

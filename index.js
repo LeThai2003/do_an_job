@@ -5,12 +5,18 @@ const bodyParser = require('body-parser')
 const dotenv = require("dotenv");
 const connect = require("./config/database");
 const routerClient = require("./routes/client/index.route");
+const moment = require('moment');
 
 dotenv.config();
 
 connect.connectDB();
 
 const port = process.env.PORT;
+
+app.use((req, res, next) => {
+    res.locals.moment = moment;
+    next();
+});
 
 // override with POST having ?_method=DELETE
 app.use(methodOverride('_method'))

@@ -1,4 +1,5 @@
 extends ../../layouts/default.pug 
+include ../../mixins/time-apply.pug
 
 block main 
     //- Hien thi trang 1 CV (10 trang)
@@ -19,11 +20,9 @@ block main
                             .info-job 
                                 span.desr #{job.luong} triệu
                                 span.desr 
-                                    if job.soNgayTuNgayKhoiTao == 0
-                                        span Công việc mới tạo 
-                                    else 
-                                        span #{job.soNgayTuNgayKhoiTao} ngày trước 
+                                    +time-apply(job.soNgayTuNgayKhoiTao, job.soNgayHieuLuc)
                             .button-ut.d-flex.justify-content-between
                                 .empty 
                                 .ungtuyen.animate__pulse Ứng tuyển 
-                            .button.xem Xem >>
+                            .button.xem 
+                                a(href=`/jobs/detail/${job.slug}`) Xem >>

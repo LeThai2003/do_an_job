@@ -1,100 +1,44 @@
 const JobModel = require("../../models/Job.model");
 const CompanyModel = require("../../models/Company.model");
+const timeApplyHelper = require("../../helpers/time-apply.helper")
+const searchFormHelper = require("../../helpers/form-search.helper")
 
 // [GET] /jobs
 module.exports.getAllJobs = async (req, res) => {
-    var jobs = [];
+    var getJobs = [];
 
     if(Object.keys(req.query).length > 0)
     {
-          let luong1, luong2;
-        if(req.query.luong == "all")
-        {
-            luong1 = 0;
-            luong2 = 1000;
-        }
-        else
-        {
-            luong1 = parseInt(req.query.luong.split("-")[0]);
-            luong2 = parseInt(req.query.luong.split("-")[1]);
-        }
-
-        let kn = "";
-        let kinhNghiem = req.query.kinhnghiem;
-        if(kinhNghiem == "all")
-        {
-            kn = '>= 0';
-        }
-        else if(kinhNghiem == "0")
-        {
-            kn = '= 0';
-        }
-        else if(kinhNghiem == "less1")
-        {
-            kn = '< 1';
-        }
-        else if(kinhNghiem == "1")
-        {
-            kn = '= 1';
-        }
-        else if(kinhNghiem == "2")
-        {
-            kn = '= 2';
-        }
-        else if(kinhNghiem == "3")
-        {
-            kn = '= 3';
-        }
-        else if(kinhNghiem == "4")
-        {
-            kn = '= 4';
-        }
-        else if(kinhNghiem == "5")
-        {
-            kn = '= 5';
-        }
-        else if(kinhNghiem == "over5")
-        {
-            kn = '> 5';
-        }
-
-        let vitri = req.query.vitri;
-
-        let kv = req.query.khuvuc;
-
-        let query = "";
-
-        if(kv == "all")
-        {
-            query = `select * from CONGVIEC where (CONGVIEC.tenCV like '%${vitri}%') and (luong >= ${luong1} and luong <= ${luong2}) and (kinhNghiem ${kn})`;
-        }
-        else
-        {
-            kv = parseInt(kv);
-            query = `select * from CONGVIEC, CONGVIEC_KHUVUC where (CONGVIEC.tenCV like '%${vitri}%') and (luong >= ${luong1} and luong <= ${luong2}) and (kinhNghiem ${kn}) and (CONGVIEC.maCV = CONGVIEC_KHUVUC.maCV) and (maKV = ${kv})`;       
-        }
-
-        jobs = await JobModel.getJobsByForm(query);
+        const query = searchFormHelper.search(req.query);
+        getJobs = await JobModel.getJobsByForm(query);
     }
     else
     {
-        jobs = await JobModel.getAllJobs();
+        getJobs = await JobModel.getAllJobs();
     }
 
-    for (const job of jobs) {
-        const company = await CompanyModel.getCompanyById(job.congTyId);
-        // console.log(company);
-        job.company = company
-
-        const ngayTao = new Date(job.ngayTao);
-        const ngayHienTai = new Date();
-        const soNgayTuNgayKhoiTao = Math.floor((ngayHienTai - ngayTao) / (1000 * 60 * 60 * 24));
-
-        job.soNgayTuNgayKhoiTao = soNgayTuNgayKhoiTao;
-    }
+    const jobs = await timeApplyHelper.time(getJobs);
     
     res.render("client/pages/job/index", {
         title: "Trang danh sách công việc",
         jobs: jobs 
     })
+}
+
+//[GET] /jobs/detail/:slug
+module.exports.detail = async(req, res) => {
+    const slugJob = req.params.slug;
+    const jobs = await JobModel.getJobBySlug(slugJob);
+    const job = jobs[0];
+    const company = await CompanyModel.getCompanyById(job.congTyId);
+
+    const getJobs = await JobModel.getJobOfCompany(job.congTyId);
+
+    const jobOfCompany = await timeApplyHelper.time(getJobs);
+
+    res.render("client/pages/job/detail.pug", {
+        job: job,
+        company: company,
+        jobOfCompany: jobOfCompany
+    });
 }

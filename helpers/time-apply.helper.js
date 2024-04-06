@@ -1,4 +1,5 @@
 const CompanyModel = require("../models/Company.model");
+const JobModel = require("../models/Job.model");
 
 
 module.exports.time = async (jobs) => {
@@ -17,6 +18,15 @@ module.exports.time = async (jobs) => {
 
         job.soNgayTuNgayKhoiTao = soNgayTuNgayKhoiTao;
         job.soNgayHieuLuc = soNgayHieuLuc;
+
+        if(job.soNgayTuNgayKhoiTao - job.soNgayHieuLuc > 0)
+        {
+            JobModel.updateJobDateApply(job.maCV, 1); 
+        }
+        else
+        {
+            JobModel.updateJobDateApply(job.maCV, 0);
+        }
     }
 
     return jobs;

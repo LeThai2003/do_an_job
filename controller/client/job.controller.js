@@ -28,8 +28,7 @@ module.exports.getAllJobs = async (req, res) => {
 //[GET] /jobs/detail/:slug
 module.exports.detail = async(req, res) => {
     const slugJob = req.params.slug;
-    const jobs = await JobModel.getJobBySlug(slugJob);
-    const job = jobs[0];
+    const job = await JobModel.getJobBySlug(slugJob);
     const company = await CompanyModel.getCompanyById(job.congTyId);
 
     const getJobs = await JobModel.getJobOfCompany(job.congTyId);

@@ -24,7 +24,7 @@ const getJobsByForm = async (query) => {
 const getJobBySlug = async (slug) => {
     try {
         const result = await sql.query`select * from CONGVIEC where slug = ${slug}`;
-        return result.recordset;
+        return result.recordset[0];
     } catch (err) {
         console.log('Error getting jobs:', err);
         return [];
@@ -41,9 +41,20 @@ const getJobOfCompany = async (id) => {
     }
 }
 
+const updateJobDateApply = async (maCV, value) => {
+    try {
+        await sql.query`update CONGVIEC set hetHan = ${value} where maCV = ${maCV}`;
+    } catch (err) {
+        console.log('Update job: date for apply err:', err);
+    }
+}
+
+
+
 module.exports = {
     getAllJobs,
     getJobsByForm,
     getJobBySlug,
-    getJobOfCompany
+    getJobOfCompany,
+    updateJobDateApply
 };

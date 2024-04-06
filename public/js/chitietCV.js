@@ -17,3 +17,18 @@ const upload = (e) =>{
         console.log(file.file)
     }
 }
+
+const buttonUngTuyen = document.querySelector("[button-ungtuyen]");
+if(buttonUngTuyen)
+{
+    const job = JSON.parse(buttonUngTuyen.getAttribute("button-ungtuyen"));
+    const chkHetHan = job.hetHan;
+    if(chkHetHan)
+    {
+        buttonUngTuyen.disabled = true;
+    }
+    else
+    {
+        buttonUngTuyen.disabled = false;
+    }
+}

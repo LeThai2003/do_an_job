@@ -33,23 +33,25 @@ block main
             .box-ungtuyen
                 form.p-2
                     .from-header.d-flex.justify-content-between.align-items-center
-                        p.title-cv Ứng tuyển vị trí <span>Inter Java Spring</span>
+                        p.title-cv Ứng tuyển vị trí <span>#{job.tenCV}</span>
                         p(class="exit" onClick="closeUngTuyen()") X
                     .form-body.row.d-flex.align-items-center
                         .upload.col-sm-12.col-md-6
                             label(for="fileInput" class="d-flex align-items-center") <box-icon name='upload'></box-icon> Tải lên cv từ máy
                             input(type="file" id="fileInput" name="file" accept=".pdf, .doc, .docx" class="input_file" style="visibility:hidden" onChange="upload()")                       
-                        select.col-sm-12.col-md-6 
-                            option(value="" disabled selected hidden) Vị trí ứng tuyển 
-                            option(value="Hồ Chí Minh") Hồ Chí Minh
-                            option(value="Đà Nẵng") Đà Nẵng
-                    button.ungtuyen Nộp CV
+                        select(class="col-sm-12 col-md-6" select-areaUT)
+                            option(value="" disabled selected hidden) Khu vực ứng tuyển 
+                            each area in jobAreas
+                                option(value=area.maKV) #{area.tenKV}
+                    button(class="ungtuyen" button-submitUT) Nộp CV
             div(class="overplay" onClick="closeUngTuyen()")
             .container-right.col-sm-12.col-lg-4
                 .box-top.d-flex.justify-content-between.align-items-center
                     .logo-cmp 
-                        img(src=company.logo, alt=company.tenCT)
-                        .name-cmp #{company.tenCT}
+                        a(href=`/companys/detail/${company.slug}`) 
+                            img(src=company.logo, alt=company.tenCT)   
+                        a(href=`/companys/detail/${company.slug}`) 
+                            .name-cmp #{company.tenCT}
                     .box-item
                         .quymo 
                             box-icon(name='building-house')
@@ -63,9 +65,10 @@ block main
                             .item.p-2
                                 .item-top.d-flex.mb-2
                                     .item-img
-                                        img(src=job.company.logo, alt=job.company.tenCT)
+                                        img(src=job.company.logo, alt=job.company.tenCT)   
                                     .ttle-job.ms-4
-                                        .name-job #{job.tenCV}
+                                        a(href=`/jobs/detail/${job.slug}`)
+                                            .name-job #{job.tenCV}
                                         //- Điền vào tên
                                         .name-comp #{job.company.tenCT}
                                         //- Điền tên công ty 

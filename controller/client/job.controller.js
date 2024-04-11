@@ -1,5 +1,6 @@
 const JobModel = require("../../models/Job.model");
 const CompanyModel = require("../../models/Company.model");
+const JobAreaModel = require("../../models/Job-area.model");
 const timeApplyHelper = require("../../helpers/time-apply.helper")
 const searchFormHelper = require("../../helpers/form-search.helper")
 
@@ -35,9 +36,12 @@ module.exports.detail = async(req, res) => {
 
     const jobOfCompany = await timeApplyHelper.time(getJobs);
 
+    const jobAreas = await JobAreaModel.getAreaOfJob(slugJob);
+
     res.render("client/pages/job/detail.pug", {
         job: job,
         company: company,
-        jobOfCompany: jobOfCompany
+        jobOfCompany: jobOfCompany,
+        jobAreas: jobAreas
     });
 }

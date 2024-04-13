@@ -8,8 +8,8 @@ module.exports.login = async (req, res) => {
     res.render("client/pages/user/login");
 }
 
-//[POST] /user/login
-module.exports.loginPost = async (req, res) => {
+//[POST] /user/register
+module.exports.registerPost = async (req, res) => {
 
     console.log(req.body);
 
@@ -19,6 +19,17 @@ module.exports.loginPost = async (req, res) => {
     inforUser.token = generateHeper.generateRandomString(30);
     inforUser.ngaySinh = req.body.birthdate;
     inforUser.email = req.body["username-left"];
+
+    // check email trung
+    const existUser = await UserModel.getUserByEmail(inforUser.email);
+
+    if(existUser)
+    {
+        req.flash("error", "Email trùng, vui lòng nhập lại!");
+        res.redirect("back");
+        return;
+    }
+
     inforUser.sdt = req.body.phone
     inforUser.gioiTinh = 1;
     if(req.body.gender == "nữ")
@@ -30,8 +41,43 @@ module.exports.loginPost = async (req, res) => {
     inforUser.ten = hoTenArr[hoTenArr.length - 1];
     inforUser.ho = req.body.fullname.slice(0, req.body.fullname.length - inforUser.ten.length -1);
 
+    //lưu thông tin user vào database
     await UserModel.insertUser(inforUser);
 
+    res.cookie("tokenUser", inforUser.token);
+
     res.redirect("/")
+}
+//[POST] /user/login
+module.exports.loginPost = async (req, res) => {
+
+    const email = req.body["username_right"];
+    const password = req.body.pw;
+
+    const user = await UserModel.getUserByEmail(email)
+    
+    if(!user)
+    {
+        req.flash("error", "Email không chính xác!");
+        res.redirect("back");
+        return;
+    }
+
+    if(user.matKhau != md5(password))
+    {
+        req.flash("error", "Mật khẩu không chính xác!");
+        res.redirect("back");
+        return;
+    }
+
+    res.cookie("tokenUser", user.token);
+
+    res.redirect("/")
+}
+
+//[GET]/user/logout
+module.exports.logout = (req, res) => {
+    res.clearCookie("tokenUser");
+    res.redirect("/");
 }
 

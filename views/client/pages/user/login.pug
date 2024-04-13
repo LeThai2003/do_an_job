@@ -15,7 +15,7 @@ body
                 class="item-username form-left" 
                 form-register
                 method="post"
-                action="/user/login"
+                action="/user/register"
             ) 
                 label(for="fullname" class="title") Họ và Tên
                 input(name="fullname" id="fullname" type="text" required)
@@ -37,12 +37,20 @@ body
                 div.mt-1
                     span(style="color: #50a5ed; font-size: 14px") <i><strong>LƯU Ý</strong>: các trường trên là bắt buộc!</i>
         .box-right
-            form(class="item-username form-right" form-login)
+            form(
+                method="post"
+                action="/user/login"
+                class="item-username form-right" 
+                form-login
+            )
                 label(for="username_right" class="title") Tài khoản 
                 input(name="username_right" id="username_right" type="text")
                 label(for="pw" class="title") Mật khẩu 
                 input(name="pw" id="pw" type="password")
-                .button-click ĐĂNG NHẬP
+                button(
+                    class="button-click"
+                    type="submit"
+                ) ĐĂNG NHẬP
         .box-overplay.box-dangdangnhap-click
             .dangky Đăng ký 
             .quenmk Quên tài khoản

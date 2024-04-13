@@ -9,8 +9,29 @@ const insertUser = async (body) => {
     }
 }
 
+const getUserByToken = async (token) => {
+    try {
+        const result = await sql.query`select ho, ten, sdt, gioiTinh, ngaySinh, email from NGUOIDUNG where token = ${token}`;
+        return result.recordset[0];
+    } catch (err) {
+        console.log('Error getting user by token:', err);
+        return [];
+    }
+}
+
+const getUserByEmail = async (email) => {
+    try {
+        const result = await sql.query`select * from NGUOIDUNG where email = ${email}`;
+        return result.recordset[0];
+    } catch (err) {
+        console.log('Error getting user by email:', err);
+        return [];
+    }
+}
 
 
 module.exports = {
     insertUser,
+    getUserByToken,
+    getUserByEmail
 };

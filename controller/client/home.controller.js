@@ -7,6 +7,8 @@ module.exports.index =async (req, res) => {
 
     const jobs = await timeApplyHelper.time(getJobs);
 
+    const User = res.locals.User;
+
     res.render("client/pages/home/index.pug", {
         title: "Trang chủ",
         jobs: jobs 

@@ -9,7 +9,10 @@
             .info.d-flex.align-items-center.justify-content-center
                 .box-img.d-flex.align-items-center.justify-content-center
                     img(src="/images/user-circle-solid-24.png", alt="user")
-                span.name Dao Phan Quoc Hoai
+                    if(User)
+                        span.name #{User.ho} #{User.ten}
+                    else 
+                        span.name Khách
             .login.d-none
                 p Đăng nhập 
             .register.d-none 

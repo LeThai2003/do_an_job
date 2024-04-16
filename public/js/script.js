@@ -7,8 +7,9 @@ let experience = "all";
 let salary = "all";
 let vitri = "";
 
-if(formSearch)
-{
+
+// Bắt sự kiện change trong form search
+if (formSearch) {
     const inputViTri = formSearch.querySelector("input[name='vitri']");
     inputViTri.addEventListener("change", (e) => {
         vitri = e.target.value;
@@ -16,37 +17,76 @@ if(formSearch)
 
     const selectArea = formSearch.querySelector("[select-area]");
     selectArea.addEventListener("change", () => {
-        const area1 = selectArea.value;
-        area = area1;
+        area = selectArea.value;
     });
 
     const selectSalary = formSearch.querySelector("[select-salary]");
     selectSalary.addEventListener("change", () => {
-        const salary1 = selectSalary.value;
-        salary = salary1;
+        salary = selectSalary.value;
     });
 
     const selectExperience = formSearch.querySelector("[select-experiece");
     selectExperience.addEventListener("change", () => {
-        const exp = selectExperience.value;
-        experience = exp;
+        experience = selectExperience.value;
+    });
+}
+//form search
+
+if (formSearch) {
+    formSearch.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        const url = new URL('http://localhost:3000/jobs/');
+
+        const inputViTri = formSearch.querySelector("input[name='vitri']");
+        const selectArea = formSearch.querySelector("[select-area]");
+        const selectSalary = formSearch.querySelector("[select-salary]");
+        const selectExperience = formSearch.querySelector("[select-experiece");
+
+        vitri = inputViTri.value;
+        area = selectArea.value;
+        experience = selectExperience.value;
+        salary = selectSalary.value;
+
+        url.searchParams.set("vitri", vitri);
+        url.searchParams.set("khuvuc", area);
+        url.searchParams.set("kinhnghiem", experience);
+        url.searchParams.set("luong", salary);
+
+        window.location.href = url.href;
     });
 }
 
-formSearch.addEventListener("submit", (e) => {
-    e.preventDefault();
-    const url = new URL('http://localhost:3000/jobs');
-    url.searchParams.set("vitri", vitri);
-    url.searchParams.set("khuvuc", area);
-    url.searchParams.set("kinhnghiem", experience);
-    url.searchParams.set("luong", salary);
-    window.location.href = url.href;
-});
-//form search
+const objectSearch = {
+    khuvuc: "all",
+    kinhnghiem: "all",
+    luong: "all",
+    vitri: ""
+};
+const url = new URL(window.location.href);
 
+if (url.search.includes("vitri")) {
+    objectSearch.vitri = url.searchParams.get("vitri");
+    objectSearch.khuvuc = url.searchParams.get("khuvuc");
+    objectSearch.kinhnghiem = url.searchParams.get("kinhnghiem");
+    objectSearch.luong = url.searchParams.get("luong");
 
+    const inputViTri = formSearch.querySelector("input[name='vitri']");
+    const selectArea = formSearch.querySelector("[select-area]");
+    const selectSalary = formSearch.querySelector("[select-salary]");
+    const selectExperience = formSearch.querySelector("[select-experiece");
 
+    inputViTri.value = objectSearch.vitri;
 
+    const itemArea = selectArea.querySelector(`option[value="${objectSearch.khuvuc}"]`);
+    itemArea.selected = true;
+
+    const itemSalary = selectSalary.querySelector(`option[value="${objectSearch.luong}"]`);
+    itemSalary.selected = true;
+
+    const itemExperience = selectExperience.querySelector(`option[value="${objectSearch.kinhnghiem}"]`);
+    itemExperience.selected = true;
+}
 
 //------END JOB-----
 
@@ -115,9 +155,8 @@ string = `1	An Giang
     63	Yên Bái`
 const array = string.split("\n")
 
-const array2 =  array.map(item => item.split("\t")[1]);
+const array2 = array.map(item => item.split("\t")[1]);
 
 const array3 = array2.map(item => `(N'${item}')`);
 
-console.log(array3.join(", "));
-
+// console.log(array3.join(", "));

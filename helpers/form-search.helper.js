@@ -69,5 +69,7 @@ module.exports.search = (query) => {
         querySql = `select * from CONGVIEC, CONGVIEC_KHUVUC where (CONGVIEC.tenCV like '%${vitri}%') and (luong >= ${luong1} and luong <= ${luong2}) and (kinhNghiem ${kn}) and (CONGVIEC.maCV = CONGVIEC_KHUVUC.maCV) and (maKV = ${kv})`;       
     }
 
+    // console.log(querySql);
+
     return querySql;
 }

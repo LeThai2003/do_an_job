@@ -71,9 +71,19 @@ span.name{
     font-size: 20px;
     color: var(--blue-font);
     padding: 0 10px;
-    border-bottom: 2px solid var(--font-color--hover);
+    /* border-bottom: 2px solid var(--font-color--hover); */
     cursor: pointer;
 }
+
+.section-link .container .link.active{
+    border-bottom: 2px solid var(--font-color--hover);
+
+}
+
+.section-link .container .link:hover{
+    border-bottom: 2px solid var(--font-color--hover);
+}
+
 
 /* Section tim kiem */
 

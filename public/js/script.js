@@ -36,7 +36,9 @@ if (formSearch) {
     formSearch.addEventListener("submit", (e) => {
         e.preventDefault();
 
-        const url = new URL('http://localhost:3000/jobs/');
+        let url = new URL(window.location.href);
+
+        url = new URL(`${url.origin}/jobs`);
 
         const inputViTri = formSearch.querySelector("input[name='vitri']");
         const selectArea = formSearch.querySelector("[select-area]");
@@ -160,3 +162,22 @@ const array2 = array.map(item => item.split("\t")[1]);
 const array3 = array2.map(item => `(N'${item}')`);
 
 // console.log(array3.join(", "));
+
+// link----
+console.log(url);
+
+const url111 = `${url.origin}/jobs`;
+console.log(url111)
+
+if(url.href == `${url.origin}/jobs`)
+{
+    const linkJob = document.querySelector(".section-link .link-job.link");
+    linkJob.classList.add("active");
+    console.log("jobs");
+}
+else if(url.href == `${url.origin}/companys`)
+{
+    const linkCompany = document.querySelector(".section-link .link-cmp.link");
+    linkCompany.classList.add("active");
+    console.log("companys")
+}

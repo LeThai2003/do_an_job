@@ -8,12 +8,21 @@
                 img(src="/images/notification-bell.png", alt="notice")
             .info.d-flex.align-items-center.justify-content-center
                 .box-img.d-flex.align-items-center.justify-content-center
-                    img(src="/images/user-circle-solid-24.png", alt="user")
                     if(User)
-                        span.name #{User.ho} #{User.ten}
+                        a(
+                            href="#"
+                            class="me-1"
+                        ) 
+                            img(src="/images/user-circle-solid-24.png", alt="user")
+                            span.name #{User.ho} #{User.ten}
+                        a(
+                            href=`/user/logout`
+                            class="btn btn-outline-danger btn-sm"
+                        ) Đăng xuất 
                     else 
-                        span.name Khách
-            .login.d-none
-                p Đăng nhập 
-            .register.d-none 
-                p Đăng ký 
+                        a(
+                            href=`/user/login`
+                            class="btn btn-outline-info btn-sm"
+                        ) Đăng nhập/Đăng kí
+
+                            

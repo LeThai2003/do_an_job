@@ -80,6 +80,12 @@ span.name{
 
 }
 
+.section-link .container .link-job.link:not(.active):hover,
+.section-link .container .link-cmp.link:not(.active):hover{
+    border-bottom: 2px solid var(--font-color--hover);
+    margin-bottom: 8px;
+}
+
 .section-link .container .link:hover{
     border-bottom: 2px solid var(--font-color--hover);
 }

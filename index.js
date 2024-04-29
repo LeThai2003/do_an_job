@@ -7,8 +7,10 @@ const flash = require('express-flash');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
 const connect = require("./config/database");
-const routerClient = require("./routes/client/index.route");
 const moment = require('moment');
+
+const routerClient = require("./routes/client/index.route");
+const routerAdmin = require("./routes/admin/index.route");
 
 dotenv.config();
 
@@ -38,6 +40,7 @@ app.use(express.static("public"));
 
 // router client
 routerClient(app);
+routerAdmin(app);
 
 app.listen(port, () => {
     console.log("Đang chạy trên cổng: " + port);

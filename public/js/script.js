@@ -164,20 +164,35 @@ const array3 = array2.map(item => `(N'${item}')`);
 // console.log(array3.join(", "));
 
 // link----
-console.log(url);
-
-const url111 = `${url.origin}/jobs`;
-console.log(url111)
 
 if(url.href == `${url.origin}/jobs`)
 {
     const linkJob = document.querySelector(".section-link .link-job.link");
     linkJob.classList.add("active");
-    console.log("jobs");
+
 }
 else if(url.href == `${url.origin}/companys`)
 {
     const linkCompany = document.querySelector(".section-link .link-cmp.link");
     linkCompany.classList.add("active");
-    console.log("companys")
 }
+
+// ------------form search company-----
+const formSearchCompany = document.querySelector("[form-search-company]");
+if(formSearchCompany)
+{
+    if(url.href.includes("tenCT") && url.href.includes("khuvuc"))
+    {
+        const inputName = formSearchCompany.querySelector("input[name='tenCT']");
+        const selectKV = formSearchCompany.querySelector("select[name='khuvuc']");
+
+        const tenCT = url.searchParams.get("tenCT");
+        const khuVuc = url.searchParams.get("khuvuc");
+
+        inputName.value = tenCT;
+
+        const itemKV = selectKV.querySelector(`option[value="${khuVuc}"]`);
+        itemKV.selected = true;
+    }
+}
+

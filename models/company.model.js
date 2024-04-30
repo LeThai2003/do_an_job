@@ -41,6 +41,18 @@ const getInfoUserOfCompany = async (congTyId) => {
     }
 }
 
+const getInfoCompanyByIdUser = async (userId) => {
+    try {
+        const sqlQuery = `SELECT dbo.NGUOIDUNG.userId, dbo.NGUOIDUNG.sdt, dbo.NGUOIDUNG.email, dbo.CONGTY.congTyId, dbo.CONGTY.tenCT, dbo.CONGTY.diaDiem, dbo.CONGTY.quyMo, dbo.CONGTY.moTa, dbo.CONGTY.logo, dbo.CONGTY.slug, dbo.CONGTY.sdtCT, dbo.CONGTY.emailCT
+        FROM dbo.CONGTY INNER JOIN dbo.NGUOIDUNG ON dbo.CONGTY.userId = dbo.NGUOIDUNG.userId and dbo.NGUOIDUNG.userId = ${userId}`;
+        const result = await sql.query(sqlQuery);
+        return result.recordset[0];
+    } catch (err) {
+        console.error('Error getting info company:', err);
+        return [];
+    }
+}
+
 const getAllCompaniesBySearch = async (stringQuery) => {
     try {
         const result = await sql.query(stringQuery);
@@ -51,10 +63,12 @@ const getAllCompaniesBySearch = async (stringQuery) => {
     }
 }
 
+
 module.exports = {
     getAllCompanies,
     getCompanyById,
     getCompanyBySlug,
     getInfoUserOfCompany,
-    getAllCompaniesBySearch
+    getAllCompaniesBySearch,
+    getInfoCompanyByIdUser
 };

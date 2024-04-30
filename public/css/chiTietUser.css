@@ -197,3 +197,18 @@ p{
 .section-CT-body .body-tintuyen .box-item-account .item-account-button button.account-xac_nhan{
     display: none;
 }
+
+
+/* -------------------div Error----------- */
+.body-trangchu .container-item .align-right {
+    text-align: right;
+}
+
+#errorDisplay{
+    background: #fff;
+    padding: 15px;
+    display: none;
+    color: red;
+    font-weight: 600;
+    border-radius: 5px;
+}

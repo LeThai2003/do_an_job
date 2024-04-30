@@ -1,9 +1,78 @@
+const UserModel = require("../../models/User.model");
+const CompanyModel = require("../../models/Company.model");
 
+const md5 = require("md5");
 
-//[GET]/
+//[GET]/my-account
 module.exports.index = async(req, res) => {
+    const userId = res.locals.User.userId;
+
+    const company = await CompanyModel.getInfoCompanyByIdUser(userId);
+
+    console.log(company);
 
     res.render("client/pages/my-account/index",{
-        title: "Trang công ty"
+        title: "Trang công ty",
+        company: company
     })
+}
+
+//[POST]/my-account/edit/:userId
+module.exports.editPost = async (req, res) => {
+    const userId = req.params.userId;
+
+    console.log(req.body);
+
+    let query = ``;
+
+    const inforUser = {};
+
+    inforUser.ngaySinh = req.body.ngaySinh;
+
+    inforUser.email = req.body.email;
+
+    if(req.body.email != res.locals.User.email)  // Nếu email nhập lại khác
+    {
+        const existUser = await UserModel.getUserByEmail(inforUser.email);
+
+        if(existUser)
+        {
+            req.flash("error", "Email trùng, vui lòng nhập lại!");
+            res.redirect("back");
+            return;
+        }
+    }
+
+    inforUser.sdt = req.body.sdt
+
+    inforUser.gioiTinh = 1;
+    if(req.body.gioiTinh == "Nữ")
+    {
+        inforUser.gioiTinh = 0;
+    }
+
+    const fullName = req.body.name
+    const fullNameArr = fullName.split(" ");
+    inforUser.ten = fullNameArr[fullNameArr.length - 1];
+    inforUser.ho = fullName.slice(0, fullName.length - inforUser.ten.length -1);
+
+
+    if(req.body.matKhau != "")
+    {
+        inforUser.matKhau = md5(req.body.matKhau);
+        query = `update NGUOIDUNG set ho=N'${inforUser.ho}', ten=N'${inforUser.ten}', email='${inforUser.email}', ngaySinh='${inforUser.ngaySinh}', sdt='${inforUser.sdt}', gioiTinh=${inforUser.gioiTinh}, matKhau=N'${inforUser.matKhau}' where userId = ${userId}`
+    }
+    else
+    {
+        query = `update NGUOIDUNG set ho=N'${inforUser.ho}', ten=N'${inforUser.ten}', email='${inforUser.email}', ngaySinh='${inforUser.ngaySinh}', sdt='${inforUser.sdt}', gioiTinh=${inforUser.gioiTinh} where userId = ${userId}`
+    }
+
+    console.log(inforUser);
+    // console.log(query)
+
+    //lưu thông tin user vào database
+    await UserModel.updateUser(query);
+    
+
+    res.redirect("back");
 }

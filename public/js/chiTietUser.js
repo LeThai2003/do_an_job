@@ -37,9 +37,9 @@ buttonXacNhan.addEventListener("click", function() {
     inputs.forEach(function(input) {
         input.setAttribute('readonly', true);
     });
-    selects.forEach(function(select) {
-        select.setAttribute('disabled', true);
-    });
+    // selects.forEach(function(select) {
+    //     select.setAttribute('disabled', true);
+    // });
 });
 
 
@@ -109,3 +109,42 @@ buttonXacNhanTD.addEventListener("click", function() {
         select.setAttribute('disabled', true);
     });
 });
+
+
+
+// ----------------------------form user----------------
+const formUser = document.querySelector("[form-user]");
+const errorDisplay = document.querySelector("#errorDisplay");
+const inputName = formUser.querySelector("input[name='name']");
+const inputEmail = formUser.querySelector("input[name='email']");
+
+inputName.addEventListener("change", (e) => {
+    console.log(e.target.value);
+});
+
+formUser.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if(inputName.value.trim() === "") {
+        errorDisplay.style.display = "inline-block";
+        errorDisplay.textContent = "Tên không được để trống!";
+    }
+    else if(inputEmail.value.trim() === "")
+    {
+        errorDisplay.style.display = "inline-block";
+        errorDisplay.textContent = "Email không được để trống!";
+    } 
+    else if(!inputEmail.value.trim().match(emailRegex))
+    {
+        errorDisplay.style.display = "inline-block";
+        errorDisplay.textContent = "Email không đúng định dạng!";
+    } 
+    else {
+        // Nếu input không trống, submit form
+        formUser.submit();
+    }
+    
+})
+
+

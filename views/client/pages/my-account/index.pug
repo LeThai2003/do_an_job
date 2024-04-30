@@ -1,0 +1,61 @@
+extends ../../layouts/user-account.pug 
+
+block main 
+    .section-CT-body.container            
+        .navbar-Ct.d-flex 
+            .item-trangchu.active.box Thông Tin người dùng
+            .item-tintuyen.box Thông tin nhà tuyển dụng 
+        .body-trangchu 
+            .container-item 
+                .item 
+                    p.title Họ và tên :
+                    input.text
+                .item 
+                    p.title Số điện thoại :
+                    input.text
+                .item 
+                    p.title Giới tính
+                    select.text
+                        option Nam 
+                        option Nữ
+                .item 
+                    p.title Ngày sinh :
+                    input.text
+                .item 
+                    p.title Tài khoản :
+                    input.text
+                .item 
+                    p.title Mật khẩu
+                    input(type = 'password').text
+                .item_button 
+                    button.sua Sửa thông tin
+                    button.xac_nhan Xác nhận
+        .body-tintuyen 
+            .box-item-not-account 
+                span NÂNG CẤP NGAY
+            .box-item-account 
+                .item-account.box_anh_dai_dien
+                    .anhcongty  
+                    input(type='file').d-none.text
+                .item-account
+                    p.title Tên công ty :
+                    input.text
+                .item-account
+                    p.title Quy mô :
+                    input.text
+                .item-account
+                    p.title Địa chi :
+                    input.text
+                .item-account
+                    .acount-sdt 
+                        p.title Số điện thoại :
+                        input.text 
+                    .account-email 
+                        p.title Email :
+                        input.text  
+                .item-account
+                    p.title Mô tả :
+                    textarea.text_moto.text
+                .item-account-button 
+                    button.account-sua Sửa thông tin
+                    button.account-xac_nhan Xác nhận

@@ -134,10 +134,13 @@ if(url.href.includes("view-info"))
 
 //preview image upload
 const imagePreview = document.querySelector("[image-preview]");
-if(imagePreview)
-{
+
+const imagePreviewFunction = () => {
     const imagePreviewInput = imagePreview.querySelector("[image-preview-input]");
     const imagePreViewSee = imagePreview.querySelector("[image-preview-see]");
+
+    imagePreviewInput.click();
+
     imagePreviewInput.addEventListener("change", () => {
         const [file] = imagePreviewInput.files; 
         if(file)
@@ -146,6 +149,15 @@ if(imagePreview)
         }
     });
 }
+
+const iconChangeImgCompany = document.querySelector(".icon-change-img-company");
+if(iconChangeImgCompany)
+{
+    iconChangeImgCompany.addEventListener("click", () => {
+        imagePreviewFunction();
+    });
+}
+
 //preview image upload
 
 

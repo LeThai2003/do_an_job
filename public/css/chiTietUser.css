@@ -147,6 +147,7 @@ p{
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
 }
 .section-CT-body .body-tintuyen .box-item-account .item-account .anhcongty{
     width: 100px;
@@ -155,6 +156,20 @@ p{
     border-radius: 50%;
     cursor: pointer;
     overflow: hidden;
+}
+
+.section-CT-body .body-tintuyen .box-item-account .icon-change-img-company{
+    position: absolute;
+    bottom: 0px;
+    color: #4c4c4c;
+    font-size: 20px;
+    right: 46%;
+    opacity: 0.6;
+}
+
+.section-CT-body .body-tintuyen .box-item-account .icon-change-img-company:hover{
+    opacity: 1;
+    cursor: pointer;
 }
 
 .section-CT-body .body-tintuyen .box-item-account .item-account .anhcongty img{

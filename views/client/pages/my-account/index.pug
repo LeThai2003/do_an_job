@@ -61,13 +61,18 @@ block main
                                     alt=company.tenCT
                                     image-preview-see 
                                 )
+                                
                             input(
                                     type="file"
-                                    class="form-control-file"
+                                    class="form-control-file d-none"
                                     name="logo"
                                     accept="image/*"
                                     image-preview-input
                                 )
+
+                            div(class="icon-change-img-company") 
+                                <i class="fa-solid fa-camera-retro"></i>
+                            
                         .item-account
                             p.title Tên công ty :
                             input.text(name="tenCT" value=company.tenCT)

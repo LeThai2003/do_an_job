@@ -1,15 +1,17 @@
-window.addEventListener('load', function() {
-    inputs.forEach(function(input) {
+
+
+window.addEventListener('load', function () {
+    inputs.forEach(function (input) {
         input.setAttribute('readonly', true);
     });
-    selects.forEach(function(select) {
+    selects.forEach(function (select) {
         select.setAttribute('disabled', true);
     });
 
-    inputsTD.forEach(function(input) {
+    inputsTD.forEach(function (input) {
         input.setAttribute('readonly', true);
     });
-    textareasTD.forEach(function(select) {
+    textareasTD.forEach(function (select) {
         select.setAttribute('disabled', true);
     });
 });
@@ -20,10 +22,10 @@ var textareasTD = document.querySelectorAll('.item-account textarea');
 var buttonSua = document.querySelector(".section-CT-body .body-trangchu .container-item .item_button button.sua");
 var buttonXacNhan = document.querySelector(".section-CT-body .body-trangchu .container-item .item_button button.xac_nhan");
 // sua hay khong sua
-buttonSua.addEventListener("click", function() {
+buttonSua.addEventListener("click", function () {
     buttonSua.style.display = "none";
     buttonXacNhan.style.display = "block";
-    inputs.forEach(function(input) {
+    inputs.forEach(function (input) {
         input.removeAttribute('readonly'); // co nay roi ma
     });
     // selects.forEach(function(select) {
@@ -31,10 +33,10 @@ buttonSua.addEventListener("click", function() {
     // });
 });
 
-buttonXacNhan.addEventListener("click", function() {
+buttonXacNhan.addEventListener("click", function () {
     buttonSua.style.display = "block";
     buttonXacNhan.style.display = "none";
-    inputs.forEach(function(input) {
+    inputs.forEach(function (input) {
         input.setAttribute('readonly', true);
     });
     // selects.forEach(function(select) {
@@ -49,7 +51,7 @@ formInfoCompany.addEventListener("submit", (event) => {
     event.preventDefault();
 
     // thay đổi trạng thái của các phần tử textarea
-    textareasTD.forEach(function(textarea) {
+    textareasTD.forEach(function (textarea) {
         textarea.removeAttribute('disabled');
     });
 
@@ -81,7 +83,7 @@ const tinTuyenClick = () => {
 
 var url = new URL(window.location.href);
 
-trangchu.addEventListener("click", ()=>{
+trangchu.addEventListener("click", () => {
     trangChuClick();
     url.searchParams.set("view-info", "user")
     window.location.href = url.href;
@@ -94,15 +96,11 @@ tintuyen.addEventListener("click", () => {
     window.location.href = url.href;
 })
 
-if(url.href.includes("view-info"))
-{
+if (url.href.includes("view-info")) {
     const content = url.searchParams.get("view-info");
-    if(content == "user")
-    {
+    if (content == "user") {
         trangChuClick();
-    }
-    else if(content == "company")
-    {
+    } else if (content == "company") {
         tinTuyenClick();
     }
 }
@@ -142,17 +140,15 @@ const imagePreviewFunction = () => {
     imagePreviewInput.click();
 
     imagePreviewInput.addEventListener("change", () => {
-        const [file] = imagePreviewInput.files; 
-        if(file)
-        {
+        const [file] = imagePreviewInput.files;
+        if (file) {
             imagePreViewSee.src = URL.createObjectURL(file);
         }
     });
 }
 
 const iconChangeImgCompany = document.querySelector(".icon-change-img-company");
-if(iconChangeImgCompany)
-{
+if (iconChangeImgCompany) {
     iconChangeImgCompany.addEventListener("click", () => {
         imagePreviewFunction();
     });
@@ -171,24 +167,34 @@ const imagePreviewUserFunction = () => {
     const imagePreviewInput = imagePreviewUser.querySelector("[image-preview-input]");
     const imagePreViewSee = imagePreviewUser.querySelector("[image-preview-see]");
 
-    console.log(imagePreviewInput)
-    console.log(imagePreViewSee)
+    // console.log(imagePreviewInput)
+    // console.log(imagePreViewSee)
 
     imagePreviewInput.click();
 
     imagePreviewInput.addEventListener("change", () => {
-        const [file] = imagePreviewInput.files; 
-        if(file)
-        {
-            imagePreViewSee.src = URL.createObjectURL(file);
-            formUserUpdateAvatar.submit();
+        const [file] = imagePreviewInput.files;
+        if (file) {
+            Swal.fire({
+                title: 'Bạn có muốn cập nhật ảnh đại diện?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Cập nhật',
+                cancelButtonText: 'Hủy',
+              }).then((result) => {
+                if (result.isConfirmed) {
+                    imagePreViewSee.src = URL.createObjectURL(file);
+                    formUserUpdateAvatar.submit();
+                }
+              })
         }
     });
 }
 
 const iconChangeImgUser = document.querySelector(".icon-change-img-user");
-if(iconChangeImgUser)
-{
+if (iconChangeImgUser) {
     iconChangeImgUser.addEventListener("click", () => {
         imagePreviewUserFunction();
     });
@@ -200,24 +206,24 @@ if(iconChangeImgUser)
 var buttonSuaTD = document.querySelector(".section-CT-body .body-tintuyen .box-item-account .item-account-button button.account-sua");
 var buttonXacNhanTD = document.querySelector(".section-CT-body .body-tintuyen .box-item-account .item-account-button button.account-xac_nhan");
 // sua hay khong sua
-buttonSuaTD.addEventListener("click", function() {
+buttonSuaTD.addEventListener("click", function () {
     buttonSuaTD.style.display = "none";
     buttonXacNhanTD.style.display = "block";
-    inputsTD.forEach(function(input) {
+    inputsTD.forEach(function (input) {
         input.removeAttribute('readonly');
     });
-    textareasTD.forEach(function(select) {
+    textareasTD.forEach(function (select) {
         select.removeAttribute('disabled');
     });
 });
 
-buttonXacNhanTD.addEventListener("click", function() {
+buttonXacNhanTD.addEventListener("click", function () {
     buttonSuaTD.style.display = "block";
     buttonXacNhanTD.style.display = "none";
-    inputsTD.forEach(function(input) {
+    inputsTD.forEach(function (input) {
         input.setAttribute('readonly', true);
     });
-    textareasTD.forEach(function(select) {
+    textareasTD.forEach(function (select) {
         select.setAttribute('disabled', true);
     });
 });
@@ -256,13 +262,12 @@ inputName.addEventListener("change", (e) => {
 //         // Nếu input không trống, submit form
 //         formUser.submit();
 //     }
-    
+
 // })
 
 //alert
 const alert = document.querySelector("[show-alert]");
-if(alert)
-{
+if (alert) {
     let time = alert.getAttribute("data-time");
     time = parseInt(time);
     setTimeout(() => {
@@ -275,5 +280,3 @@ if(alert)
     });
 }
 //end alert
-
-

@@ -8,6 +8,7 @@ const session = require('express-session');
 const cookieParser = require('cookie-parser');
 const connect = require("./config/database");
 const moment = require('moment');
+const Swal = require('sweetalert2') 
 
 const routerClient = require("./routes/client/index.route");
 const routerAdmin = require("./routes/admin/index.route");

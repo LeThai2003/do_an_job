@@ -12,10 +12,15 @@
                         a(
                             href="javascript:;"
                             my-account
-                            class="me-1"
+                            class="me-2"
+                            style="display: flex; align-items: center;"
                         ) 
-                            img(src="/images/user-circle-solid-24.png", alt="user")
+                            img(src=(User.avatar || "/images/user-circle-solid-24.png") alt="user" style="object-fit: cover;width: 35px;height: auto;")
                             span.name #{User.hoVaTen}
+                        a(
+                            href=`/admin/dashboard/${User.congTyId}`
+                            class="btn btn-outline-info btn-sm me-2"
+                        ) Dashboad 
                         a(
                             href=`/user/logout`
                             class="btn btn-outline-danger btn-sm"

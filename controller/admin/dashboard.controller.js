@@ -1,5 +1,22 @@
-//[GET]/admin/dashboard
-module.exports.index = async(req, res) => {
+const CompanyModel = require("../../models/Company.model");
 
-    res.render("admin/pages/dashboard/index")
+//[GET]/admin/dashboard/:congTyId
+module.exports.index = async(req, res) => {
+    try {
+
+        const congTyId = req.params.congTyId;
+
+        const company = await CompanyModel.getCompanyById(congTyId);
+
+        console.log(company);
+
+        res.render("admin/pages/dashboard/index", {
+            title: "Trang tổng quan",
+            company: company,
+        })
+    } catch (error) {
+        res.redirect("/")
+    }
+
+    
 }

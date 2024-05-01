@@ -72,6 +72,22 @@ const updateInfoCompany = async (stringQuery) => {
     }
 }
 
+const insertCompany = async (userId, infoCompany) => {
+    try {
+        const {tenCT, quyMo, diaDiem, sdtCT, emailCT, moTa, logo} = infoCompany;
+        const stringQuery = `
+            insert into CONGTY(userId, tenCT, diaDiem, quyMo, moTa, logo, sdtCT, emailCT)
+            values(${userId}, N'${tenCT}', N'${diaDiem}', ${quyMo}, N'${moTa}', N'${logo}', '${sdtCT}', '${emailCT}')
+        `
+        await sql.query(stringQuery);
+        console.log("----------create info company success!")
+        return;
+    } catch (err) {
+        console.error('Error getting insertCompany:', err);
+    }
+}
+
+
 
 module.exports = {
     getAllCompanies,
@@ -80,5 +96,6 @@ module.exports = {
     getInfoUserOfCompany,
     getAllCompaniesBySearch,
     getInfoCompanyByIdUser,
-    updateInfoCompany
+    updateInfoCompany,
+    insertCompany
 };

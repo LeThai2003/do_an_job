@@ -26,7 +26,7 @@ buttonSua.addEventListener("click", function () {
     buttonSua.style.display = "none";
     buttonXacNhan.style.display = "block";
     inputs.forEach(function (input) {
-        input.removeAttribute('readonly'); // co nay roi ma
+        input.removeAttribute('readonly'); 
     });
     // selects.forEach(function(select) {
     //     select.removeAttribute('disabled');
@@ -47,16 +47,42 @@ buttonXacNhan.addEventListener("click", function () {
 
 const formInfoCompany = document.querySelector("[form-info-company]");
 
-formInfoCompany.addEventListener("submit", (event) => {
-    event.preventDefault();
 
-    // thay đổi trạng thái của các phần tử textarea
-    textareasTD.forEach(function (textarea) {
-        textarea.removeAttribute('disabled');
+
+if(formInfoCompany)
+{
+    formInfoCompany.addEventListener("submit", (event) => {
+        event.preventDefault();
+    
+        // thay đổi trạng thái của các phần tử textarea trước khi submit nếu không sẽ không lấy được khi post
+        textareasTD.forEach(function (textarea) {
+            textarea.removeAttribute('disabled');
+        });
+    
+        formInfoCompany.submit();
     });
+}
 
-    formInfoCompany.submit();
-});
+const createCompanySpan = document.querySelector(".section-CT-body .body-tintuyen .box-item-not-account span")
+const formCreateCompany = document.querySelector("[form-create-company]");
+
+if(createCompanySpan)
+{
+    createCompanySpan.addEventListener("click", () => {
+        formCreateCompany.classList.remove("d-none");
+        formCreateCompany.classList.add("d-block");
+        createCompanySpan.classList.add("d-none");
+
+        textareasTD.forEach(function (textarea) {
+            textarea.removeAttribute('disabled');
+        });
+    
+        inputsTD.forEach(function (input) {
+            input.removeAttribute('readonly'); // co nay roi ma
+        });
+    })
+}
+
 
 
 // chuyen trang
@@ -201,33 +227,65 @@ if (iconChangeImgUser) {
 }
 //preview image upload USER
 
+// preview image upload logo company when create
+const imagePreviewCreateCompany = document.querySelector("[image-preview-create-company]");
+
+const imagePreviewCreateCompanyFunction = () => {
+    const imagePreviewInput = imagePreviewCreateCompany.querySelector("[image-preview-input]");
+    const imagePreViewSee = imagePreviewCreateCompany.querySelector("[image-preview-see]");
+
+    imagePreviewInput.click();
+
+    imagePreviewInput.addEventListener("change", () => {
+        const [file] = imagePreviewInput.files;
+        if (file) {
+            imagePreViewSee.src = URL.createObjectURL(file);
+        }
+    });
+}
+
+const iconCreateImgCompany = document.querySelector(".icon-create-img-company");
+if (iconCreateImgCompany) {
+    iconCreateImgCompany.addEventListener("click", () => {
+        imagePreviewCreateCompanyFunction();
+    });
+}
+
+// preview image upload logo company when create
+
+
 
 
 var buttonSuaTD = document.querySelector(".section-CT-body .body-tintuyen .box-item-account .item-account-button button.account-sua");
 var buttonXacNhanTD = document.querySelector(".section-CT-body .body-tintuyen .box-item-account .item-account-button button.account-xac_nhan");
 // sua hay khong sua
-buttonSuaTD.addEventListener("click", function () {
-    buttonSuaTD.style.display = "none";
-    buttonXacNhanTD.style.display = "block";
-    inputsTD.forEach(function (input) {
-        input.removeAttribute('readonly');
+if(buttonSuaTD)
+{
+    buttonSuaTD.addEventListener("click", function () {
+        buttonSuaTD.style.display = "none";
+        buttonXacNhanTD.style.display = "block";
+        inputsTD.forEach(function (input) {
+            input.removeAttribute('readonly');
+        });
+        textareasTD.forEach(function (select) {
+            select.removeAttribute('disabled');
+        });
     });
-    textareasTD.forEach(function (select) {
-        select.removeAttribute('disabled');
-    });
-});
+}
 
-buttonXacNhanTD.addEventListener("click", function () {
-    buttonSuaTD.style.display = "block";
-    buttonXacNhanTD.style.display = "none";
-    inputsTD.forEach(function (input) {
-        input.setAttribute('readonly', true);
+if(buttonXacNhanTD)
+{
+    buttonXacNhanTD.addEventListener("click", function () {
+        buttonSuaTD.style.display = "block";
+        buttonXacNhanTD.style.display = "none";
+        inputsTD.forEach(function (input) {
+            input.setAttribute('readonly', true);
+        });
+        textareasTD.forEach(function (select) {
+            select.setAttribute('disabled', true);
+        });
     });
-    textareasTD.forEach(function (select) {
-        select.setAttribute('disabled', true);
-    });
-});
-
+}
 
 
 // ----------------------------form user----------------

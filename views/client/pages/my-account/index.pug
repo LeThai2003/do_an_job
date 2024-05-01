@@ -46,6 +46,55 @@ block main
             if(!company)
                 .box-item-not-account 
                     span NÂNG CẤP NGAY
+                .box-item-account 
+                    form(
+                        action=`/my-account/create/company` 
+                        method="post" 
+                        form-create-company
+                        enctype="multipart/form-data"
+                        class="d-none"
+                    ) 
+                        .item-account.box_anh_dai_dien(image-preview-create-company) 
+                            .anhcongty
+                                img(
+                                    src="https://cdn.photoroom.com/v1/assets-cached.jpg?path=backgrounds_v3/white/Photoroom_white_background_extremely_fine_texture_only_white_co_d4046f3b-0a21-404a-891e-3f8d37c5aa94.jpg", 
+                                    alt="Logo's Company"
+                                    image-preview-see 
+                                )
+                                
+                            input(
+                                    type="file"
+                                    class="form-control-file d-none"
+                                    name="logo"
+                                    accept="image/*"
+                                    image-preview-input
+                                )
+
+                            div(class="icon-create-img-company") 
+                                <i class="fa-solid fa-camera-retro"></i>
+                            
+                        .item-account
+                            p.title Tên công ty :
+                            input.text(name="tenCT")
+                        .item-account
+                            p.title Quy mô :
+                            input.text(name="quyMo" type="number")
+                        .item-account
+                            p.title Địa chi :
+                            input.text(name="diaDiem")
+                        .item-account
+                            .acount-sdt 
+                                p.title Số điện thoại :
+                                input.text(name="sdtCT")
+                            .account-email 
+                                p.title Email :
+                                input.text(name="emailCT" type="email")  
+                        .item-account
+                            p.title Mô tả :
+                            textarea.text_moto.text(name="moTa")
+                        .item-account-button 
+                            button(type="submit") Tạo mới
+
             else
                 .box-item-account 
                     form(

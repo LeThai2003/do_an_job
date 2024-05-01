@@ -130,3 +130,27 @@ module.exports.editCompanyInfo = async (req, res) => {
         res.redirect("/");
     }
 }
+
+//[POST]/my-account/create/company
+module.exports.createCompany = async (req, res) => {
+
+    try {
+        console.log(req.body)
+
+        console.log(req.file)
+
+        const userId = res.locals.User.userId;
+
+        const infoCompany = req.body;
+
+        if(req.file && req.file.filename)
+        {
+            infoCompany.logo = `/uploads/${req.file.filename}`;
+        }
+
+        await CompanyModel.insertCompany(userId, infoCompany);
+        res.redirect("back");
+    } catch (error) {
+        res.redirect("/");
+    }
+}

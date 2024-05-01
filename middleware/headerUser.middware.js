@@ -1,4 +1,5 @@
 const UserModel = require("../models/User.model");
+const CompanyModel = require("../models/Company.model");
 
 module.exports.infoUser = async(req, res, next) => {
     const token = req.cookies.tokenUser;
@@ -20,6 +21,16 @@ module.exports.infoUser = async(req, res, next) => {
             var ngaySinhFormatted = `${nam}-${thang}-${ngay}`;
 
             user.ngaySinhFormatted = ngaySinhFormatted
+
+
+            // ---- cong ty neu co ----
+            const company = await CompanyModel.getInfoCompanyByIdUser(user.userId);
+            if(company)
+            {
+                user.congTyId = company.congTyId; 
+            }
+
+            // console.log(user)
 
             res.locals.User = user;
 

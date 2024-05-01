@@ -6,15 +6,20 @@ block main
             .card.mb-4
                 .card-header Thông tin công ty
                 .card-body
-                    img(
-                        src="https://donga.edu.vn/Portals/0/Images/DoiTacDN/fpt-sw.png"
-                        style="height: 100px;margin-bottom: 15px;"
-                    )
-                    p Tên công ty : <b>FPT Software</b>
-                    p Email: <b>abc@gmail.com</b>
-                    p Số điện thoại: <b>0123456789</b>   
-                    p Số nhân viên: <b>20</b>
-                        
+                    if(company.logo)
+                        img(
+                            src=company.logo
+                            style="height: 100px;margin-bottom: 15px;"
+                        )
+                    if(company.tenCT)
+                        p Tên công ty : <b>#{company.tenCT}</b>
+                    if(company.emailCT)
+                        p Email: <b>#{company.emailCT}</b>
+                    if(company.sdtCT)
+                        p Số điện thoại: <b>#{company.sdtCT}</b> 
+                    if(company.quyMo)
+                        p Số nhân viên: <b>#{company.quyMo}</b>
+                            
     .row
         .col-6
             .card.mb-4

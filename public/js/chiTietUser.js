@@ -24,11 +24,11 @@ buttonSua.addEventListener("click", function() {
     buttonSua.style.display = "none";
     buttonXacNhan.style.display = "block";
     inputs.forEach(function(input) {
-        input.removeAttribute('readonly');
+        input.removeAttribute('readonly'); // co nay roi ma
     });
-    selects.forEach(function(select) {
-        select.removeAttribute('disabled');
-    });
+    // selects.forEach(function(select) {
+    //     select.removeAttribute('disabled');
+    // });
 });
 
 buttonXacNhan.addEventListener("click", function() {
@@ -40,6 +40,20 @@ buttonXacNhan.addEventListener("click", function() {
     // selects.forEach(function(select) {
     //     select.setAttribute('disabled', true);
     // });
+});
+
+
+const formInfoCompany = document.querySelector("[form-info-company]");
+
+formInfoCompany.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    // thay đổi trạng thái của các phần tử textarea
+    textareasTD.forEach(function(textarea) {
+        textarea.removeAttribute('disabled');
+    });
+
+    formInfoCompany.submit();
 });
 
 
@@ -94,28 +108,46 @@ if(url.href.includes("view-info"))
 }
 
 
-const divImage = document.querySelector(".section-CT-body .body-tintuyen .box-item-account .item-account .anhcongty");
-const inputImage = document.querySelector(".section-CT-body .body-tintuyen .box-item-account .item-account.box_anh_dai_dien input")
+// const divImage = document.querySelector(".section-CT-body .body-tintuyen .box-item-account .item-account .anhcongty");
+// const inputImage = document.querySelector(".section-CT-body .body-tintuyen .box-item-account .item-account.box_anh_dai_dien input")
 
-console.log(divImage)
-console.log(inputImage)
+// console.log(divImage)
+// console.log(inputImage)
 
-inputImage.addEventListener('change', function() {
-    const file = this.files[0]; // Lấy tệp được chọn
-    if (file) {
-        const reader = new FileReader(); // Tạo một FileReader để đọc tệp
-        reader.onload = function() {
-            // Khi tệp được đọc thành công, hiển thị hình ảnh trong div
-            divImage.innerHTML = '<img style="width:100%;height:100%;" src="' + reader.result + '" alt="Preview">';
-            divImage.style.display = 'block'; // Hiển thị div
+// inputImage.addEventListener('change', function() {
+//     const file = this.files[0]; // Lấy tệp được chọn
+//     if (file) {
+//         const reader = new FileReader(); // Tạo một FileReader để đọc tệp
+//         reader.onload = function() {
+//             // Khi tệp được đọc thành công, hiển thị hình ảnh trong div
+//             divImage.innerHTML = '<img style="width:100%;height:100%;" src="' + reader.result + '" alt="Preview">';
+//             divImage.style.display = 'block'; // Hiển thị div
+//         }
+//         reader.readAsDataURL(file); // Đọc tệp dưới dạng URL dữ liệu
+//     }
+// });
+// 
+// divImage.addEventListener("click", ()=>{
+//     inputImage.click();
+// })
+
+
+//preview image upload
+const imagePreview = document.querySelector("[image-preview]");
+if(imagePreview)
+{
+    const imagePreviewInput = imagePreview.querySelector("[image-preview-input]");
+    const imagePreViewSee = imagePreview.querySelector("[image-preview-see]");
+    imagePreviewInput.addEventListener("change", () => {
+        const [file] = imagePreviewInput.files; 
+        if(file)
+        {
+            imagePreViewSee.src = URL.createObjectURL(file);
         }
-        reader.readAsDataURL(file); // Đọc tệp dưới dạng URL dữ liệu
-    }
-});
+    });
+}
+//preview image upload
 
-divImage.addEventListener("click", ()=>{
-    inputImage.click();
-})
 
 
 var buttonSuaTD = document.querySelector(".section-CT-body .body-tintuyen .box-item-account .item-account-button button.account-sua");

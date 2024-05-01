@@ -9,7 +9,7 @@ module.exports.index = async(req, res) => {
 
     const company = await CompanyModel.getInfoCompanyByIdUser(userId);
 
-    console.log(company);
+    // console.log(company);
 
     res.render("client/pages/my-account/index",{
         title: "Trang công ty",
@@ -76,6 +76,33 @@ module.exports.editPost = async (req, res) => {
         //lưu thông tin user vào database
         await UserModel.updateUser(query);
         
+
+        res.redirect("back");
+    } catch (error) {
+        res.redirect("/");
+    }
+}
+
+//[POST]/my-account/edit/:companyId
+module.exports.editCompanyInfo = async (req, res) => {
+
+    try {
+        const companyId = req.params.companyId;
+
+        let query = ``;
+
+        const infoCompany = req.body;
+
+        if(req.file && req.file.filename)
+        {
+            infoCompany.logo = `/uploads/${req.file.filename}`;
+            query = `update CONGTY set tenCT = N'${infoCompany.tenCT}', diaDiem = N'${infoCompany.diaDiem}', sdtCT = '${infoCompany.sdtCT}', emailCT = '${infoCompany.emailCT}', quyMo = ${infoCompany.quyMo}, moTa = N'${infoCompany.moTa}', logo = N'${infoCompany.logo}' where congTyId = ${companyId}`;
+        }
+        else{
+            query = `update CONGTY set tenCT = N'${infoCompany.tenCT}', diaDiem = N'${infoCompany.diaDiem}', sdtCT = '${infoCompany.sdtCT}', emailCT = '${infoCompany.emailCT}', quyMo = ${infoCompany.quyMo}, moTa = N'${infoCompany.moTa}' where congTyId = ${companyId}`;
+        }
+
+        await CompanyModel.updateInfoCompany(query);
 
         res.redirect("back");
     } catch (error) {

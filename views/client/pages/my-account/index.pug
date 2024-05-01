@@ -16,7 +16,7 @@ block main
 
                 div(id="errorDisplay" class="align-right")
 
-                form(action=`/my-account/edit/${User.userId}`, method="post" form-user) 
+                form(action=`/my-account/edit/info-user/${User.userId}`, method="post" form-user) 
                     .item.form-group
                         p.title Họ và tên :
                         input.text(name="name" value=User.hoVaTen class="form-control" required)
@@ -48,10 +48,26 @@ block main
                     span NÂNG CẤP NGAY
             else
                 .box-item-account 
-                    form(action="", method="post") 
-                        .item-account.box_anh_dai_dien
-                            .anhcongty  
-                                input(type='file').d-none.text
+                    form(
+                        action=`/my-account/edit/info-company/${company.congTyId}` 
+                        method="post" 
+                        form-info-company
+                        enctype="multipart/form-data"
+                    ) 
+                        .item-account.box_anh_dai_dien(image-preview) 
+                            .anhcongty
+                                img(
+                                    src=company.logo, 
+                                    alt=company.tenCT
+                                    image-preview-see 
+                                )
+                            input(
+                                    type="file"
+                                    class="form-control-file"
+                                    name="logo"
+                                    accept="image/*"
+                                    image-preview-input
+                                )
                         .item-account
                             p.title Tên công ty :
                             input.text(name="tenCT" value=company.tenCT)

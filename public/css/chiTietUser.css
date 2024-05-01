@@ -156,6 +156,12 @@ p{
     cursor: pointer;
     overflow: hidden;
 }
+
+.section-CT-body .body-tintuyen .box-item-account .item-account .anhcongty img{
+    width: 100%;
+    object-fit: cover;
+}
+
 .section-CT-body .body-tintuyen .box-item-account .item-account .title{
     color: var(--font-color);
     font-size: 20px;

@@ -62,6 +62,15 @@ const getAllCompaniesBySearch = async (stringQuery) => {
         return [];
     }
 }
+const updateInfoCompany = async (stringQuery) => {
+    try {
+        await sql.query(stringQuery);
+        console.log("----------update info company success!")
+        return;
+    } catch (err) {
+        console.error('Error getting updateInfoCompany:', err);
+    }
+}
 
 
 module.exports = {
@@ -70,5 +79,6 @@ module.exports = {
     getCompanyBySlug,
     getInfoUserOfCompany,
     getAllCompaniesBySearch,
-    getInfoCompanyByIdUser
+    getInfoCompanyByIdUser,
+    updateInfoCompany
 };

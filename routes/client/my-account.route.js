@@ -23,6 +23,8 @@ router.get("/", controller.index);
 
 router.post("/edit/info-user/:userId", validate.infoUser, controller.editPost);
 
+router.post("/edit/avatar-user/:userId",upload.single('avatar'), controller.editAvatar);
+
 router.post("/edit/info-company/:companyId", upload.single('logo'), controller.editCompanyInfo);
 
 

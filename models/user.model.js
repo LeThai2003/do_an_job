@@ -18,9 +18,19 @@ const updateUser = async (queryString) => {
     }
 }
 
+const updateAvatarUser = async (userId, avatar) => {
+    try {
+        const queryString = `update NGUOIDUNG set avatar=N'${avatar}' where userId = ${userId}`
+        await sql.query(queryString);
+        console.log("-----------------ok-----------------")
+    } catch (err) {
+        console.error('Error updateAvatarUser:', err);
+    }
+}
+
 const getUserByToken = async (token) => {
     try {
-        const result = await sql.query`select userId, ho, ten, sdt, gioiTinh, ngaySinh, email from NGUOIDUNG where token = ${token}`;
+        const result = await sql.query`select userId, ho, ten, sdt, gioiTinh, ngaySinh, email, avatar from NGUOIDUNG where token = ${token}`;
         return result.recordset[0];
     } catch (err) {
         console.log('Error getting user by token:', err);
@@ -43,5 +53,6 @@ module.exports = {
     insertUser,
     getUserByToken,
     getUserByEmail,
-    updateUser
+    updateUser,
+    updateAvatarUser
 };

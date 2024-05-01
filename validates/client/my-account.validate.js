@@ -23,7 +23,7 @@ module.exports.infoUser = (req, res, next) => {
         return;
     } 
 
-    if(!req.body.birthdate)
+    if(!req.body.ngaySinh)
     {
         req.flash("error", "Ngày sinh không được để trống!");
         res.redirect("back");

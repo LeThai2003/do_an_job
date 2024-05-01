@@ -163,6 +163,9 @@ if(iconChangeImgCompany)
 
 //preview image upload USER
 const imagePreviewUser = document.querySelector("[image-preview-avatar-user]");
+const formUserUpdateAvatar = document.querySelector("[form-user-update-avatar]");
+
+console.log(formUserUpdateAvatar)
 
 const imagePreviewUserFunction = () => {
     const imagePreviewInput = imagePreviewUser.querySelector("[image-preview-input]");
@@ -178,6 +181,7 @@ const imagePreviewUserFunction = () => {
         if(file)
         {
             imagePreViewSee.src = URL.createObjectURL(file);
+            formUserUpdateAvatar.submit();
         }
     });
 }

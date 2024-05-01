@@ -14,14 +14,30 @@ html
             .header-bg 
             .header-infoCT
                 .box-title.d-flex.justify-content-between.align-items-center
-                    .item-img 
-                        div(class="change-img") 
-                            <i class="fa-solid fa-camera"></i>
-                        img(src="https://phunuvietnam.mediacdn.vn/media/news/33abffcedac43a654ac7f501856bf700/anh-profile-tiet-lo-g-ve-ban-1.jpg", alt="logo công ty")
+                    .item-img(image-preview-avatar-user)
+                        img(
+                            src=User.avatar || "https://inkythuatso.com/uploads/thumbnails/800/2023/03/8-anh-dai-dien-trang-inkythuatso-03-15-26-54.jpg", 
+                            alt="Ảnh đại diện"
+                            image-preview-see
+                        )
+                    
+                        input(
+                            type="file"
+                            class="form-control-file d-none"
+                            name="logo"
+                            accept="image/*"
+                            image-preview-input
+                        )
+
+                        div(class="icon-change-img-user") 
+                            <i class="fa-solid fa-arrow-up-from-bracket"></i>
+                    
                     .title-CT #{User.hoVaTen}
             .negative.d-flex.justify-content-center.align-items-center 
                 a(href="/") 
                     <box-icon type='solid' name='left-arrow-alt'></box-icon>  
+
+            
 
         block main 
 

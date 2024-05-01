@@ -132,7 +132,7 @@ if(url.href.includes("view-info"))
 // })
 
 
-//preview image upload
+//preview image upload COMPANY
 const imagePreview = document.querySelector("[image-preview]");
 
 const imagePreviewFunction = () => {
@@ -159,6 +159,37 @@ if(iconChangeImgCompany)
 }
 
 //preview image upload
+
+
+//preview image upload USER
+const imagePreviewUser = document.querySelector("[image-preview-avatar-user]");
+
+const imagePreviewUserFunction = () => {
+    const imagePreviewInput = imagePreviewUser.querySelector("[image-preview-input]");
+    const imagePreViewSee = imagePreviewUser.querySelector("[image-preview-see]");
+
+    console.log(imagePreviewInput)
+    console.log(imagePreViewSee)
+
+    imagePreviewInput.click();
+
+    imagePreviewInput.addEventListener("change", () => {
+        const [file] = imagePreviewInput.files; 
+        if(file)
+        {
+            imagePreViewSee.src = URL.createObjectURL(file);
+        }
+    });
+}
+
+const iconChangeImgUser = document.querySelector(".icon-change-img-user");
+if(iconChangeImgUser)
+{
+    iconChangeImgUser.addEventListener("click", () => {
+        imagePreviewUserFunction();
+    });
+}
+//preview image upload USER
 
 
 

@@ -196,3 +196,29 @@ if(formSearchCompany)
     }
 }
 
+
+// điều hướng trang info user
+const myAccount = document.querySelector("[my-account]");
+
+myAccount.addEventListener("click", () => {
+    window.location.href = `${window.location.origin}/my-account?view-info=user`;
+})
+// điều hướng trang info user
+
+
+//alert
+const alert = document.querySelector("[show-alert]");
+if(alert)
+{
+    let time = alert.getAttribute("data-time");
+    time = parseInt(time);
+    setTimeout(() => {
+        alert.classList.add("alert-hidden");
+    }, time);
+
+    const closeAlert = alert.querySelector("[close-alert]");
+    closeAlert.addEventListener("click", () => {
+        alert.classList.add("alert-hidden");
+    });
+}
+//end alert

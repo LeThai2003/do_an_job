@@ -18,7 +18,7 @@ module.exports.registerPost = async (req, res) => {
     inforUser.matKhau = md5(req.body.password);
     inforUser.token = generateHeper.generateRandomString(30);
     inforUser.ngaySinh = req.body.birthdate;
-    inforUser.email = req.body["username-left"];
+    inforUser.email = req.body["username-left"].trim();
 
     // check email trung
     const existUser = await UserModel.getUserByEmail(inforUser.email);
@@ -38,8 +38,8 @@ module.exports.registerPost = async (req, res) => {
     }
 
     const hoTenArr = req.body.fullname.split(" ");
-    inforUser.ten = hoTenArr[hoTenArr.length - 1];
-    inforUser.ho = req.body.fullname.slice(0, req.body.fullname.length - inforUser.ten.length -1);
+    inforUser.ten = hoTenArr[hoTenArr.length - 1].trim();
+    inforUser.ho = req.body.fullname.slice(0, req.body.fullname.length - inforUser.ten.length -1).trim();
 
     //lưu thông tin user vào database
     await UserModel.insertUser(inforUser);

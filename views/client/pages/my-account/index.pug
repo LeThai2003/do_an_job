@@ -1,8 +1,12 @@
 extends ../../layouts/user-account.pug 
+include ../../mixins/alert.pug
 
 
 
 block main
+
+    +alert-error(5000)
+
     .section-CT-body.container            
         .navbar-Ct.d-flex 
             .item-trangchu.active.box Thông Tin người dùng
@@ -39,7 +43,7 @@ block main
                 .item_button 
                         button.sua Sửa thông tin
         .body-tintuyen 
-            if(!company.congTyId)
+            if(!company)
                 .box-item-not-account 
                     span NÂNG CẤP NGAY
             else
@@ -47,7 +51,7 @@ block main
                     form(action="", method="post") 
                         .item-account.box_anh_dai_dien
                             .anhcongty  
-                            input(type='file').d-none.text
+                                input(type='file').d-none.text
                         .item-account
                             p.title Tên công ty :
                             input.text(name="tenCT" value=company.tenCT)

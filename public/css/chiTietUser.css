@@ -132,7 +132,7 @@ p{
 .section-CT-body .body-tintuyen .box-item-not-account{
     display: flex;
     justify-content: center;
-    display: none;
+    /* display: none; */
 }
 .section-CT-body .body-tintuyen .box-item-not-account span{
     background-color: var(--font-color);
@@ -212,3 +212,62 @@ p{
     font-weight: 600;
     border-radius: 5px;
 }
+
+/* ----thay avatar */
+.header-infoCT .item-img{
+    position: relative;
+}
+
+.header-infoCT .item-img .change-img{
+    position: absolute;
+    bottom: 10px;
+    right: 50px;
+    background: #ddd;
+    width: 100%;
+    /* display: none; */
+}
+
+.header-infoCT .item-img .change-img:hover{
+    /* display: block; */
+}
+
+
+
+/* ---alert */
+[show-alert] {
+    position: fixed;
+    top: 70px;
+    right: 15px;
+    font-size: medium;
+    z-index: 9999;
+  }
+  
+  [show-alert].alert-hidden {
+    animation-name: alert-hidden;
+    animation-duration: 0.5s;
+    animation-fill-mode: both;
+  }
+  
+  @keyframes alert-hidden {
+    from {
+      right: 15px;
+    }
+    to {
+      right: -100%;
+      display: none;
+    }
+  }
+  
+  [show-alert] [close-alert] {
+    background: #ffffffc4;
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    line-height: 24px;
+    text-align: center;
+    font-weight: 600;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+  /* ---end alert */
+

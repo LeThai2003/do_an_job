@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const controller = require("../../controller/client/user.controller");
-const validate = require("../../validates/client/user");
+const validate = require("../../validates/client/user.validate");
 
 router.get("/login", controller.login);
 

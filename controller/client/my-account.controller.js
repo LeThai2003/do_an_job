@@ -19,60 +19,66 @@ module.exports.index = async(req, res) => {
 
 //[POST]/my-account/edit/:userId
 module.exports.editPost = async (req, res) => {
-    const userId = req.params.userId;
+    try {
+        const userId = req.params.userId;
 
-    console.log(req.body);
+        // const company = await CompanyModel.getInfoCompanyByIdUser(userId);
 
-    let query = ``;
+        console.log(req.body);
 
-    const inforUser = {};
+        let query = ``;
 
-    inforUser.ngaySinh = req.body.ngaySinh;
+        const inforUser = {};
 
-    inforUser.email = req.body.email;
+        inforUser.ngaySinh = req.body.ngaySinh;
 
-    if(req.body.email != res.locals.User.email)  // Nếu email nhập lại khác
-    {
-        const existUser = await UserModel.getUserByEmail(inforUser.email);
+        inforUser.email = req.body.email.trim();
 
-        if(existUser)
+        if(req.body.email != res.locals.User.email)  // Nếu email nhập lại khác
         {
-            req.flash("error", "Email trùng, vui lòng nhập lại!");
-            res.redirect("back");
-            return;
+            const existUser = await UserModel.getUserByEmail(inforUser.email);
+
+            if(existUser)
+            {
+                req.flash("error", "Email trùng, vui lòng nhập lại!");
+                res.redirect("back");
+                return;
+            }
         }
+
+        inforUser.sdt = req.body.sdt
+
+        inforUser.gioiTinh = 1;
+        if(req.body.gioiTinh == "Nữ")
+        {
+            inforUser.gioiTinh = 0;
+        }
+
+        const fullName = req.body.name
+        const fullNameArr = fullName.split(" ");
+        inforUser.ten = fullNameArr[fullNameArr.length - 1].trim();
+        inforUser.ho = fullName.slice(0, fullName.length - inforUser.ten.length -1).trim();
+
+
+        if(req.body.matKhau != "")
+        {
+            inforUser.matKhau = md5(req.body.matKhau);
+            query = `update NGUOIDUNG set ho=N'${inforUser.ho}', ten=N'${inforUser.ten}', email='${inforUser.email}', ngaySinh='${inforUser.ngaySinh}', sdt='${inforUser.sdt}', gioiTinh=${inforUser.gioiTinh}, matKhau=N'${inforUser.matKhau}' where userId = ${userId}`
+        }
+        else
+        {
+            query = `update NGUOIDUNG set ho=N'${inforUser.ho}', ten=N'${inforUser.ten}', email='${inforUser.email}', ngaySinh='${inforUser.ngaySinh}', sdt='${inforUser.sdt}', gioiTinh=${inforUser.gioiTinh} where userId = ${userId}`
+        }
+
+        console.log(inforUser);
+        // console.log(query)
+
+        //lưu thông tin user vào database
+        await UserModel.updateUser(query);
+        
+
+        res.redirect("back");
+    } catch (error) {
+        res.redirect("/");
     }
-
-    inforUser.sdt = req.body.sdt
-
-    inforUser.gioiTinh = 1;
-    if(req.body.gioiTinh == "Nữ")
-    {
-        inforUser.gioiTinh = 0;
-    }
-
-    const fullName = req.body.name
-    const fullNameArr = fullName.split(" ");
-    inforUser.ten = fullNameArr[fullNameArr.length - 1];
-    inforUser.ho = fullName.slice(0, fullName.length - inforUser.ten.length -1);
-
-
-    if(req.body.matKhau != "")
-    {
-        inforUser.matKhau = md5(req.body.matKhau);
-        query = `update NGUOIDUNG set ho=N'${inforUser.ho}', ten=N'${inforUser.ten}', email='${inforUser.email}', ngaySinh='${inforUser.ngaySinh}', sdt='${inforUser.sdt}', gioiTinh=${inforUser.gioiTinh}, matKhau=N'${inforUser.matKhau}' where userId = ${userId}`
-    }
-    else
-    {
-        query = `update NGUOIDUNG set ho=N'${inforUser.ho}', ten=N'${inforUser.ten}', email='${inforUser.email}', ngaySinh='${inforUser.ngaySinh}', sdt='${inforUser.sdt}', gioiTinh=${inforUser.gioiTinh} where userId = ${userId}`
-    }
-
-    console.log(inforUser);
-    // console.log(query)
-
-    //lưu thông tin user vào database
-    await UserModel.updateUser(query);
-    
-
-    res.redirect("back");
 }

@@ -48,18 +48,51 @@ let trangchu = document.getElementsByClassName("item-trangchu")[0]
 let tintuyen = document.getElementsByClassName("item-tintuyen")[0]
 let page_trangchu = document.getElementsByClassName("body-trangchu")[0]
 let page_tintuyen = document.getElementsByClassName("body-tintuyen")[0]
-trangchu.addEventListener("click", ()=>{
+
+
+
+const trangChuClick = () => {
     page_tintuyen.style.display = "none";
     page_trangchu.style.display = "block";
     trangchu.classList.add("active")
     tintuyen.classList.remove("active")
-})
-tintuyen.addEventListener("click", ()=>{
+};
+
+const tinTuyenClick = () => {
     page_tintuyen.style.display = "block";
     page_trangchu.style.display = "none";
     trangchu.classList.remove("active")
     tintuyen.classList.add("active")
+}
+
+var url = new URL(window.location.href);
+
+trangchu.addEventListener("click", ()=>{
+    trangChuClick();
+    url.searchParams.set("view-info", "user")
+    window.location.href = url.href;
 })
+
+
+tintuyen.addEventListener("click", () => {
+    tinTuyenClick();
+    url.searchParams.set("view-info", "company")
+    window.location.href = url.href;
+})
+
+if(url.href.includes("view-info"))
+{
+    const content = url.searchParams.get("view-info");
+    if(content == "user")
+    {
+        trangChuClick();
+    }
+    else if(content == "company")
+    {
+        tinTuyenClick();
+    }
+}
+
 
 const divImage = document.querySelector(".section-CT-body .body-tintuyen .box-item-account .item-account .anhcongty");
 const inputImage = document.querySelector(".section-CT-body .body-tintuyen .box-item-account .item-account.box_anh_dai_dien input")
@@ -122,29 +155,46 @@ inputName.addEventListener("change", (e) => {
     console.log(e.target.value);
 });
 
-formUser.addEventListener("submit", (e) => {
-    e.preventDefault();
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+// formUser.addEventListener("submit", (e) => {
+//     e.preventDefault();
+//     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    if(inputName.value.trim() === "") {
-        errorDisplay.style.display = "inline-block";
-        errorDisplay.textContent = "Tên không được để trống!";
-    }
-    else if(inputEmail.value.trim() === "")
-    {
-        errorDisplay.style.display = "inline-block";
-        errorDisplay.textContent = "Email không được để trống!";
-    } 
-    else if(!inputEmail.value.trim().match(emailRegex))
-    {
-        errorDisplay.style.display = "inline-block";
-        errorDisplay.textContent = "Email không đúng định dạng!";
-    } 
-    else {
-        // Nếu input không trống, submit form
-        formUser.submit();
-    }
+//     if(inputName.value.trim() === "") {
+//         errorDisplay.style.display = "inline-block";
+//         errorDisplay.textContent = "Tên không được để trống!";
+//     }
+//     else if(inputEmail.value.trim() === "")
+//     {
+//         errorDisplay.style.display = "inline-block";
+//         errorDisplay.textContent = "Email không được để trống!";
+//     } 
+//     else if(!inputEmail.value.trim().match(emailRegex))
+//     {
+//         errorDisplay.style.display = "inline-block";
+//         errorDisplay.textContent = "Email không đúng định dạng!";
+//     } 
+//     else {
+//         // Nếu input không trống, submit form
+//         formUser.submit();
+//     }
     
-})
+// })
+
+//alert
+const alert = document.querySelector("[show-alert]");
+if(alert)
+{
+    let time = alert.getAttribute("data-time");
+    time = parseInt(time);
+    setTimeout(() => {
+        alert.classList.add("alert-hidden");
+    }, time);
+
+    const closeAlert = alert.querySelector("[close-alert]");
+    closeAlert.addEventListener("click", () => {
+        alert.classList.add("alert-hidden");
+    });
+}
+//end alert
 
 

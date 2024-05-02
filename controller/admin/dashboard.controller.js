@@ -1,10 +1,12 @@
 const CompanyModel = require("../../models/Company.model");
 
-//[GET]/admin/dashboard/:congTyId
+//[GET]/manage/dashboard/:congTyId
 module.exports.index = async(req, res) => {
     try {
 
         const congTyId = req.params.congTyId;
+
+        console.log(congTyId)
 
         const company = await CompanyModel.getCompanyById(congTyId);
 

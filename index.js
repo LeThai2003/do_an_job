@@ -13,6 +13,8 @@ const Swal = require('sweetalert2')
 const routerClient = require("./routes/client/index.route");
 const routerAdmin = require("./routes/admin/index.route");
 
+const systemConfig = require("./config/system");
+
 dotenv.config();
 
 connect.connectDB();
@@ -25,6 +27,11 @@ const port = process.env.PORT;
 
 app.use((req, res, next) => {
     res.locals.moment = moment;
+    next();
+});
+
+app.use((req, res, next) => {
+    res.locals.prefixAdmin = systemConfig.prefixAdmin;
     next();
 });
 

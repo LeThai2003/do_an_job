@@ -16,70 +16,75 @@ block main
                                 href="#"
                                 class="btn btn-outline-success"
                             ) + Thêm mới 
-
-                    table.table.table-hover.table-sm(box-check)
-                        thead 
-                            tr 
-                                td 
-                                    input(type="checkbox"
-                                    name="checkAll"
-                                )
-                                th STT 
-                                th Tên công việc 
-                                th Khu vuực
-                                th Lương  
-                                th Kinh nghiệm 
-                                th Ngày tạo 
-                                th Hết hạn 
-                                th Trạng thái
-                                th Hành động
-                        tbody 
-                            each job, index in jobs
+                    if(jobs.length > 0)
+                        table.table.table-hover.table-sm(box-check)
+                            thead 
                                 tr 
                                     td 
-                                        input(
-                                            type="checkbox"
-                                            name="id"
-                                        )
-                                    td #{index + 1}
-                                    td #{job.tenCV}
-                                    td #{job.khuVuc}
-                                    td #{job.luong} triệu 
-                                    td #{job.kinhNghiem} năm 
-                                    td 
-                                        +formatDate(job.ngayTao)
-                                    td
-                                        div.checkbox-container
-                                            if(job.hetHan == true)
-                                                input(type="checkbox", name="hetHan" checked=true disabled)
-                                                <span class="checkmark"></span>
+                                        input(type="checkbox"
+                                        name="checkAll"
+                                    )
+                                    th STT 
+                                    th Tên công việc 
+                                    th Khu vực
+                                    th Lương  
+                                    th Kinh nghiệm 
+                                    th Ngày tạo 
+                                    th Hết hạn 
+                                    th Trạng thái
+                                    th Hành động
+                            tbody 
+                                each job, index in jobs
+                                    tr 
+                                        td 
+                                            input(
+                                                type="checkbox"
+                                                name="id"
+                                            )
+                                        td #{index + 1}
+                                        td #{job.tenCV}
+                                        td #{job.khuVuc}
+                                        td #{job.luong} triệu 
+                                        td #{job.kinhNghiem} năm 
+                                        td 
+                                            +formatDate(job.ngayTao)
+                                        td
+                                            div.checkbox-container
+                                                if(job.hetHan == true)
+                                                    input(type="checkbox", name="hetHan" checked=true disabled)
+                                                    <span class="checkmark"></span>
+                                                else 
+                                                    input(type="checkbox", name="hetHan" checked=false disabled)
+                                                    <span class="checkmark"></span>
+                                        td
+                                            if(job.trangThai == false)
+                                                a(
+                                                    href="#"
+                                                    class="badge rounded-pill bg-danger"
+                                                ) Dừng tuyển 
                                             else 
-                                                input(type="checkbox", name="hetHan" checked=false disabled)
-                                                <span class="checkmark"></span>
-                                    td
-                                        if(job.trangThai == false)
-                                            a(
-                                                href="#"
-                                                class="badge rounded-pill bg-danger"
-                                            ) Dừng tuyển 
-                                        else 
-                                            a(
-                                                href="#"
-                                                class="badge rounded-pill bg-success"
-                                            ) Đang tuyển 
-                                    td 
-                                        a(href=`#`)
-                                            button(
-                                                class="btn btn-secondary me-1"
-                                                button-detail 
-                                            ) Xem chi tiết 
-                                        a(href=`#`)
-                                            button(
-                                                class="btn btn-warning me-1"
-                                                button-edit 
-                                            ) Sửa
-                                        a(href=`#`)
-                                            button(
-                                                class="btn btn-danger"
-                                                button-delete  
-                                            ) Xóa 
+                                                a(
+                                                    href="#"
+                                                    class="badge rounded-pill bg-success"
+                                                ) Đang tuyển 
+                                        td 
+                                            a(href=`#`)
+                                                button(
+                                                    class="btn btn-secondary me-1"
+                                                    button-detail 
+                                                ) Xem chi tiết 
+                                            a(href=`#`)
+                                                button(
+                                                    class="btn btn-warning me-1"
+                                                    button-edit 
+                                                ) Sửa
+                                            a(href=`#`)
+                                                button(
+                                                    class="btn btn-danger"
+                                                    button-delete  
+                                                ) Xóa 
+                    else 
+                        .row     
+                            .col-12 
+                                div(style="text-align: center") 
+                                    b Không có danh sách để hiển thị    

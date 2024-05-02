@@ -5,32 +5,35 @@ const JobEreaModel = require("../../models/Job-area.model");
 const timeApplyHelper = require("../../helpers/time-apply.helper")
 
 
-//[GET]/admin/job-management/:congTyId
+//[GET]/manage/job-management/:congTyId
 module.exports.index = async(req, res) => {
-    
-    const congTyId = req.params.congTyId;
+    try {
+        const congTyId = req.params.congTyId;
 
-    var jobs = await JobModle.getJobOfCompany(congTyId);
+        var jobs = await JobModle.getJobOfCompany(congTyId);
 
-    jobs = await timeApplyHelper.time(jobs);
+        jobs = await timeApplyHelper.time(jobs);
 
-    for (const job of jobs) {
-        let areas = await JobEreaModel.getAreaOfJobByMaCV(job.maCV);
-        let areaArray = [];
-        if(areas)
-        {
-            for (const area of areas) {
-                areaArray.push(area.tenKV);
+        for (const job of jobs) {
+            let areas = await JobEreaModel.getAreaOfJobByMaCV(job.maCV);
+            let areaArray = [];
+            if(areas)
+            {
+                for (const area of areas) {
+                    areaArray.push(area.tenKV);
+                }
             }
+            job.khuVuc = areaArray.join(", ")
         }
-        job.khuVuc = areaArray.join(", ")
-    }
 
-    console.log(jobs);
-    
-    res.render("admin/pages/job-management/index", {
-        title: "Trang quản lý việc làm",
-        jobs: jobs
-    });
+        console.log(jobs);
+        
+        res.render("admin/pages/job-management/index", {
+            title: "Trang quản lý việc làm",
+            jobs: jobs
+        });
+    } catch (error) {
+        res.redirect("/")
+    }
 }
 

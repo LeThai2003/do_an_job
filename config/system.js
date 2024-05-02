@@ -1,4 +1,4 @@
-const admin = "admin";
+const admin = "manage";
 
 const systemConfig = {
     prefixAdmin: admin

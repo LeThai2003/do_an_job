@@ -8,8 +8,6 @@ module.exports.index = async(req, res) => {
 
         const company = await CompanyModel.getCompanyById(congTyId);
 
-        console.log(company);
-
         res.render("admin/pages/dashboard/index", {
             title: "Trang tổng quan",
             company: company,

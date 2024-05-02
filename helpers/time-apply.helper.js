@@ -13,6 +13,7 @@ module.exports.time = async (jobs) => {
         const ngayTao = new Date(job.ngayTao);
         const ngayHetHan = new Date(job.hanChot);
         const ngayHienTai = new Date();
+        
         const soNgayTuNgayKhoiTao = Math.floor((ngayHienTai - ngayTao) / (1000 * 60 * 60 * 24));
         const soNgayHieuLuc = Math.floor((ngayHetHan - ngayTao) / (1000 * 60 * 60 * 24));
 

@@ -22,7 +22,7 @@ module.exports.editPost = async (req, res) => {
     try {
         const userId = req.params.userId;
 
-        console.log(req.body);
+        // console.log(req.body);
 
         if(req.body)
         {
@@ -88,7 +88,7 @@ module.exports.editAvatar = async (req, res) => {
 
         let avatar = "";
 
-        console.log(req.file);
+        // console.log(req.file);
 
         if(req.file && req.file.filename)
         {
@@ -135,9 +135,9 @@ module.exports.editCompanyInfo = async (req, res) => {
 module.exports.createCompany = async (req, res) => {
 
     try {
-        console.log(req.body)
+        // console.log(req.body)
 
-        console.log(req.file)
+        // console.log(req.file)
 
         const userId = res.locals.User.userId;
 

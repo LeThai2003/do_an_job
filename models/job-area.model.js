@@ -11,8 +11,22 @@ const getAreaOfJob = async (slugCV) => {
     }
 }
 
+const getAreaOfJobByMaCV = async (maCV) => {
+    try {
+        const sqlQuery = `select KHUVUC.tenKV from KHUVUC, CONGVIEC_KHUVUC where CONGVIEC_KHUVUC.maCV = ${maCV} and KHUVUC.maKV = CONGVIEC_KHUVUC.maKV`;
+        const result = await sql.query(sqlQuery);
+        return result.recordset;
+    } catch (err) {
+        console.error('Error getting getAreaOfJobByCompanyId:', err);
+        return [];
+    }
+}
+
+
+
 
 
 module.exports = {
     getAreaOfJob,
+    getAreaOfJobByMaCV
 };

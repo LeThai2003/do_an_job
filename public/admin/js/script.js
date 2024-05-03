@@ -15,7 +15,7 @@ if(formCreateJob)
 
     let areas = JSON.parse(areasAtt);
 
-    console.log(areas)    
+    // console.log(areas)    
 
     selectBtn.addEventListener("click", () => {
         wrapper.classList.toggle("active");
@@ -144,14 +144,26 @@ if(formCreateJob)
     formCreateJob.addEventListener("submit", (e) => {
         e.preventDefault();
         const ids = formCreateJob.querySelector("input[name='ids']");
-        if(selectedIds.length > 0)
-        {
-            ids.value = JSON.stringify(selectedIds);
-            console.log(ids.value)
-        }
-        else
-        {
-            console.log("------bạn phải chọn----")
-        }
+        ids.value = JSON.stringify(selectedIds);
+        console.log(ids.value);
+        formCreateJob.submit();
     })
 }
+
+
+//alert
+const alert = document.querySelector("[show-alert]");
+if(alert)
+{
+    let time = alert.getAttribute("data-time");
+    time = parseInt(time);
+    setTimeout(() => {
+        alert.classList.add("alert-hidden");
+    }, time);
+
+    const closeAlert = alert.querySelector("[close-alert]");
+    closeAlert.addEventListener("click", () => {
+        alert.classList.add("alert-hidden");
+    });
+}
+//end alert

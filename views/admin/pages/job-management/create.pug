@@ -1,8 +1,11 @@
 extends ../../layouts/default.pug 
 include ../../mixins/moment.pug
+include ../../mixins/alert.pug
 
 block main
     .container
+        +alert-error(5000)
+
         h2 Tạo mới công việc
 
         div(class="box")
@@ -11,7 +14,6 @@ block main
                     action=`/${prefixAdmin}/job-management/${congTyId}/create`
                     method="post"
                     form-create-job
-                    enctype="multipart/form-data"
                 ) 
                     div(class="form-group")
                         label(for="tenCV") Tên công việc
@@ -29,7 +31,6 @@ block main
                             class="form-control"
                             id="moTa"
                             name="moTa"
-                            required
                         )
                     div(class="form-group")
                         label(for="chiTietCV") Chi tiết công việc
@@ -38,9 +39,10 @@ block main
                             id="chiTietCV"
                             name="chiTietCV"
                             rows="5"
+                            required
                         )
                     div(class="form-group")
-                        input(type="text" name="ids")
+                        input(type="text" name="ids" class="d-none")
                         .wrapper
                             .select-btn 
                                 span.btn-text ---Khu vực---

@@ -47,13 +47,31 @@ module.exports.create = async(req, res) => {
 
         const areas = await AreaModel.getAllAreasWithMaTen();
 
-        console.log(JSON.stringify(areas));
+        // console.log(JSON.stringify(areas));
         
         res.render("admin/pages/job-management/create", {
             title: "Trang tạo mới việc làm",
             congTyId: congTyId,
             areas: JSON.stringify(areas)
         });
+    } catch (error) {
+        res.redirect("/")
+    }
+}
+
+//[Post]/manage/job-management/:congTyId/create
+module.exports.createPost = async(req, res) => {
+    try {
+        const congTyId = req.params.congTyId;
+
+        console.log(req.body);
+
+        const areas = JSON.parse(req.body.ids);
+
+        console.log(congTyId);
+        console.log(areas);
+        
+        res.send("ok");
     } catch (error) {
         res.redirect("/")
     }

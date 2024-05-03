@@ -2,7 +2,7 @@ extends ../../layouts/default.pug
 include ../../mixins/moment.pug
 
 block main
-    h1 Danh sách công việc
+    h2 Danh sách công việc
 
     .card.mb-3 
             .card-header Danh sách 
@@ -13,7 +13,7 @@ block main
                         
                         .col-4(style="text-align:right;") 
                             a(
-                                href="#"
+                                href=`/${prefixAdmin}/job-management/${congTyId}/create`
                                 class="btn btn-outline-success"
                             ) + Thêm mới 
                     if(jobs.length > 0)

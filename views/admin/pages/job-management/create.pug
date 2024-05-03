@@ -1,0 +1,91 @@
+extends ../../layouts/default.pug 
+include ../../mixins/moment.pug
+
+block main
+    .container
+        h2 Tạo mới công việc
+
+        div(class="box")
+            div(class="box-body")
+                form(
+                    action=`/${prefixAdmin}/job-management/${congTyId}/create`
+                    method="post"
+                    form-create-job
+                    enctype="multipart/form-data"
+                ) 
+                    div(class="form-group")
+                        label(for="tenCV") Tên công việc
+                        input(
+                            type="text"
+                            class="form-control"
+                            id="tenCV"
+                            name="tenCV"
+                            required
+                        )
+                    div(class="form-group")
+                        label(for="moTa") Mô tả công việc
+                        input(
+                            type="text"
+                            class="form-control"
+                            id="moTa"
+                            name="moTa"
+                            required
+                        )
+                    div(class="form-group")
+                        label(for="chiTietCV") Chi tiết công việc
+                        textarea(
+                            class="form-control"
+                            id="chiTietCV"
+                            name="chiTietCV"
+                            rows="5"
+                        )
+                    div(class="form-group")
+                        input(type="text" name="ids")
+                        .wrapper
+                            .select-btn 
+                                span.btn-text ---Khu vực---
+                                <i class="fa-solid fa-angle-down"></i>
+                            .content(areas=areas)
+                                .search     
+                                    <i class="fa-solid fa-search"></i>
+                                    input(type="text" placeholder="Search")
+                                ul(class="options")
+                                    li TP Hồ Chí Minh 
+                                    li Hà Nội   
+                                    li Đà Nẵng
+
+                    div(class="form-group")
+                        label(for="luong") Lương
+                        input(
+                            type="number"
+                            class="form-control"
+                            id="luong"
+                            name="luong"
+                            required
+                        )
+                    div(class="form-group")
+                        label(for="kinhNghiem") Kinh nghiệm
+                        select(id="kinhNghiem" class="form-control" name="kinhNghiem")
+                            option(value="all") Tất cả kinh nghiệm
+                            option(value="0") Chưa có kinh nghiệm
+                            option(value="less1") Dưới 1 năm
+                            option(value="1") 1 năm
+                            option(value="2") 2 năm
+                            option(value="3") 3 năm
+                            option(value="4") 4 năm
+                            option(value="5") 5 năm
+                            option(value="over5") Trên 5 năm
+                    div(class="form-group")
+                        label(for="hanChot") Hạn chót
+                        input(
+                            type="date"
+                            class="form-control"
+                            id="hanChot"
+                            name="hanChot"
+                            required
+                        )
+                    div(class="form-group")
+                        button(
+                            type="submit"
+                            class="btn btn-primary"
+                        ) Tạo mới

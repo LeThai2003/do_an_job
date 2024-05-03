@@ -1,3 +1,7 @@
+*{
+    box-sizing: border-box;
+}
+
 a {
     text-decoration: none;
 }
@@ -55,3 +59,139 @@ a:hover {
     border-width: 0 2px 2px 0;
     transform: rotate(45deg);
 }
+
+
+/* ----------- create new job---------------- */
+
+/* ----select - option - khu vuc */
+.wrapper{
+    max-width: 370px;
+    width: 100%;
+    margin: 10px 0;
+}
+
+.select-btn{
+    height: 65px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 8px;
+    background-color: #fff;
+    padding: 0 20px;
+    cursor: pointer;
+    border: 1px solid #ddd;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+.select-btn i{
+    transition: 0.3s;
+}
+
+.wrapper.active .select-btn i{
+    transform: rotate(-180deg);
+}
+
+.content{
+    background: #fff;
+    margin-top: 15px;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    display: none;
+}
+
+.wrapper.active > .content{
+    display: block;
+}
+
+.content .search{
+    position: relative;
+}
+
+.search i {
+    position: absolute;
+    left: 15px;
+    line-height: 53px;
+    color: #999;
+}
+
+
+
+.search input{
+    height: 53px;
+    width: 100%;
+    font-size: 17px;
+    padding: 0px 15px 0 43px; 
+    /* Tren phai duoi trai */
+    outline: none;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+.content .options{
+    margin-top: 15px;
+    padding: 0;
+    height: 250px;
+    overflow: auto;
+}
+
+.content .options::-webkit-scrollbar{
+    width: 8px;
+}
+
+.content .options::-webkit-scrollbar-track{
+    background: #f1f1f1;
+    border-radius: 25px;
+}
+
+.content .options::-webkit-scrollbar-thumb{
+    background: #ccc;
+    border-radius: 25px;
+}
+
+
+.options li{
+    height: 50px;
+    border-radius: 5px;
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    padding: 0 13px;
+    display: flex;
+    align-items: center;
+}
+
+.options li:hover{
+    background: #f2f2f2;
+    cursor: pointer;
+}
+
+.options .checkbox{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 16px;
+    width: 16px;
+    border-radius: 4px;
+    margin-right: 12px;
+    border: 1px solid #c0c0c0;
+}
+
+.options .item.checked .checkbox{
+    background: #4070f7;
+    color: #fff;
+}
+
+.options .item .checkbox .check-icon{
+    font-size: 11px;
+    transform: scale(0);
+    transition: 0.2s;
+}
+
+.options .item.checked .checkbox .check-icon{
+    transform: scale(1);
+}
+
+
+/* -----------end create new job---------------- */

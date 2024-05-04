@@ -2,6 +2,7 @@ const JobModle = require("../../models/Job.model");
 const CompanyModel = require("../../models/Company.model");
 const JobEreaModel = require("../../models/Job-area.model");
 const AreaModel = require("../../models/Area.model");
+const SpecialityModel = require("../../models/Specialty.model");
 
 
 const timeApplyHelper = require("../../helpers/time-apply.helper")
@@ -45,14 +46,17 @@ module.exports.create = async(req, res) => {
     try {
         const congTyId = req.params.congTyId;
 
-        const areas = await AreaModel.getAllAreasWithMaTen();
+        let areas = await AreaModel.getAllAreasWithMaTen();
+        areas = JSON.stringify(areas);
 
-        // console.log(JSON.stringify(areas));
+        let specialities = await SpecialityModel.getAllSpecialtiesWithMaTen();
+        specialities = JSON.stringify(specialities);
         
         res.render("admin/pages/job-management/create", {
             title: "Trang tạo mới việc làm",
             congTyId: congTyId,
-            areas: JSON.stringify(areas)
+            areas: areas,
+            specialities: specialities
         });
     } catch (error) {
         res.redirect("/")
@@ -68,8 +72,12 @@ module.exports.createPost = async(req, res) => {
 
         const areas = JSON.parse(req.body.ids);
 
+        const tags = JSON.parse(req.body.tagsName);
+
+
         console.log(congTyId);
         console.log(areas);
+        console.log(tags);
         
         res.send("ok");
     } catch (error) {

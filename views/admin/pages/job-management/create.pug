@@ -41,8 +41,8 @@ block main
                             rows="5"
                             required
                         )
-                    div(class="form-group")
-                        input(type="text" name="ids" class="d-none")
+                    div(class="form-group" class="areas")
+                        input(type="text" name="idsArea" class="d-none")
                         .wrapper
                             .select-btn 
                                 span.btn-text ---Khu vực---
@@ -55,6 +55,35 @@ block main
                                     li TP Hồ Chí Minh 
                                     li Hà Nội   
                                     li Đà Nẵng
+                    
+                    div(class="form-group" class="tags" tags=specialities)
+                        input(type="text" name="tagsName" class="d-none")
+                        .wrapper
+                            .title
+                                <i class="fa-solid fa-tags"></i>
+                                p Lĩnh vực 
+                            .content
+                                p Nhấn enter để thêm tag mới
+                                ul 
+                                    input(type="text")
+                                .select
+                                    ul 
+                                        //- <li>html</li>
+                                        //- <li>css</li>
+                                        //- <li>java</li>
+                                        //- <li>java 2</li>
+                                        //- <li>java 3</li>
+                                        //- <li>java 4</li>
+                                        //- <li>java 5</li>
+                                        //- <li>java 6</li>
+                                        //- <li>java 7</li>
+                                        //- <li>java 8</li>
+                                        //- <li>java 9</li>
+                                        //- <li>java 10</li>
+                                        //- <li>java 11</li>
+                            .details
+                                p Còn <span>_</span> tags có thể thêm vào
+                                button Xóa tất cả
 
                     div(class="form-group")
                         label(for="luong") Lương
@@ -91,3 +120,6 @@ block main
                             type="submit"
                             class="btn btn-primary"
                         ) Tạo mới
+
+block script 
+    script(src="/admin/js/job-create.js") 

@@ -1,5 +1,7 @@
 *{
     box-sizing: border-box;
+    margin: 0px;
+    padding: 0px;
 }
 
 a {
@@ -64,13 +66,13 @@ a:hover {
 /* ----------- create new job---------------- */
 
 /* ----select - option - khu vuc */
-.wrapper{
+.areas .wrapper{
     max-width: 370px;
     width: 100%;
     margin: 10px 0;
 }
 
-.select-btn{
+.areas .select-btn{
     height: 65px;
     display: flex;
     align-items: center;
@@ -83,15 +85,15 @@ a:hover {
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
 }
 
-.select-btn i{
+.areas .select-btn i{
     transition: 0.3s;
 }
 
-.wrapper.active .select-btn i{
+.areas .wrapper.active .select-btn i{
     transform: rotate(-180deg);
 }
 
-.content{
+.areas .content{
     background: #fff;
     margin-top: 15px;
     padding: 20px;
@@ -101,15 +103,15 @@ a:hover {
     display: none;
 }
 
-.wrapper.active > .content{
+.areas .wrapper.active > .content{
     display: block;
 }
 
-.content .search{
+.areas .content .search{
     position: relative;
 }
 
-.search i {
+.areas .search i {
     position: absolute;
     left: 15px;
     line-height: 53px;
@@ -118,7 +120,7 @@ a:hover {
 
 
 
-.search input{
+.areas .search input{
     height: 53px;
     width: 100%;
     font-size: 17px;
@@ -129,29 +131,29 @@ a:hover {
     border: 1px solid #ddd;
 }
 
-.content .options{
+.areas .content .options{
     margin-top: 15px;
     padding: 0;
     height: 250px;
     overflow: auto;
 }
 
-.content .options::-webkit-scrollbar{
+.areas .content .options::-webkit-scrollbar{
     width: 8px;
 }
 
-.content .options::-webkit-scrollbar-track{
+.areas .content .options::-webkit-scrollbar-track{
     background: #f1f1f1;
     border-radius: 25px;
 }
 
-.content .options::-webkit-scrollbar-thumb{
+.areas .content .options::-webkit-scrollbar-thumb{
     background: #ccc;
     border-radius: 25px;
 }
 
 
-.options li{
+.areas .options li{
     height: 50px;
     border-radius: 5px;
     margin: 0;
@@ -162,12 +164,12 @@ a:hover {
     align-items: center;
 }
 
-.options li:hover{
+.areas .options li:hover{
     background: #f2f2f2;
     cursor: pointer;
 }
 
-.options .checkbox{
+.areas .options .checkbox{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -178,20 +180,152 @@ a:hover {
     border: 1px solid #c0c0c0;
 }
 
-.options .item.checked .checkbox{
+.areas .options .item.checked .checkbox{
     background: #4070f7;
     color: #fff;
 }
 
-.options .item .checkbox .check-icon{
+.areas .options .item .checkbox .check-icon{
     font-size: 11px;
     transform: scale(0);
     transition: 0.2s;
 }
 
-.options .item.checked .checkbox .check-icon{
+.areas .options .item.checked .checkbox .check-icon{
     transform: scale(1);
 }
+
+
+/* -------------------tags ------------- */
+.tags p, .tags ul, .tags li{
+    padding: 0;
+    margin: 0;
+}
+
+.tags .wrapper{
+    background: #fff;
+    border-radius: 8px;
+    width: 490px;
+    padding: 18px 25px 20px;
+    border: 1px solid #cfcdcd;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+.tags .wrapper .title{
+    display: flex;
+    align-items: center;
+}
+
+.tags .wrapper .title p{
+    margin-left: 5px;
+}
+
+.tags .wrapper .content{
+    margin: 10px 0;
+}
+
+.tags .wrapper .content > ul{
+    display: flex;
+    flex-wrap: wrap;
+    border: 1px solid #a6a6a6;
+    padding: 8px;
+    margin: 10px 0;
+    border-radius: 5px;
+}
+
+.tags .wrapper .content > ul li{
+    list-style-type: none;
+    background-color: #f2f2f2;
+    padding: 5px 8px 5px 10px;
+    margin: 4px 3px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #f3f0f0;
+}
+
+.tags .wrapper .content > ul li span{
+    font-size: 16px;
+}
+
+.tags .wrapper .content > ul li i{
+    color: #9e9e9e;
+    font-size: 14px;
+    margin-left: 5px;
+    width: 18px;
+    height: 18px;
+    background: #dfdfdf;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.tags .wrapper .content > ul input{
+    flex: 1;
+    outline: none;
+    border: none;
+    font-size: 16px;
+    padding: 5px;
+}
+
+.tags .wrapper .content .select{
+    height: 120px;
+    overflow: auto;
+    border: 1px solid #a6a6a6;
+    padding: 5px 8px 5px 10px;
+    border-radius: 5px;
+}
+
+.tags .content .select::-webkit-scrollbar{
+    width: 10px;
+}
+
+.tags .content .select::-webkit-scrollbar-track{
+    background: #f1f1f1;
+    border-radius: 25px;
+}
+
+.tags .content .select::-webkit-scrollbar-thumb{
+    background: #ccc;
+    border-radius: 25px;
+}
+
+.tags .wrapper .content .select ul{
+    padding: 0;
+}
+
+.tags .wrapper .content .select ul li{
+    padding: 5px 8px;
+    border-radius: 5px;
+    list-style-type: none;
+}
+
+.tags .wrapper .content .select ul li:hover{
+    cursor: pointer;
+    background: #f3f3f3;
+}
+
+.tags .wrapper .details{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.tags .wrapper .details button{
+    outline: none;
+    border-radius: 5px;
+    background-color: #5372f0;
+    padding: 9px 15px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 14px;    
+    border: none;
+}
+
+
 
 
 /* -----------end create new job---------------- */

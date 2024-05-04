@@ -5,7 +5,17 @@ const getAllSpecialties = async () => {
         const result = await sql.query`select * from LINHVUC`;
         return result.recordset;
     } catch (err) {
-        console.error('Error getting specialities:', err);
+        console.error('Error getting getAllSpecialties:', err);
+        return [];
+    }
+}
+
+const getAllSpecialtiesWithMaTen = async () => {
+    try {
+        const result = await sql.query`select maLV, tenLV from LINHVUC`;
+        return result.recordset;
+    } catch (err) {
+        console.error('Error getting getAllSpecialtiesWithMaTen:', err);
         return [];
     }
 }
@@ -14,4 +24,5 @@ const getAllSpecialties = async () => {
 
 module.exports = {
     getAllSpecialties,
+    getAllSpecialtiesWithMaTen
 };

@@ -6,6 +6,8 @@ const SpecialityModel = require("../../models/Specialty.model");
 const JobSpecialityModel = require("../../models/Job-speciality.model");
 const slugHelper = require("../../helpers/convert-to-slug.helper");
 
+const he = require('he');
+
 
 const timeApplyHelper = require("../../helpers/time-apply.helper")
 
@@ -63,17 +65,18 @@ module.exports.create = async(req, res) => {
     }
 }
 
+
 //[Post]/manage/job-management/:congTyId/create
 module.exports.createPost = async(req, res) => {
     try {
         const congTyId = req.params.congTyId;
 
         console.log("-----------------");
-        console.log(req.body);
+        req.body.chiTietCV = he.decode(req.body.chiTietCV);
+        // console.log(req.body.chiTietCV)
         console.log("-----------------");
 
         // Tạo công việc trước để có congTyId
-        console.log(req.body.tenCV);
         const slugCV = slugHelper.convertToSlug(req.body.tenCV);
         req.body.slug = slugCV;
 

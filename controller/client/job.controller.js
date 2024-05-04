@@ -28,8 +28,11 @@ module.exports.getAllJobs = async (req, res) => {
 
 //[GET] /jobs/detail/:slug
 module.exports.detail = async(req, res) => {
+    const userId = res.locals.User.userId;
+
     const slugJob = req.params.slug;
     const job = await JobModel.getJobBySlug(slugJob);
+
     const company = await CompanyModel.getCompanyById(job.congTyId);
 
     const getJobs = await JobModel.getJobOfCompany(job.congTyId);
@@ -38,10 +41,16 @@ module.exports.detail = async(req, res) => {
 
     const jobAreas = await JobAreaModel.getAreaOfJob(slugJob);
 
+    //lay congTyId của user nếu có
+    let congTyUser = await CompanyModel.getInfoCompanyByIdUser(userId);
+
+    const congTyUserId = congTyUser.congTyId;
+
     res.render("client/pages/job/detail.pug", {
         job: job,
         company: company,
         jobOfCompany: jobOfCompany,
-        jobAreas: jobAreas
+        jobAreas: jobAreas,
+        congTyUserId: congTyUserId
     });
 }

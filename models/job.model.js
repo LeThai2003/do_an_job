@@ -55,7 +55,7 @@ const insertJob = async (congTyId, body) => {
         
         luong = parseInt(luong);
 
-        stringQuery = `insert into CONGVIEC(congTyId, tenCV, moTa, chiTietCV, luong, kinhNghiem, ngayTao, hanChot, slug) values(${congTyId}, N'${tenCV}', N'${moTa}', '${chiTietCV}', ${luong}, '${kinhNghiem}', CONVERT(date, getdate()), '${hanChot}', '${slug}')`;
+        stringQuery = `insert into CONGVIEC(congTyId, tenCV, moTa, chiTietCV, luong, kinhNghiem, ngayTao, hanChot, slug) values(${congTyId}, N'${tenCV}', N'${moTa}', N'${chiTietCV}', ${luong}, '${kinhNghiem}', CONVERT(date, getdate()), '${hanChot}', '${slug}')`;
 
         console.log(stringQuery);
 

@@ -24,6 +24,9 @@ block main
                         //- .hang
                         //- .title-chitiet Chi tiết tuyển dụng 
                         | !{job.chiTietCV}
+                div(class="d-none")
+                    if(congTyUserId)
+                        p(congTyIdUser) #{congTyUserId}
                 button(class="btn btn-outline-success button-ungtuyen my-2" onClick="openUngTuyen()" button-ungtuyen=job) Ứng tuyển
                 .hanchot.d-flex.align-items-center
                     .burst-div.me-2

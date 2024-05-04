@@ -22,6 +22,8 @@ const buttonUngTuyen = document.querySelector("[button-ungtuyen]");
 if(buttonUngTuyen)
 {
     const job = JSON.parse(buttonUngTuyen.getAttribute("button-ungtuyen"));
+    console.log(job)
+    // nếu hết hạn thì không cho nộp cv
     const chkHetHan = job.hetHan;
     if(chkHetHan)
     {
@@ -30,5 +32,21 @@ if(buttonUngTuyen)
     else
     {
         buttonUngTuyen.disabled = false;
+    }
+
+    // nếu người đó tạo ra công việc đó thì không cho nộp cv
+    const divCongTyId = document.querySelector("[congTyIdUser]");
+    if(divCongTyId)
+    {
+        const congTyIdUser = parseInt(divCongTyId.innerText);
+        if(congTyIdUser && (congTyIdUser == job.congTyId))
+        {
+            buttonUngTuyen.disabled = true;
+            console.log(congTyIdUser);
+            console.log(job.congTyId);
+        }
+        else{
+            buttonUngTuyen.disabled = false;
+        }
     }
 }

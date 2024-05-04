@@ -234,7 +234,16 @@ formCreateJob.addEventListener("submit", (e) => {
     idsArea.value = JSON.stringify(selectedIds);
     const tagsName = formCreateJob.querySelector("input[name='tagsName']");
     tagsName.value = JSON.stringify(tags);
+    const textArea = formCreateJob.querySelector("textarea[name='chiTietCV']");
+    const decodedValue = decodeHtmlEntities(textArea.value);
+    textArea.value = decodedValue;
     formCreateJob.submit();
 })
+
+function decodeHtmlEntities(text) {
+    const textarea = document.createElement("textarea");
+    textarea.innerHTML = text;
+    return textarea.value;
+}
 
 // --------end create new job ---------------

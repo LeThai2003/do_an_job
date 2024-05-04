@@ -6,11 +6,11 @@ module.exports.convertToSlug = (text) => {
 
     const suffix = Date.now();
 
-    const slug = unidecodeText
+    let slug = unidecodeText
         .replace(/\s+/g, "-") // Thay thế khoảng trắng bằng dấu gạch ngang
         .replace(/-+/g, "-"); // Loại bỏ nhiều dấu gạch ngang liên tiếp
 
-    slug = slug + "-" + suffix;
+    slug = `${slug}-${suffix}`;
     
     return slug;
 };

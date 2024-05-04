@@ -49,6 +49,25 @@ const updateJobDateApply = async (maCV, value) => {
     }
 }
 
+const insertJob = async (congTyId, body) => {
+    try {
+        let {tenCV, moTa, luong, chiTietCV, kinhNghiem, hanChot, slug} = body;
+        
+        luong = parseInt(luong);
+
+        stringQuery = `insert into CONGVIEC(congTyId, tenCV, moTa, chiTietCV, luong, kinhNghiem, ngayTao, hanChot, slug) values(${congTyId}, N'${tenCV}', N'${moTa}', '${chiTietCV}', ${luong}, '${kinhNghiem}', CONVERT(date, getdate()), '${hanChot}', '${slug}')`;
+
+        console.log(stringQuery);
+
+        await sql.query(stringQuery);
+        console.log("----- insert job success!---")
+    } catch (err) {
+        console.log('insertJob err:', err);
+    }
+}
+
+
+
 
 
 module.exports = {
@@ -56,5 +75,6 @@ module.exports = {
     getJobsByForm,
     getJobBySlug,
     getJobOfCompany,
-    updateJobDateApply
+    updateJobDateApply,
+    insertJob
 };

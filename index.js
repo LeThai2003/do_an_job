@@ -9,6 +9,8 @@ const cookieParser = require('cookie-parser');
 const connect = require("./config/database");
 const moment = require('moment');
 const Swal = require('sweetalert2') 
+const path = require('path');
+
 
 const routerClient = require("./routes/client/index.route");
 const routerAdmin = require("./routes/admin/index.route");
@@ -34,6 +36,9 @@ app.use((req, res, next) => {
     res.locals.prefixAdmin = systemConfig.prefixAdmin;
     next();
 });
+
+/* New Route to the TinyMCE Node module */
+app.use('/tinymce', express.static(path.join(__dirname, 'node_modules', 'tinymce')));
 
 // override with POST having ?_method=DELETE
 app.use(methodOverride('_method'))

@@ -22,11 +22,21 @@ const getAreaOfJobByMaCV = async (maCV) => {
     }
 }
 
-
+const insertJobArea = async (maCV, maKV) => {
+    try {
+        const stringQuery = `insert into CONGVIEC_KHUVUC(maKV, maCV) values (${maKV}, ${maCV})`;
+        console.log(stringQuery);
+        await sql.query(stringQuery);
+        console.log("add tag success!")
+    } catch (err) {
+        console.error('Error getting insertJobArea:', err);
+    }
+}
 
 
 
 module.exports = {
     getAreaOfJob,
-    getAreaOfJobByMaCV
+    getAreaOfJobByMaCV,
+    insertJobArea
 };

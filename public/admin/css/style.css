@@ -134,7 +134,7 @@ a:hover {
 .areas .content .options{
     margin-top: 15px;
     padding: 0;
-    height: 250px;
+    height: 214px;
     overflow: auto;
 }
 
@@ -209,6 +209,7 @@ a:hover {
     padding: 18px 25px 20px;
     border: 1px solid #cfcdcd;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    margin: 10px 0;
 }
 
 .tags .wrapper .title{
@@ -272,7 +273,7 @@ a:hover {
 }
 
 .tags .wrapper .content .select{
-    height: 120px;
+    height: 200px;
     overflow: auto;
     border: 1px solid #a6a6a6;
     padding: 5px 8px 5px 10px;
@@ -325,7 +326,19 @@ a:hover {
     border: none;
 }
 
+.box-body .div{
+    display: flex;
+    flex-wrap: wrap;
+    height: 200px;
+}
 
+.box-body .div .form-group{
+    width: 100%;
+}
+
+.box-body .div input, .box-body .div select{
+    width: 100%;
+} 
 
 
 /* -----------end create new job---------------- */

@@ -20,10 +20,10 @@ block main
                                 span Hạn chót : 
                                  +formatDate(job.hanChot)
                 .item-bot.col-12
-                    .item-bot-title.d-flex.align-items-center 
-                        .hang
-                        .title-chitiet Chi tiết tuyển dụng 
-                            | #{job.chiTietCV}
+                    .item-bot-title 
+                        //- .hang
+                        //- .title-chitiet Chi tiết tuyển dụng 
+                        | !{job.chiTietCV}
                 button(class="btn btn-outline-success button-ungtuyen my-2" onClick="openUngTuyen()" button-ungtuyen=job) Ứng tuyển
                 .hanchot.d-flex.align-items-center
                     .burst-div.me-2

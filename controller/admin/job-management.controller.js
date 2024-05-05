@@ -6,6 +6,8 @@ const SpecialityModel = require("../../models/Specialty.model");
 const JobSpecialityModel = require("../../models/Job-speciality.model");
 const slugHelper = require("../../helpers/convert-to-slug.helper");
 
+
+
 const he = require('he');
 
 
@@ -99,30 +101,28 @@ module.exports.createPost = async(req, res) => {
             tagsName.push(item.tenLV);  // Vì mảng lấy từ database có dạng [{tenLV: 'html'}, {}, {}]... -> tạo mảng mới chỉ toàn là tên thôi
         })
 
-        await tags.forEach(async (tag) => {
+        for (const tag of tags) {
             if (!tagsName.includes(tag)) // Nếu tag không tồn tại thì thêm vào table 
             {
                 // console.log(tag);
                 await SpecialityModel.insertSpecialtyByName(tag);
             }
-        });
+        }
 
         let tagsNameAndMaFromTable = await SpecialityModel.getAllSpecialtiesWithMaTen();  // Lấy lại thông tin mã lĩnh vực và tên lĩnh vực trong bảng
 
-        await tagsNameAndMaFromTable.forEach(async (data) => {
+        for (const data of tagsNameAndMaFromTable) {
             if(tags.includes(data.tenLV)){ // Nếu tenLV nào có trong tags user nhập vào -> insert
                 await JobSpecialityModel.insertJobSpeciality(maCV, data.maLV);
                 // console.log(data.tenLV)
             }
-        })
+        }
 
-        await areas.forEach(async (maKV) =>{
-            // console.log(maKV);
+        for (const maKV of areas) {
             await JobEreaModel.insertJobArea(maCV, maKV);
-        });
-
+        }
         
-        res.send("ok");
+        res.redirect("back");
     } catch (error) {
         res.redirect("/")
     }

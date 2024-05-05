@@ -5,7 +5,7 @@ const getAllAreas = async () => {
         const result = await sql.query`select * from KHUVUC`;
         return result.recordset;
     } catch (err) {
-        console.error('Error getting students:', err);
+        console.error('Error getting getAllAreas:', err);
         return [];
     }
 }
@@ -15,7 +15,17 @@ const getAllAreasWithMaTen = async () => {
         const result = await sql.query`select maKV, tenKV from KHUVUC`;
         return result.recordset;
     } catch (err) {
-        console.error('Error getting students:', err);
+        console.error('Error getting getAllAreasWithMaTen:', err);
+        return [];
+    }
+}
+
+const getAreasWithMaKV = async (maKV) => {
+    try {
+        const result = await sql.query`select maKV, tenKV from KHUVUC where maKV=${maKV}`;
+        return result.recordset[0];
+    } catch (err) {
+        console.error('Error getting getAreasWithMaKV:', err);
         return [];
     }
 }
@@ -24,5 +34,6 @@ const getAllAreasWithMaTen = async () => {
 
 module.exports = {
     getAllAreas,
-    getAllAreasWithMaTen
+    getAllAreasWithMaTen,
+    getAreasWithMaKV
 };

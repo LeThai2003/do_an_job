@@ -31,6 +31,18 @@ const getJobBySlug = async (slug) => {
     }
 }
 
+const getJobNameByMaCV = async (maCV) => {
+    try {
+        const result = await sql.query`select maCV, tenCV from CONGVIEC where maCV = ${maCV}`;
+        return result.recordset[0];
+    } catch (err) {
+        console.log('Error getting getJobNameByMaCV:', err);
+        return [];
+    }
+}
+
+
+
 const getJobOfCompany = async (id) => {
     try {
         const result = await sql.query`select * from CONGVIEC where CONGVIEC.congTyId = ${id}`;
@@ -76,5 +88,6 @@ module.exports = {
     getJobBySlug,
     getJobOfCompany,
     updateJobDateApply,
-    insertJob
+    insertJob,
+    getJobNameByMaCV
 };

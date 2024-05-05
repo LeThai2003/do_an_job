@@ -48,11 +48,22 @@ const getUserByEmail = async (email) => {
     }
 }
 
+const getInfoUserByUserId = async (userId) => {
+    try {
+        const result = await sql.query`select userId, (ho+' '+ten) as hoTen, sdt, email from NGUOIDUNG where userId = ${userId}`;
+        return result.recordset[0];
+    } catch (err) {
+        console.log('Error getting getInfoUserByUserId:', err);
+        return [];
+    }
+}
+
 
 module.exports = {
     insertUser,
     getUserByToken,
     getUserByEmail,
     updateUser,
-    updateAvatarUser
+    updateAvatarUser,
+    getInfoUserByUserId
 };

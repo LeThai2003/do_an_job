@@ -13,12 +13,7 @@ module.exports.index = async(req, res) => {
 
         // -- Lấy danh sách mã công việc của công ty đó
         const jobOfCompany = await JobModel.getJobOfCompany(congTyId);
-
-        let listMaCV = [];
-
-        jobOfCompany.forEach(job => {
-            listMaCV.push(job.maCV);
-        });
+        let listMaCV = jobOfCompany.map(job => job.maCV);
 
         //--- Lấy CV đã ứng tuyển thuộc công việc của công ty đó
         let jobsDetail = [];
@@ -30,6 +25,7 @@ module.exports.index = async(req, res) => {
             }
         });
 
+        
         // gộp thông tin để trả ra giao diện
     
         for (const jobDetail of jobsDetail) {
@@ -59,6 +55,8 @@ module.exports.detailCV = async(req, res) => {
     try {
         
         const maCTCV = req.params.maCTCV;
+
+        JobDetailModel.updateDaXemCV(maCTCV);
 
         const jobDetail = await JobDetailModel.getJobDetailByMaCTCV(maCTCV);
 

@@ -31,10 +31,60 @@ const insertJobDetail = async (jobDetail) => {
     }
 }
 
+const updateDaXemCV = async (maCTCV) => {
+    try {
+        await sql.query`update CHITIET_CV set daXem = 1 where maCTCV = ${maCTCV}`;
+    } catch (err) {
+        console.log('updateDaXemCV err:', err);
+    }
+}
+
+const countCVDaXem = async (congTyId) => {
+    try {
+        const stringQuery = `SELECT count(*) as soluong
+        FROM     dbo.CONGVIEC INNER JOIN
+                          dbo.CHITIET_CV ON (dbo.CONGVIEC.maCV = dbo.CHITIET_CV.maCV) and (dbo.CONGVIEC.congTyId = ${congTyId}) and (dbo.CHITIET_CV.daXem = 1) and (dbo.CHITIET_CV.deleted = 0)
+        `;
+        const result = await sql.query(stringQuery);
+        return result.recordset[0];
+    } catch (err) {
+        console.log('err countCVDaXem:', err);
+    }
+}
+
+const countCVChuaXem = async (congTyId) => {
+    try {
+        const stringQuery = `SELECT count(*) as soluong
+        FROM     dbo.CONGVIEC INNER JOIN
+                          dbo.CHITIET_CV ON (dbo.CONGVIEC.maCV = dbo.CHITIET_CV.maCV) and (dbo.CONGVIEC.congTyId = ${congTyId}) and (dbo.CHITIET_CV.daXem = 0) and (dbo.CHITIET_CV.deleted = 0)
+        `;
+        const result = await sql.query(stringQuery);
+        return result.recordset[0];
+    } catch (err) {
+        console.log('err countCVChuaXem:', err);
+    }
+}
+
+const countCV = async (congTyId) => {
+    try {
+        const stringQuery = `SELECT count(*) as soluong
+        FROM     dbo.CONGVIEC INNER JOIN
+                          dbo.CHITIET_CV ON (dbo.CONGVIEC.maCV = dbo.CHITIET_CV.maCV) and (dbo.CONGVIEC.congTyId = ${congTyId}) and (dbo.CHITIET_CV.deleted = 0)
+        `;
+        const result = await sql.query(stringQuery);
+        return result.recordset[0];
+    } catch (err) {
+        console.log('err countCV:', err);
+    }
+}
 
 
 module.exports = {
     getAllJobDetails,
     insertJobDetail,
-    getJobDetailByMaCTCV
+    getJobDetailByMaCTCV,
+    updateDaXemCV,
+    countCVDaXem,
+    countCVChuaXem,
+    countCV
 };

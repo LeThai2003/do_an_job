@@ -61,6 +61,38 @@ const updateJobDateApply = async (maCV, value) => {
     }
 }
 
+const countJobDangTuyen = async (congTyId) => {
+    try {
+        const stringQuery = `select count(*) soluong from CONGVIEC where (congTyId = ${congTyId}) and (trangThai = 1) and (deleted = 0)`
+        const result = await sql.query(stringQuery);
+        return result.recordset[0];
+    } catch (err) {
+        console.log('err countJobDangTuyen:', err);
+    }
+}
+
+const countJobDungTuyen = async (congTyId) => {
+    try {
+        const stringQuery = `select count(*) soluong from CONGVIEC where (congTyId = ${congTyId}) and (trangThai = 0) and (deleted = 0)`
+        const result = await sql.query(stringQuery);
+        return result.recordset[0];
+    } catch (err) {
+        console.log('err countJobDungTuyen:', err);
+    }
+}
+
+const countJob = async (congTyId) => {
+    try {
+        const stringQuery = `select count(*) soluong from CONGVIEC where (congTyId = ${congTyId}) and (deleted = 0)`
+        const result = await sql.query(stringQuery);
+        return result.recordset[0];
+    } catch (err) {
+        console.log('err countJob:', err);
+    }
+}
+
+
+
 const insertJob = async (congTyId, body) => {
     try {
         let {tenCV, moTa, luong, chiTietCV, kinhNghiem, hanChot, slug} = body;
@@ -89,5 +121,8 @@ module.exports = {
     getJobOfCompany,
     updateJobDateApply,
     insertJob,
-    getJobNameByMaCV
+    getJobNameByMaCV,
+    countJobDangTuyen,
+    countJobDungTuyen,
+    countJob
 };

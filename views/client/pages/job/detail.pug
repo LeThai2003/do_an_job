@@ -1,8 +1,12 @@
 extends ../../layouts/job.pug 
 include ../../mixins/moment.pug
 include ../../mixins/time-apply.pug
+include ../../mixins/alert.pug
 
 block main 
+    +alert-error(5000)
+    +alert-success(10000)
+
     .section-body.container.mb-5
         .row
             .container-left.col-sm-12.col-lg-8.mb-5

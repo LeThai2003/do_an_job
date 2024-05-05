@@ -1,8 +1,10 @@
 const JobModel = require("../../models/Job.model");
 const CompanyModel = require("../../models/Company.model");
+const JobDetailModel = require("../../models/Job-detail.model");
 const JobAreaModel = require("../../models/Job-area.model");
 const timeApplyHelper = require("../../helpers/time-apply.helper")
 const searchFormHelper = require("../../helpers/form-search.helper")
+
 
 // [GET] /jobs
 module.exports.getAllJobs = async (req, res) => {
@@ -63,12 +65,27 @@ module.exports.detail = async(req, res) => {
 //[POST] /jobs/apply-job/:maCV
 module.exports.applyJob = async(req, res) => {
 
-    const maCV = req.params.maCV;
-    console.log(maCV);
-    console.log(req.body);
-    console.log(req.file);
+    try {
+        const maCV = req.params.maCV;
+        const userId = res.locals.User.userId;
+        const jobDetail = {};
 
-    res.render("client/pages/job/test", {
-        title: "file"
-    });
+        jobDetail.maCV = maCV;
+        jobDetail.userId = userId;
+        jobDetail.pdf = `/uploads/${req.file.filename}`;
+        jobDetail.khuVucUT = req.body.khuVucUT;
+
+        console.log(jobDetail);
+
+        await JobDetailModel.insertJobDetail(jobDetail);
+
+        res.send("ok");
+    
+        // res.render("client/pages/job/test", {
+        //     title: "file"
+        // });
+    } catch (error) {
+            console.log("lỗi ở nộp đơn")
+            redirect("/");
+    }
 }

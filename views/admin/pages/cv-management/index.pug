@@ -6,68 +6,68 @@ block main
 
     .card.mb-3 
             .card-header Danh sách 
-                .card-body 
-                    .row 
-                        .col-8 
-                            //- +changeMulti(`/${prefixAdmin}/products/changeMulti?_method=PATCH`)
-                        
-                    if(jobsDetail.length > 0)
-                        table.table.table-hover.table-sm(box-check)
-                            thead 
+            .card-body 
+                .row 
+                    .col-8 
+                        //- +changeMulti(`/${prefixAdmin}/products/changeMulti?_method=PATCH`)
+                    
+                if(jobsDetail.length > 0)
+                    table.table.table-hover.table-sm(box-check)
+                        thead 
+                            tr 
+                                td 
+                                    input(type="checkbox"
+                                    name="checkAll"
+                                )
+                                th STT 
+                                th Tên công việc 
+                                th Họ tên
+                                th Số điện thoại 
+                                th Email 
+                                th Ngày gửi 
+                                th Khu vực ứng tuyển
+                                th Trạng thái
+                                th Hành động
+                        tbody
+                            each jobDetail, index in jobsDetail
                                 tr 
                                     td 
-                                        input(type="checkbox"
-                                        name="checkAll"
-                                    )
-                                    th STT 
-                                    th Tên công việc 
-                                    th Họ tên
-                                    th Số điện thoại 
-                                    th Email 
-                                    th Ngày gửi 
-                                    th Khu vực ứng tuyển
-                                    th Trạng thái
-                                    th Hành động
-                            tbody
-                                each jobDetail, index in jobsDetail
-                                    tr 
-                                        td 
-                                            input(
-                                                type="checkbox"
-                                                name="id"
-                                            )
-                                        td #{index + 1}
-                                        td #{jobDetail.infoJob.tenCV}
-                                        td #{jobDetail.infoUser.hoTen}
-                                        td #{jobDetail.infoUser.sdt} 
-                                        td #{jobDetail.infoUser.email} 
-                                        td 
-                                            +formatDate(jobDetail.thoiGianNop)
-                                        td #{jobDetail.infoArea.tenKV}
-                                        td
-                                            if(jobDetail.daXem == false)
-                                                a(
-                                                    href="#"
-                                                    class="badge rounded-pill bg-danger"
-                                                ) Chưa xem
-                                            else 
-                                                a(
-                                                    href="#"
-                                                    class="badge rounded-pill bg-success"
-                                                ) Đã xem
-                                        td 
-                                            a(href=`#`)
-                                                button(
-                                                    class="btn btn-secondary me-1"
-                                                    button-detail 
-                                                ) Xem chi tiết 
-                                            a(href=`#`)
-                                                button(
-                                                    class="btn btn-danger"
-                                                    button-delete  
-                                                ) Xóa 
-                    else 
-                        .row     
-                            .col-12 
-                                div(style="text-align: center") 
-                                    b Không có danh sách để hiển thị    
+                                        input(
+                                            type="checkbox"
+                                            name="id"
+                                        )
+                                    td #{index + 1}
+                                    td #{jobDetail.infoJob.tenCV}
+                                    td #{jobDetail.infoUser.hoTen}
+                                    td #{jobDetail.infoUser.sdt} 
+                                    td #{jobDetail.infoUser.email} 
+                                    td 
+                                        +formatDate(jobDetail.thoiGianNop)
+                                    td #{jobDetail.infoArea.tenKV}
+                                    td
+                                        if(jobDetail.daXem == false)
+                                            a(
+                                                href="#"
+                                                class="badge rounded-pill bg-warning"
+                                            ) Chưa xem
+                                        else 
+                                            a(
+                                                href="#"
+                                                class="badge rounded-pill bg-success"
+                                            ) Đã xem
+                                    td 
+                                        a(href=`/${prefixAdmin}/cv-management/${User.congTyId}/detail/${jobDetail.maCTCV}`)
+                                            button(
+                                                class="btn btn-secondary me-1"
+                                                button-detail 
+                                            ) Xem chi tiết 
+                                        a(href=`#`)
+                                            button(
+                                                class="btn btn-danger"
+                                                button-delete  
+                                            ) Xóa 
+                else 
+                    .row     
+                        .col-12 
+                            div(style="text-align: center") 
+                                b Không có danh sách để hiển thị    

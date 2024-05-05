@@ -53,3 +53,32 @@ module.exports.index = async(req, res) => {
         res.redirect("/");   
     }
 }
+
+//[GET] /manage/cv-managemant/:congTyId/detail/:maCTCV
+module.exports.detailCV = async(req, res) => {
+    try {
+        
+        const maCTCV = req.params.maCTCV;
+
+        const jobDetail = await JobDetailModel.getJobDetailByMaCTCV(maCTCV);
+
+        const infoJob = await JobModel.getJobNameByMaCV(jobDetail.maCV);
+        const infoUser = await UserModel.getInfoUserByUserId(jobDetail.userId);
+        const infoArea = await AreaModel.getAreasWithMaKV(jobDetail.khuVucUT);
+
+        jobDetail.infoJob = infoJob;
+        jobDetail.infoUser = infoUser;
+        jobDetail.infoArea = infoArea;
+
+
+        res.render("admin/pages/cv-management/detail", {
+            title: "Trang danh sách cv",
+            jobDetail: jobDetail
+        })
+
+    } catch (error) {
+        console.log("Lỗi trang chi tiết cv");
+        res.redirect("/");   
+    }
+}
+

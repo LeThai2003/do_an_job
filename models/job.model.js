@@ -33,7 +33,7 @@ const getJobBySlug = async (slug) => {
 
 const getJobNameByMaCV = async (maCV) => {
     try {
-        const result = await sql.query`select maCV, tenCV from CONGVIEC where maCV = ${maCV}`;
+        const result = await sql.query`select maCV, tenCV, chiTietCV from CONGVIEC where maCV = ${maCV}`;
         return result.recordset[0];
     } catch (err) {
         console.log('Error getting getJobNameByMaCV:', err);

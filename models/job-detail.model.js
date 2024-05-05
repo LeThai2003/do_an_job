@@ -10,6 +10,16 @@ const getAllJobDetails = async () => {
     }
 }
 
+const getJobDetailByMaCTCV = async (maCTCV) => {
+    try {
+        const result = await sql.query`select * from CHITIET_CV where maCTCV=${maCTCV}`;
+        return result.recordset[0];
+    } catch (err) {
+        console.error('Error getting getJobDetailByMaCTCV:', err);
+        return [];
+    }
+}
+
 const insertJobDetail = async (jobDetail) => {
     try {
         const {maCV, userId, pdf, khuVucUT} = jobDetail;
@@ -25,5 +35,6 @@ const insertJobDetail = async (jobDetail) => {
 
 module.exports = {
     getAllJobDetails,
-    insertJobDetail
+    insertJobDetail,
+    getJobDetailByMaCTCV
 };

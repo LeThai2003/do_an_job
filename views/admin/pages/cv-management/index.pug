@@ -1,0 +1,61 @@
+extends ../../layouts/default.pug 
+include ../../mixins/moment.pug
+
+block main
+    h2 Danh sách CV
+
+    .card.mb-3 
+            .card-header Danh sách 
+                .card-body 
+                    .row 
+                        .col-8 
+                            //- +changeMulti(`/${prefixAdmin}/products/changeMulti?_method=PATCH`)
+                        
+                    
+                    table.table.table-hover.table-sm(box-check)
+                        thead 
+                            tr 
+                                td 
+                                    input(type="checkbox"
+                                    name="checkAll"
+                                )
+                                th STT 
+                                th Tên công việc 
+                                th Họ tên
+                                th Số điện thoại 
+                                th Email 
+                                th Ngày gửi 
+                                th Khu vực ứng tuyển
+                                th Trạng thái
+                                th Hành động
+                        tbody
+                            tr 
+                                td 
+                                    input(
+                                        type="checkbox"
+                                        name="id"
+                                    )
+                                td 1
+                                td interm nodejs
+                                td Lê Văn A
+                                td 0989222222 
+                                td levana@gmail.com
+                                td 
+                                    | 22/12/2022
+                                td Hà Nội
+                                td
+                                    a(
+                                        href="#"
+                                        class="badge rounded-pill bg-danger"
+                                    ) Chưa xem 
+                                td 
+                                    a(href=`#`)
+                                        button(
+                                            class="btn btn-secondary me-1"
+                                            button-detail 
+                                        ) Xem chi tiết 
+                                    a(href=`#`)
+                                        button(
+                                            class="btn btn-danger"
+                                            button-delete  
+                                        ) Xóa 

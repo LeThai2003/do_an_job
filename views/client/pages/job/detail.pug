@@ -34,7 +34,13 @@ block main
                         i Hạn chót vào ngày  
                          +formatDate(job.hanChot)
             .box-ungtuyen
-                form.p-2
+                form(
+                        action=`/jobs/apply-job/${job.maCV}` 
+                        method="post" 
+                        form-appply-job                        
+                        enctype="multipart/form-data"
+                        class="p-2"
+                ) 
                     .from-header.d-flex.justify-content-between.align-items-center
                         p.title-cv Ứng tuyển vị trí <span>#{job.tenCV}</span>
                         p(class="exit" onClick="closeUngTuyen()") X
@@ -42,7 +48,7 @@ block main
                         .upload.col-sm-12.col-md-6
                             label(for="fileInput" class="d-flex align-items-center") <box-icon name='upload'></box-icon> Tải lên cv từ máy
                             input(type="file" id="fileInput" name="file" accept=".pdf, .doc, .docx" class="input_file" style="visibility:hidden" onChange="upload()")                       
-                        select(class="col-sm-12 col-md-6" select-areaUT)
+                        select(class="col-sm-12 col-md-6" select-areaUT name="khuVucUT")
                             option(value="" disabled selected hidden) Khu vực ứng tuyển 
                             each area in jobAreas
                                 option(value=area.maKV) #{area.tenKV}

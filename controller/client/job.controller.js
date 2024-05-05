@@ -59,3 +59,16 @@ module.exports.detail = async(req, res) => {
         res.redirect("/");
     }
 }
+
+//[POST] /jobs/apply-job/:maCV
+module.exports.applyJob = async(req, res) => {
+
+    const maCV = req.params.maCV;
+    console.log(maCV);
+    console.log(req.body);
+    console.log(req.file);
+
+    res.render("client/pages/job/test", {
+        title: "file"
+    });
+}

@@ -51,6 +51,12 @@ app.set("view engine", "pug");
 
 app.use(express.static("public"));
 
+app.get('/uploads/:filename', (req, res) => {
+    const filename = req.params.filename;
+    const filePath = path.join(__dirname, 'public', 'uploads', filename);
+    res.sendFile(filePath);
+});
+
 // router client
 routerClient(app);
 routerAdmin(app);

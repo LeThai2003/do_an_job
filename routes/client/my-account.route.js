@@ -5,17 +5,9 @@ const validate = require("../../validates/client/my-account.validate")
 
 const multer  = require('multer')
 
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-      cb(null, './public/uploads')
-    },
-    filename: function (req, file, cb) {
-      const uniquePrefix = Date.now() + '-' + Math.round(Math.random() * 1E9)
-      cb(null, uniquePrefix + "-" + file.originalname)
-    }
-  })
+const storageMulter = require("../../helpers/storage-multer.helper");
   
-  const upload = multer({ storage: storage })
+const upload = multer({ storage: storageMulter() })
 
 
 

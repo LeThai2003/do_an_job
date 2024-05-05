@@ -23,6 +23,19 @@ selectBtn.addEventListener("click", () => {
 var selectedItems = [];
 var selectedIds = [];
 
+const updateArraySelect = (item) => {
+    const tenKV = item.querySelector(".item-text").innerText;
+    const maKV = parseInt(item.querySelector(".item-text").getAttribute("makv"));
+    console.log(maKV)
+    if (selectedItems.includes(tenKV)) {
+        selectedItems = selectedItems.filter(item => item !== tenKV);
+        selectedIds = selectedIds.filter(item => item !== maKV);
+    } else {
+        selectedItems.push(tenKV);
+        selectedIds.push(maKV);
+    }
+}
+
 const addArea = () => {
     let html = ``;
     areas.forEach(area => {
@@ -50,16 +63,7 @@ const addArea = () => {
             item.classList.toggle("checked");
 
             // Cập nhật mảng các mục đã chọn
-            const tenKV = item.querySelector(".item-text").innerText;
-            const maKV = parseInt(item.querySelector(".item-text").getAttribute("makv"));
-            console.log(maKV)
-            if (selectedItems.includes(tenKV)) {
-                selectedItems = selectedItems.filter(item => item !== tenKV);
-                selectedIds = selectedIds.filter(item => item !== maKV);
-            } else {
-                selectedItems.push(tenKV);
-                selectedIds.push(maKV);
-            }
+            updateArraySelect(item);
 
             // Cập nhật nút chọn
             updateSelectedText();
@@ -91,12 +95,7 @@ const assignClickEvent = () => {
     items.forEach(item => {
         item.addEventListener("click", () => {
             item.classList.toggle("checked");
-            const tenKV = item.querySelector(".item-text").innerText;
-            if (selectedItems.includes(tenKV)) {
-                selectedItems = selectedItems.filter(item => item !== tenKV);
-            } else {
-                selectedItems.push(tenKV);
-            }
+            updateArraySelect(item);
             updateSelectedText();
         });
     });

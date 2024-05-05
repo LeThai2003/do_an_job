@@ -28,29 +28,34 @@ module.exports.getAllJobs = async (req, res) => {
 
 //[GET] /jobs/detail/:slug
 module.exports.detail = async(req, res) => {
-    const userId = res.locals.User.userId;
+    try {
+        const userId = res.locals.User.userId;
 
-    const slugJob = req.params.slug;
-    const job = await JobModel.getJobBySlug(slugJob);
+        const slugJob = req.params.slug;
+        const job = await JobModel.getJobBySlug(slugJob);
 
-    const company = await CompanyModel.getCompanyById(job.congTyId);
+        const company = await CompanyModel.getCompanyById(job.congTyId);
 
-    const getJobs = await JobModel.getJobOfCompany(job.congTyId);
+        const getJobs = await JobModel.getJobOfCompany(job.congTyId);
 
-    const jobOfCompany = await timeApplyHelper.time(getJobs);
+        const jobOfCompany = await timeApplyHelper.time(getJobs);
 
-    const jobAreas = await JobAreaModel.getAreaOfJob(slugJob);
+        const jobAreas = await JobAreaModel.getAreaOfJob(slugJob);
 
-    //lay congTyId của user nếu có
-    let congTyUser = await CompanyModel.getInfoCompanyByIdUser(userId);
+        //lay congTyId của user nếu có
+        let congTyUser = await CompanyModel.getInfoCompanyByIdUser(userId);
 
-    const congTyUserId = congTyUser.congTyId;
+        const congTyUserId = congTyUser.congTyId;
 
-    res.render("client/pages/job/detail.pug", {
-        job: job,
-        company: company,
-        jobOfCompany: jobOfCompany,
-        jobAreas: jobAreas,
-        congTyUserId: congTyUserId
-    });
+        res.render("client/pages/job/detail.pug", {
+            job: job,
+            company: company,
+            jobOfCompany: jobOfCompany,
+            jobAreas: jobAreas,
+            congTyUserId: congTyUserId
+        });
+    } catch (error) {
+        console.log("Công việc đã bị xóa Hoặc Slug bị sai");
+        res.redirect("/");
+    }
 }

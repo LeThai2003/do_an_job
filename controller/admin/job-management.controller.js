@@ -71,7 +71,9 @@ module.exports.createPost = async(req, res) => {
     try {
         const congTyId = req.params.congTyId;
 
+
         console.log("-----------------");
+        console.log(req.body)
         req.body.chiTietCV = he.decode(req.body.chiTietCV);
         // console.log(req.body.chiTietCV)
         console.log("-----------------");
@@ -87,6 +89,7 @@ module.exports.createPost = async(req, res) => {
         const maCV = job.maCV;
 
         const areas = JSON.parse(req.body.idsArea);
+        console.log(areas)
 
         const tags = JSON.parse(req.body.tagsName);  // Tags get from form (user input)
         let tagsNameFromTable = await SpecialityModel.getAllSpecialtiesWithTen();  // Lấy tên tất cả tag trong table

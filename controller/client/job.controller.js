@@ -4,52 +4,46 @@ const JobDetailModel = require("../../models/Job-detail.model");
 const JobAreaModel = require("../../models/Job-area.model");
 const timeApplyHelper = require("../../helpers/time-apply.helper")
 const searchFormHelper = require("../../helpers/form-search.helper")
+const paginationHelper = require("../../helpers/pagination.helper")
 
 
 // [GET] /jobs
 module.exports.getAllJobs = async (req, res) => {
-    var getJobs = [];
+    try {
+        var getJobs = [];
 
-    if(req.query.vitri)
-    {
-        const query = searchFormHelper.search(req.query);
-        getJobs = await JobModel.getJobsByForm(query);
+        if(req.query.vitri)
+        {
+            const query = searchFormHelper.search(req.query);
+            getJobs = await JobModel.getJobsByForm(query);
+        }
+        else
+        {
+            getJobs = await JobModel.getAllJobs();
+        }
+
+        const countJob = getJobs.length;
+
+        const objPagination = paginationHelper(req.query, countJob);
+        
+        // sap xep theo ngay tao
+        getJobs.sort((a, b) => new Date(b.ngayTao) - new Date(a.ngayTao));
+
+        const startIndex = (objPagination.currentPage - 1) * objPagination.limitPerPage;
+        const endIndex = startIndex + objPagination.limitPerPage;
+
+        let jobs = getJobs.slice(startIndex, endIndex);
+
+        jobs = await timeApplyHelper.time(jobs);
+
+        res.render("client/pages/job/index", {
+            title: "Trang danh sách công việc",
+            jobs: jobs,
+            pagination: JSON.stringify(objPagination)
+        })
+    } catch (error) {
+        res.redirect("back")
     }
-    else
-    {
-        getJobs = await JobModel.getAllJobs();
-    }
-    const objPagination = {
-        currentPage : 1,
-        limitPerPage : 4 
-    }
-    const countJob = getJobs.length;
-
-    objPagination.totalPage = Math.ceil(countJob / objPagination.limitPerPage);
-
-    if(req.query.page)
-    {
-        objPagination.currentPage = parseInt(req.query.page);
-    }
-
-    objPagination.skip = (objPagination.currentPage - 1) * objPagination.limitPerPage;
-
-    // getJobs = await JobModel.getAllJobsPagi(objPagination.limitPerPage, objPagination.skip);
-    // sap xep theo ngay tao
-    getJobs.sort((a, b) => new Date(b.ngayTao) - new Date(a.ngayTao));
-
-    const startIndex = (objPagination.currentPage - 1) * objPagination.limitPerPage;
-    const endIndex = startIndex + objPagination.limitPerPage;
-
-    let jobs = getJobs.slice(startIndex, endIndex);
-
-    jobs = await timeApplyHelper.time(jobs);
-
-    res.render("client/pages/job/index", {
-        title: "Trang danh sách công việc",
-        jobs: jobs,
-        pagination: JSON.stringify(objPagination)
-    })
 }
 
 //[GET] /jobs/detail/:slug

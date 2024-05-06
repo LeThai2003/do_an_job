@@ -1,47 +1,54 @@
 const CompanyModel = require("../../models/Company.model");
 const JobModel = require("../../models/Job.model");
 const timeApplyHelper = require("../../helpers/time-apply.helper")
+const paginationHelper = require("../../helpers/pagination.helper")
 
 //[GET]/companys
 module.exports.index = async(req, res) => {
-
-    var companies = await CompanyModel.getAllCompanies();
-    var tenCT = "";
-    var khuVuc;
-    var query =``;
-    
-    if(req.query.tenCT)
-    {
-        tenCT = req.query.tenCT;
-    }
-
-    if(req.query.khuvuc)
-    {
-        khuVuc = req.query.khuvuc;
-
-        if(khuVuc == 'kvuc')
+    try {
+        var companies = await CompanyModel.getAllCompanies();
+        var tenCT = "";
+        var khuVuc;
+        var query =``;
+        
+        if(req.query.tenCT)
         {
-            query = `select * from CONGTY where (tenCT like N'%${tenCT}%')`;
+            tenCT = req.query.tenCT;
         }
-        else
-        {
-            query = `select * from CONGTY where (tenCT like N'%${tenCT}%') and (diaDiem like N'${khuVuc}%')`;
-        }
-
-        companies = await CompanyModel.getAllCompaniesBySearch(query);
-    }
     
+        if(req.query.khuvuc)
+        {
+            khuVuc = req.query.khuvuc;
+    
+            if(khuVuc == 'kvuc')
+            {
+                query = `select * from CONGTY where (tenCT like N'%${tenCT}%')`;
+            }
+            else
+            {
+                query = `select * from CONGTY where (tenCT like N'%${tenCT}%') and (diaDiem like N'${khuVuc}%')`;
+            }
+    
+            companies = await CompanyModel.getAllCompaniesBySearch(query);
+        }
 
-    console.log("--------------------------------------------------------")
-    console.log(query);
-    console.log(companies);
-    console.log("--------------------------------------------------------")
+        const countCompany = companies.length;
 
+        const objPagination = paginationHelper(req.query, countCompany);
 
-    res.render("client/pages/company/index",{
-        title: "Trang công ty",
-        companies: companies
-    })
+        const startIndex = (objPagination.currentPage - 1) * objPagination.limitPerPage;
+        const endIndex = startIndex + objPagination.limitPerPage;
+
+        companies = companies.slice(startIndex, endIndex);
+        
+        res.render("client/pages/company/index",{
+            title: "Trang công ty",
+            companies: companies,
+            pagination: objPagination
+        })
+    } catch (error) {
+        res.redirect("back");
+    }
 }
 
 

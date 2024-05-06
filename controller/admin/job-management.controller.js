@@ -5,6 +5,7 @@ const AreaModel = require("../../models/Area.model");
 const SpecialityModel = require("../../models/Specialty.model");
 const JobSpecialityModel = require("../../models/Job-speciality.model");
 const slugHelper = require("../../helpers/convert-to-slug.helper");
+const hotTroFormSearchHelper = require("../../helpers/ho-tro-form-search");
 
 
 
@@ -123,6 +124,35 @@ module.exports.createPost = async(req, res) => {
         }
         
         res.redirect("back");
+    } catch (error) {
+        res.redirect("/")
+    }
+}
+
+//[GET]/manage/job-management/:congTyId/detail/:slugCV
+module.exports.detail = async(req, res) => {
+    try {
+        const congTyId = req.params.congTyId;
+        const slug = req.params.slugCV;
+
+        const job = await JobModle.getJobBySlug(slug);
+
+        const objKinhNghiem = hotTroFormSearchHelper.kinhNghiem;
+
+        job.tenKinhNghiem =  objKinhNghiem.find(item => item.value == job.kinhNghiem).name;
+
+        let areaOfJob = await JobEreaModel.getAreaOfJob(job.slug);
+        areaOfJob = areaOfJob.map(item => item.tenKV);
+
+        job.tenKhuVuc = areaOfJob.join(", ")
+
+        
+
+        res.render("admin/pages/job-management/detail", {
+            title: "Trang chi tiết công việc",
+            job: job,
+        })
+
     } catch (error) {
         res.redirect("/")
     }

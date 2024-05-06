@@ -10,5 +10,6 @@ router.get("/:congTyId/create", controller.create);
 
 router.post("/:congTyId/create", validate.createNewJob, controller.createPost);
 
+router.get("/:congTyId/detail/:slugCV", controller.detail);
 
 module.exports = router;

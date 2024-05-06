@@ -1,0 +1,39 @@
+extends ../../layouts/default.pug 
+include ../../mixins/moment.pug 
+
+block main
+    .container 
+        h1 Trang chi tiết công việc 
+        .card.my-3
+            .card-header
+                p <b>Tên công việc: #{job.tenCV}</b> 
+            .card-body 
+                p Địa điểm: <b>#{job.tenKhuVuc}</b>
+
+                p Lương: <b>#{job.luong} triệu</b>
+
+                p Kinh nghiệm: <b>#{job.tenKinhNghiem}</b>
+
+                p Ngày tạo: 
+                    b 
+                        +formatDate(job.ngayTao)
+
+                p Ngày hết hạn:  
+                    b 
+                        +formatDate(job.hanChot)
+
+                p Trạng thái:  
+                        if (job.trangThai == true) 
+                            b(class="badge bg-success") Đang tuyển 
+                        else 
+                            b(class="badge bg-warning") Dừng tuyển 
+        .card 
+            .card-header
+                p <b>Chi tiết công việc</b> 
+            .card-body 
+                | !{job.chiTietCV}
+
+                
+                
+                
+

@@ -10,7 +10,7 @@ const searchFormHelper = require("../../helpers/form-search.helper")
 module.exports.getAllJobs = async (req, res) => {
     var getJobs = [];
 
-    if(req.query.vitri && req.query.khuvuc && req.query.kinhnghiem && req.query.luong)
+    if(req.query.vitri)
     {
         const query = searchFormHelper.search(req.query);
         getJobs = await JobModel.getJobsByForm(query);
@@ -19,17 +19,36 @@ module.exports.getAllJobs = async (req, res) => {
     {
         getJobs = await JobModel.getAllJobs();
     }
+    const objPagination = {
+        currentPage : 1,
+        limitPerPage : 4 
+    }
+    const countJob = getJobs.length;
+
+    objPagination.totalPage = Math.ceil(countJob / objPagination.limitPerPage);
 
     if(req.query.page)
     {
-        console.log(parseInt(req.query.page));
+        objPagination.currentPage = parseInt(req.query.page);
     }
 
-    const jobs = await timeApplyHelper.time(getJobs);
-    
+    objPagination.skip = (objPagination.currentPage - 1) * objPagination.limitPerPage;
+
+    // getJobs = await JobModel.getAllJobsPagi(objPagination.limitPerPage, objPagination.skip);
+    // sap xep theo ngay tao
+    getJobs.sort((a, b) => new Date(b.ngayTao) - new Date(a.ngayTao));
+
+    const startIndex = (objPagination.currentPage - 1) * objPagination.limitPerPage;
+    const endIndex = startIndex + objPagination.limitPerPage;
+
+    let jobs = getJobs.slice(startIndex, endIndex);
+
+    jobs = await timeApplyHelper.time(jobs);
+
     res.render("client/pages/job/index", {
         title: "Trang danh sách công việc",
-        jobs: jobs 
+        jobs: jobs,
+        pagination: JSON.stringify(objPagination)
     })
 }
 

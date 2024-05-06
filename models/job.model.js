@@ -10,6 +10,21 @@ const getAllJobs = async () => {
     }
 }
 
+const getAllJobsPagi = async (limitPerPage, skip) => {
+    try {
+        const stringQuery = `SELECT * 
+        FROM CONGVIEC 
+        ORDER BY ngayTao DESC
+        OFFSET ${skip} ROWS 
+        FETCH NEXT ${limitPerPage} ROWS ONLY`
+        const result = await sql.query(stringQuery);
+        return result.recordset;
+    } catch (err) {
+        console.log('Error getting jobs:', err);
+        return [];
+    }
+}
+
 const getJobsByForm = async (query) => {
     try {
         const queryString = query.toString();
@@ -91,6 +106,18 @@ const countJob = async (congTyId) => {
     }
 }
 
+const countAllJob = async (congTyId) => {
+    try {
+        const stringQuery = `select count(*) soluong from CONGVIEC where (deleted = 0)`
+        const result = await sql.query(stringQuery);
+        return result.recordset[0];
+    } catch (err) {
+        console.log('err countJob:', err);
+    }
+}
+
+
+
 
 
 const insertJob = async (congTyId, body) => {
@@ -124,5 +151,7 @@ module.exports = {
     getJobNameByMaCV,
     countJobDangTuyen,
     countJobDungTuyen,
-    countJob
+    countJob,
+    getAllJobsPagi,
+    countAllJob
 };

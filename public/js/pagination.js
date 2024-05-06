@@ -1,5 +1,4 @@
 
-
 const getPageList = (totalPages, page, maxLength) => {
     const range = (start, end) => {
         return Array.from(Array(end - start + 1), (_, i) => i + start);
@@ -38,11 +37,33 @@ const getPageList = (totalPages, page, maxLength) => {
     return range(1, sideWidth).concat(0, range(page - leftWidth, page + rightWidth), 0, range(totalPages - sideWidth + 1, totalPages));
 }
 
-var numberOfItem = 7;
-var limitPerPage = 1;
-var totalPages = Math.ceil(numberOfItem / limitPerPage);
+let urlNow = new URL(window.location.href);
+let getCurrentPage = urlNow.searchParams.get("page");
+
+console.log(getCurrentPage);
+
+
+const pagination = JSON.parse(document.querySelector("[pagination]").getAttribute("pagination"));
+
+
+var limitPerPage = pagination.limitPerPage;
+var totalPages = pagination.totalPage;
 var paginationSize = 5;  // ~~ độ dài tối đa của phân trang ~~ maxLength  [1, 2, 3, 4, 5, ..., 10]
 var currentPage;
+
+console.log("----------------")
+console.log(limitPerPage)
+console.log(totalPages)
+console.log(currentPage)
+
+if(!getCurrentPage)
+{
+    currentPage = 1;
+}
+else
+{
+    currentPage = parseInt(getCurrentPage);
+}
 
 const showPage = (whichPage) => {
     //Nếu trang không hợp lệ thì không có gì thay đổi
@@ -98,7 +119,7 @@ const showPage = (whichPage) => {
     return true;
 }
 
-showPage(1);
+showPage(currentPage);
 
 
 document.querySelector(".paginationn").addEventListener("click", function(event) {
@@ -154,7 +175,7 @@ document.querySelector(".paginationn").addEventListener("click", function(event)
         showPage(currentPage - 1);
         url.searchParams.set("page", currentPage)
     }
-    console.log(url)
+    // console.log(url)
     window.location.href = url.href;
 });
 

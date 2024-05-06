@@ -8,7 +8,7 @@ block main
         +box-head(title)
 
     .section-list.container-fluid
-        .section-item.row.row-cols-1.row-cols-md-2.row-cols-lg-4.p-4
+        .section-item.row.row-cols-1.row-cols-md-2.row-cols-lg-4.p-4(job-list)
             if(jobs.length > 0)
                 for job in jobs 
                     .item.col-sm-12.col-md-6.col-lg-4.col-xl-3.mb-4.p-2
@@ -34,3 +34,9 @@ block main
             else 
                 .col-12
                     div(class="text-center alert alert-danger" ) Không tìm thấy công việc 
+
+        div(class="paginationn")  
+            
+
+block script
+    script(src="/js/pagination.js")         

@@ -10,7 +10,7 @@ const searchFormHelper = require("../../helpers/form-search.helper")
 module.exports.getAllJobs = async (req, res) => {
     var getJobs = [];
 
-    if(Object.keys(req.query).length > 0)
+    if(req.query.vitri && req.query.khuvuc && req.query.kinhnghiem && req.query.luong)
     {
         const query = searchFormHelper.search(req.query);
         getJobs = await JobModel.getJobsByForm(query);
@@ -18,6 +18,11 @@ module.exports.getAllJobs = async (req, res) => {
     else
     {
         getJobs = await JobModel.getAllJobs();
+    }
+
+    if(req.query.page)
+    {
+        console.log(parseInt(req.query.page));
     }
 
     const jobs = await timeApplyHelper.time(getJobs);

@@ -37,9 +37,11 @@ if (formSearch) {
         e.preventDefault();
 
         let url = new URL(window.location.href);
-
-        url = new URL(`${url.origin}/jobs`);
-
+        if(!url.pathname == "/jobs")
+        {
+            url = new URL(`${url.origin}/jobs`);
+        }
+   
         const inputViTri = formSearch.querySelector("input[name='vitri']");
         const selectArea = formSearch.querySelector("[select-area]");
         const selectSalary = formSearch.querySelector("[select-salary]");
@@ -66,6 +68,7 @@ const objectSearch = {
     vitri: ""
 };
 const url = new URL(window.location.href);
+// console.log(url)
 
 if (url.search.includes("vitri")) {
     objectSearch.vitri = url.searchParams.get("vitri");
@@ -165,13 +168,13 @@ const array3 = array2.map(item => `(N'${item}')`);
 
 // link----
 
-if(url.href == `${url.origin}/jobs`)
+if(url.pathname == `/jobs`)
 {
     const linkJob = document.querySelector(".section-link .link-job.link");
     linkJob.classList.add("active");
 
 }
-else if(url.href == `${url.origin}/companys`)
+else if(url.pathname == `/companys`)
 {
     const linkCompany = document.querySelector(".section-link .link-cmp.link");
     linkCompany.classList.add("active");

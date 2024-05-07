@@ -1,6 +1,7 @@
 extends ../../layouts/default.pug 
 include ../../mixins/moment.pug
 include ../../mixins/filterStatus.pug
+include ../../mixins/searchForm.pug
 
 block main
     h2 Danh sách công việc
@@ -10,8 +11,10 @@ block main
             .card-body 
                 .container 
                     .row 
-                        .col-6 
+                        .col-7
                             +filterStatus(filterStatus)
+                        .col-5 
+                            +formSearch(keyword)
 
     .card.mb-3 
             .card-header Danh sách 

@@ -55,12 +55,21 @@ module.exports.index = async(req, res) => {
             }
                 
         }
+
+        let keyword = "";
+
+        if(req.query.keyword)
+        {
+            keyword = req.query.keyword;
+            jobs = jobs.filter(job => job.tenCV.toLowerCase().includes(req.query.keyword.toLowerCase()));
+        }
         
         res.render("admin/pages/job-management/index", {
             title: "Trang quản lý việc làm",
             jobs: jobs,
             congTyId: congTyId,
-            filterStatus
+            filterStatus,
+            keyword
         });
     } catch (error) {
         res.redirect("/")

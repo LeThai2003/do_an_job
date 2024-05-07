@@ -70,3 +70,25 @@ if(buttonStatus)
     });
 }
 // -----end trang công việc --- filter status -----
+
+// -----trang công việc --- search -----
+const formSearch = document.querySelector("[formSearch]");
+if(formSearch)
+{
+    formSearch.addEventListener("submit", e => {
+        e.preventDefault();
+        let url = new URL(window.location.href);
+        const input = formSearch.querySelector("input[name='keyword']");
+        const value = input.value;
+        if(value)
+        {
+            url.searchParams.set("keyword", value);
+        }
+        else
+        {
+            url.searchParams.delete("keyword");
+        }
+        window.location.href = url.href;
+    });
+}
+// -----end trang công việc --- search -----

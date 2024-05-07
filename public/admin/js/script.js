@@ -45,3 +45,28 @@ if(detailJobContainer)
     }
 }
 // ------end Trang chi tiết công việc------------
+
+
+// -----trang công việc --- filter status -----
+const buttonStatus = document.querySelectorAll("[status]");
+if(buttonStatus)
+{
+    buttonStatus.forEach(button => {
+        button.addEventListener("click", () => {
+            let url = new URL(window.location.href);
+
+            const status = button.getAttribute("status");
+            if(status)
+            {
+                url.searchParams.set("status", status);
+            }
+            else
+            {
+                url.searchParams.delete("status");
+            }
+            
+            window.location.href = url.href;
+        });
+    });
+}
+// -----end trang công việc --- filter status -----

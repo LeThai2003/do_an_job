@@ -1,8 +1,17 @@
 extends ../../layouts/default.pug 
 include ../../mixins/moment.pug
+include ../../mixins/filterStatus.pug
 
 block main
     h2 Danh sách công việc
+
+    .card.mb-3 
+            .card-header Bộ lọc và tìm kiếm 
+            .card-body 
+                .container 
+                    .row 
+                        .col-6 
+                            +filterStatus(filterStatus)
 
     .card.mb-3 
             .card-header Danh sách 
@@ -20,10 +29,6 @@ block main
                         table.table.table-hover.table-sm(box-check)
                             thead 
                                 tr 
-                                    td 
-                                        input(type="checkbox"
-                                        name="checkAll"
-                                    )
                                     th STT 
                                     th Tên công việc 
                                     th Khu vực
@@ -36,16 +41,11 @@ block main
                             tbody 
                                 each job, index in jobs
                                     tr 
-                                        td 
-                                            input(
-                                                type="checkbox"
-                                                name="id"
-                                            )
                                         td #{index + 1}
                                         td #{job.tenCV}
                                         td #{job.khuVuc}
                                         td #{job.luong} triệu 
-                                        td #{job.kinhNghiem} năm 
+                                        td #{job.tenKinhNghiem}
                                         td 
                                             +formatDate(job.ngayTao)
                                         td

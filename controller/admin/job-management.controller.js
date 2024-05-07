@@ -7,40 +7,60 @@ const SpecialityModel = require("../../models/Specialty.model");
 const JobSpecialityModel = require("../../models/Job-speciality.model");
 const slugHelper = require("../../helpers/convert-to-slug.helper");
 const hotTroFormSearchHelper = require("../../helpers/ho-tro-form-search");
-
-
-
+const timeApplyHelper = require("../../helpers/time-apply.helper");
+const filterStatusHelper = require("../../helpers/filter-status.helper");
 const he = require('he');
-
-
-const timeApplyHelper = require("../../helpers/time-apply.helper")
 
 
 //[GET]/manage/job-management/:congTyId
 module.exports.index = async(req, res) => {
     try {
+        const filterStatus = filterStatusHelper(req.query);
+
         const congTyId = req.params.congTyId;
 
         var jobs = await JobModle.getJobOfCompany(congTyId);
 
         jobs = await timeApplyHelper.time(jobs);
 
+        const objKinhNghiem = hotTroFormSearchHelper.kinhNghiem;
+
         for (const job of jobs) {
             let areas = await JobEreaModel.getAreaOfJobByMaCV(job.maCV);
-            let areaArray = [];
-            if(areas)
-            {
-                for (const area of areas) {
-                    areaArray.push(area.tenKV);
-                }
-            }
+            let areaArray = areas.map(area => area.tenKV);
             job.khuVuc = areaArray.join(", ")
+
+            job.tenKinhNghiem = objKinhNghiem.find(item => item.value == job.kinhNghiem).name;
+        }
+
+        if(req.query.status)
+        {
+            const status = req.query.status;
+            switch (status) {
+                case "expired":
+                    jobs = jobs.filter(item => item.hetHan == true)
+                    break;
+                case "unexpired":
+                    jobs = jobs.filter(item => item.hetHan == false)
+                    break;
+                case "inactive":
+                    jobs = jobs.filter(item => item.trangThai == false)
+                    break;
+                case "active":
+                    jobs = jobs.filter(item => item.trangThai == true)
+                    break;
+            
+                default:
+                    break;
+            }
+                
         }
         
         res.render("admin/pages/job-management/index", {
             title: "Trang quản lý việc làm",
             jobs: jobs,
-            congTyId: congTyId
+            congTyId: congTyId,
+            filterStatus
         });
     } catch (error) {
         res.redirect("/")

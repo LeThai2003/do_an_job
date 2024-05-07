@@ -85,15 +85,8 @@ block main
                             div(class="form-group")
                                 label(for="kinhNghiem") Kinh nghiệm
                                 select(id="kinhNghiem" class="form-control" name="kinhNghiem")
-                                    option(value="all") Tất cả kinh nghiệm
-                                    option(value="0") Chưa có kinh nghiệm
-                                    option(value="less1") Dưới 1 năm
-                                    option(value="1") 1 năm
-                                    option(value="2") 2 năm
-                                    option(value="3") 3 năm
-                                    option(value="4") 4 năm
-                                    option(value="5") 5 năm
-                                    option(value="over5") Trên 5 năm
+                                    each kn in objKinhNghiem
+                                        option(value=kn.value) #{kn.name}
                             div(class="form-group")
                                 label(for="hanChot") Hạn chót
                                 input(

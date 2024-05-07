@@ -57,12 +57,15 @@ module.exports.create = async(req, res) => {
 
         let specialities = await SpecialityModel.getAllSpecialtiesWithMaTen();
         specialities = JSON.stringify(specialities);
+
+        const objKinhNghiem = hotTroFormSearchHelper.kinhNghiem;
         
         res.render("admin/pages/job-management/create", {
             title: "Trang tạo mới việc làm",
             congTyId: congTyId,
             areas: areas,
-            specialities: specialities
+            specialities: specialities,
+            objKinhNghiem: objKinhNghiem
         });
     } catch (error) {
         res.redirect("/")
@@ -154,7 +157,6 @@ module.exports.detail = async(req, res) => {
             acceptEdit = 0;
         }
 
-        console.log(acceptEdit);
 
         res.render("admin/pages/job-management/detail", {
             title: "Trang chi tiết công việc",
@@ -173,6 +175,12 @@ module.exports.edit = async(req, res) => {
         const congTyId = req.params.congTyId;
         const slug = req.params.slugCV;
 
+        let areas = await AreaModel.getAllAreasWithMaTen();
+        areas = JSON.stringify(areas);
+
+        let specialities = await SpecialityModel.getAllSpecialtiesWithMaTen();
+        specialities = JSON.stringify(specialities);
+
         const job = await JobModle.getJobBySlug(slug);
 
         const objKinhNghiem = hotTroFormSearchHelper.kinhNghiem;
@@ -184,11 +192,17 @@ module.exports.edit = async(req, res) => {
 
         job.tenKhuVuc = areaOfJob.join(", ")
 
-        
+        let tagsJob = await JobSpecialityModel.getNameSpecialityOfCV(job.maCV);
+        tagsJob = tagsJob.map(item => item.tenLV);
+
+        job.tenLinhVuc = tagsJob.join(", ");
 
         res.render("admin/pages/job-management/edit", {
             title: "Trang chi tiết công việc",
             job: job,
+            objKinhNghiem,
+            areas,
+            specialities
         })
 
     } catch (error) {

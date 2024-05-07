@@ -27,9 +27,19 @@ const insertJobArea = async (maCV, maKV) => {
         const stringQuery = `insert into CONGVIEC_KHUVUC(maKV, maCV) values (${maKV}, ${maCV})`;
         console.log(stringQuery);
         await sql.query(stringQuery);
-        console.log("add tag success!")
+        console.log("add area success!")
     } catch (err) {
         console.error('Error getting insertJobArea:', err);
+    }
+}
+
+const deleteJobArea = async (maCV) => {
+    try {
+        const stringQuery = `delete from CONGVIEC_KHUVUC where maCV = ${maCV}`;
+        await sql.query(stringQuery);
+        console.log("delete areas success!")
+    } catch (err) {
+        console.error('Error getting deleteJobArea:', err);
     }
 }
 
@@ -38,5 +48,6 @@ const insertJobArea = async (maCV, maKV) => {
 module.exports = {
     getAreaOfJob,
     getAreaOfJobByMaCV,
-    insertJobArea
+    insertJobArea,
+    deleteJobArea
 };

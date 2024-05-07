@@ -79,11 +79,11 @@ module.exports.createPost = async(req, res) => {
         const congTyId = req.params.congTyId;
 
 
-        console.log("-----------------");
-        console.log(req.body)
+        // console.log("-----------------");
+        // console.log(req.body)
         req.body.chiTietCV = he.decode(req.body.chiTietCV);
         // console.log(req.body.chiTietCV)
-        console.log("-----------------");
+        // console.log("-----------------");
 
         // Tạo công việc trước để có congTyId
         const slugCV = slugHelper.convertToSlug(req.body.tenCV);
@@ -198,12 +198,65 @@ module.exports.edit = async(req, res) => {
         job.tenLinhVuc = tagsJob.join(", ");
 
         res.render("admin/pages/job-management/edit", {
-            title: "Trang chi tiết công việc",
+            title: "Trang chỉnh sửa công việc",
             job: job,
             objKinhNghiem,
             areas,
             specialities
         })
+
+    } catch (error) {
+        res.redirect("/")
+    }
+}
+
+//[POST]/manage/job-management/:congTyId/edit/:maCV
+module.exports.postEdit = async(req, res) => {
+    try {
+        const congTyId = req.params.congTyId;
+        const maCV = req.params.maCV;
+
+        console.log(req.body);
+        req.body.chiTietCV = he.decode(req.body.chiTietCV);
+
+        await JobModle.updateJob(maCV, req.body);
+
+        // --- xoa tag-job ... và area-job trước khi cập nhật--
+        await JobSpecialityModel.deleteSpecialityArea(maCV);
+        await JobEreaModel.deleteJobArea(maCV);
+        // --- xoa tag-job ... và area-job trước khi cập nhật--
+
+        const areas = JSON.parse(req.body.idsArea);
+
+        const tags = JSON.parse(req.body.tagsName);  // Tags get from form (user input)
+        let tagsNameFromTable = await SpecialityModel.getAllSpecialtiesWithTen();  // Lấy tên tất cả tag trong table
+        let tagsName = tagsNameFromTable.map(item => item.tenLV);  // Vì mảng lấy từ database có dạng [{tenLV: 'html'}, {}, {}]... -> tạo mảng mới chỉ toàn là tên thôi
+
+        //--tag--
+        for (const tag of tags) {
+            if (!tagsName.includes(tag)) // Nếu tag không tồn tại thì thêm vào table 
+            {
+                // console.log(tag);
+                await SpecialityModel.insertSpecialtyByName(tag);
+            }
+        }
+
+        let tagsNameAndMaFromTable = await SpecialityModel.getAllSpecialtiesWithMaTen();  // Lấy lại thông tin mã lĩnh vực và tên lĩnh vực trong bảng
+
+        for (const data of tagsNameAndMaFromTable) {
+            if(tags.includes(data.tenLV)){ // Nếu tenLV nào có trong tags user nhập vào -> insert
+                await JobSpecialityModel.insertJobSpeciality(maCV, data.maLV);
+                // console.log(data.tenLV)
+            }
+        }
+
+        //--KV--
+        for (const maKV of areas) {
+            await JobEreaModel.insertJobArea(maCV, maKV);
+        }
+        
+        req.flash("success", "Chỉnh sửa công việc thành công!");
+        res.redirect("back");
 
     } catch (error) {
         res.redirect("/")

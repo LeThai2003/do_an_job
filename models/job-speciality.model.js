@@ -31,8 +31,19 @@ const insertJobSpeciality = async (maCV, maLV) => {
     }
 }
 
+const deleteSpecialityArea = async (maCV) => {
+    try {
+        const stringQuery = `delete from CONGVIEC_LINHVUC where maCV = ${maCV}`;
+        await sql.query(stringQuery);
+        console.log("delete tags success!")
+    } catch (err) {
+        console.error('Error getting deleteSpecialityArea:', err);
+    }
+}
+
 module.exports = {
     getAllJobSpeciality,
     insertJobSpeciality,
-    getNameSpecialityOfCV
+    getNameSpecialityOfCV,
+    deleteSpecialityArea
 };

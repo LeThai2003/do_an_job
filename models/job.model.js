@@ -137,6 +137,23 @@ const insertJob = async (congTyId, body) => {
     }
 }
 
+const updateJob = async (maCV, body) => {
+    try {
+        let {tenCV, moTa, luong, chiTietCV, kinhNghiem, hanChot} = body;
+        
+        luong = parseInt(luong);
+
+        stringQuery = `update CONGVIEC set tenCV=N'${tenCV}', moTa=N'${moTa}', luong = ${luong}, chiTietCV=N'${chiTietCV}', kinhNghiem=${kinhNghiem}, hanChot='${hanChot}' where maCV=${maCV}`;
+
+        console.log(stringQuery);
+
+        await sql.query(stringQuery);
+        console.log("----- update job success!---")
+    } catch (err) {
+        console.log('updateJob err:', err);
+    }
+}
+
 
 
 
@@ -153,5 +170,6 @@ module.exports = {
     countJobDungTuyen,
     countJob,
     getAllJobsPagi,
-    countAllJob
+    countAllJob,
+    updateJob
 };

@@ -2,17 +2,17 @@ const hanChot = document.querySelector("input[type='date']");
 let value = hanChot.getAttribute("value").slice(0,10);
 hanChot.setAttribute("value", value);
 
-const formCreateJob = document.querySelector("[form-create-job]");
+const formEditJob = document.querySelector("[form-edit-job]");
 
 // ------------------create new job -------------
 
 //select option khu vuc
-const wrapper = formCreateJob.querySelector(".areas .wrapper");
-const selectBtn = formCreateJob.querySelector(".areas .select-btn");
-const options = formCreateJob.querySelector(".areas .options");
-const searchInp = formCreateJob.querySelector(".areas .wrapper .content input")
+const wrapper = formEditJob.querySelector(".areas .wrapper");
+const selectBtn = formEditJob.querySelector(".areas .select-btn");
+const options = formEditJob.querySelector(".areas .options");
+const searchInp = formEditJob.querySelector(".areas .wrapper .content input")
 
-const divContent = formCreateJob.querySelector(".areas .wrapper .content");
+const divContent = formEditJob.querySelector(".areas .wrapper .content");
 
 const areasAtt = divContent.getAttribute("areas");
 
@@ -150,13 +150,13 @@ searchInp.addEventListener("keyup", () => {
 });
 
 // tags
-const tagDiv =  formCreateJob.querySelector(".tags");
-const ul = formCreateJob.querySelector(".tags .content > ul"); // ul first
+const tagDiv =  formEditJob.querySelector(".tags");
+const ul = formEditJob.querySelector(".tags .content > ul"); // ul first
 const inputTag = ul.querySelector("input");
-const countNumber = formCreateJob.querySelector(".tags .details span");
-const removeButton = formCreateJob.querySelector(".tags .details button");
-const ulSelect = formCreateJob.querySelector(".tags .content .select ul");
-const liSelect = formCreateJob.querySelectorAll(".tags .content .select ul li");
+const countNumber = formEditJob.querySelector(".tags .details span");
+const removeButton = formEditJob.querySelector(".tags .details button");
+const ulSelect = formEditJob.querySelector(".tags .content .select ul");
+const liSelect = formEditJob.querySelectorAll(".tags .content .select ul li");
 
 let lengthMax = 10;
 let tags = [];
@@ -250,16 +250,16 @@ removeButton.addEventListener("click", () => {
 
 
 //submit
-formCreateJob.addEventListener("submit", (e) => {
+formEditJob.addEventListener("submit", (e) => {
     e.preventDefault();
-    const idsArea = formCreateJob.querySelector("input[name='idsArea']");
+    const idsArea = formEditJob.querySelector("input[name='idsArea']");
     idsArea.value = JSON.stringify(selectedIds);
-    const tagsName = formCreateJob.querySelector("input[name='tagsName']");
+    const tagsName = formEditJob.querySelector("input[name='tagsName']");
     tagsName.value = JSON.stringify(tags);
-    const textArea = formCreateJob.querySelector("textarea[name='chiTietCV']");
+    const textArea = formEditJob.querySelector("textarea[name='chiTietCV']");
     const decodedValue = decodeHtmlEntities(textArea.value);
     textArea.value = decodedValue;
-    formCreateJob.submit();
+    formEditJob.submit();
 })
 
 function decodeHtmlEntities(text) {

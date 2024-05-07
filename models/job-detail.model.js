@@ -10,6 +10,16 @@ const getAllJobDetails = async () => {
     }
 }
 
+const getAllJobByMaCV = async (maCV) => {
+    try {
+        const result = await sql.query`select * from CONGVIEC, CHITIET_CV where CONGVIEC.maCV = CHITIET_CV.maCV and CONGVIEC.maCV = ${maCV}`;
+        return result.recordset;
+    } catch (err) {
+        console.error('Error getting getAllJobByMaCV:', err);
+        return [];
+    }
+}
+
 const getJobDetailByMaCTCV = async (maCTCV) => {
     try {
         const result = await sql.query`select * from CHITIET_CV where maCTCV=${maCTCV}`;
@@ -86,5 +96,6 @@ module.exports = {
     updateDaXemCV,
     countCVDaXem,
     countCVChuaXem,
-    countCV
+    countCV,
+    getAllJobByMaCV
 };

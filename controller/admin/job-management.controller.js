@@ -1,6 +1,7 @@
 const JobModle = require("../../models/Job.model");
 const CompanyModel = require("../../models/Company.model");
 const JobEreaModel = require("../../models/Job-area.model");
+const JobDetailModel = require("../../models/Job-detail.model");
 const AreaModel = require("../../models/Area.model");
 const SpecialityModel = require("../../models/Specialty.model");
 const JobSpecialityModel = require("../../models/Job-speciality.model");
@@ -146,9 +147,46 @@ module.exports.detail = async(req, res) => {
 
         job.tenKhuVuc = areaOfJob.join(", ")
 
-        
+        const JobDetailOfJOb = await JobDetailModel.getAllJobByMaCV(job.maCV);
+        let acceptEdit = 1;
+
+        if(JobDetailOfJOb.length > 0){
+            acceptEdit = 0;
+        }
+
+        console.log(acceptEdit);
 
         res.render("admin/pages/job-management/detail", {
+            title: "Trang chi tiết công việc",
+            job: job,
+            acceptEdit: acceptEdit,
+        })
+
+    } catch (error) {
+        res.redirect("/")
+    }
+}
+
+//[GET]/manage/job-management/:congTyId/edit/:slugCV
+module.exports.edit = async(req, res) => {
+    try {
+        const congTyId = req.params.congTyId;
+        const slug = req.params.slugCV;
+
+        const job = await JobModle.getJobBySlug(slug);
+
+        const objKinhNghiem = hotTroFormSearchHelper.kinhNghiem;
+
+        job.tenKinhNghiem =  objKinhNghiem.find(item => item.value == job.kinhNghiem).name;
+
+        let areaOfJob = await JobEreaModel.getAreaOfJob(job.slug);
+        areaOfJob = areaOfJob.map(item => item.tenKV);
+
+        job.tenKhuVuc = areaOfJob.join(", ")
+
+        
+
+        res.render("admin/pages/job-management/edit", {
             title: "Trang chi tiết công việc",
             job: job,
         })

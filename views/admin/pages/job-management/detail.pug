@@ -2,7 +2,7 @@ extends ../../layouts/default.pug
 include ../../mixins/moment.pug 
 
 block main
-    .container 
+    .container(detail-job)
         h1 Trang chi tiết công việc 
         .card.my-3
             .card-header
@@ -27,11 +27,28 @@ block main
                             b(class="badge bg-success") Đang tuyển 
                         else 
                             b(class="badge bg-warning") Dừng tuyển 
-        .card 
+        .card.mb-3
             .card-header
                 p <b>Chi tiết công việc</b> 
             .card-body 
                 | !{job.chiTietCV}
+
+        button(
+            class="btn btn-warning me-1"
+            style="width: 100px"
+            button-edit = acceptEdit 
+            slug = job.slug
+        ) Sửa
+
+        //- a(href=`/${prefixAdmin}/job-management/${User.congTyId}/edit/${job.slug}`)
+        
+        form(
+            action="" 
+            method="get"
+            path=`/${prefixAdmin}/job-management/${User.congTyId}`
+            form-edit
+        ) 
+
 
                 
                 

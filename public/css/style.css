@@ -330,7 +330,7 @@ span.name{
 /* -----------pagination--------------- */
 .paginationn{
     text-align: center;
-    margin: 30px 30px 60px;
+    margin: 0px 30px 60px;
     user-select: none; 
     /* user-select: copy */
 }
@@ -378,6 +378,31 @@ span.name{
 
 .paginationn .disable{
     background: #ccc;
+}
+
+/* ----------filter---------- */
+.card[filter-job]{
+    margin: 1.5rem;
+}
+
+.card[filter-job] button{
+    border: 1px solid #50A5ED;
+    color: #50A5ED;
+}
+
+.card[filter-job] button:hover{
+    color: #fff;
+    background: #50A5ED;
+}
+
+.card[filter-job] button.active{
+    color: #fff;
+    background: #50A5ED;
+    font-weight: 600;
+}
+
+.card[filter-job] button:focus{
+    box-shadow: 0 0 0 .25rem rgba(101, 212, 246, 0.5)
 }
 
   

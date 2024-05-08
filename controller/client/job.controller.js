@@ -5,7 +5,8 @@ const JobAreaModel = require("../../models/Job-area.model");
 const timeApplyHelper = require("../../helpers/time-apply.helper")
 const searchFormHelper = require("../../helpers/form-search.helper")
 const paginationHelper = require("../../helpers/pagination.helper")
-
+const filterStatusHelper = require("../../helpers/filter-status.helper");
+const selectionSortHelper = require("../../helpers/selection-sort.helper");
 
 // [GET] /jobs
 module.exports.getAllJobs = async (req, res) => {
@@ -36,10 +37,20 @@ module.exports.getAllJobs = async (req, res) => {
 
         jobs = await timeApplyHelper.time(jobs);
 
+        const filterStatus = filterStatusHelper.job(req.query);
+
+        // ---filter---
+        if(req.query.status)
+        {
+            const status = req.query.status;
+            jobs = filterStatusHelper.jobList(status, jobs);
+        }
+
         res.render("client/pages/job/index", {
             title: "Trang danh sách công việc",
             jobs: jobs,
-            pagination: JSON.stringify(objPagination)
+            pagination: JSON.stringify(objPagination),
+            filterStatus
         })
     } catch (error) {
         res.redirect("back")

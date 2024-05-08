@@ -32,10 +32,25 @@ module.exports.editPost = async(req, res) => {
     try {
         const congTyId = req.params.congTyId;
 
+        const company = await CompanyModel.getCompanyById(congTyId);
+        const oldEmail = company.emailCT;
+
         req.body.moTa = he.decode(req.body.moTa);
         req.body.quyMo = parseInt(req.body.quyMo);
 
         const infoCompany = req.body;
+
+        if(oldEmail != infoCompany.emailCT)
+        {
+            const existCompany = await CompanyModel.getCompanyByEmail(infoCompany.emailCT);
+
+            if(existCompany)
+            {
+                req.flash("error", "Email trùng, vui lòng nhập lại!");
+                res.redirect("back");
+                return;
+            }
+        }
 
         if(req.file && req.file.filename)
         {
@@ -43,7 +58,7 @@ module.exports.editPost = async(req, res) => {
         }
 
         await CompanyModel.updateInfoCompany(infoCompany, congTyId);
-
+        req.flash("success", "Cập nhật thông tin thành công!");
         res.redirect("back")
     } catch (error) {
         console.log(error);

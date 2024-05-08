@@ -30,6 +30,16 @@ const getCompanyBySlug = async (slugCom) => {
     }
 }
 
+const getCompanyByEmail = async (emailCT) => {
+    try {
+        const result = await sql.query`select * from CONGTY where emailCT = ${emailCT}`;
+        return result.recordset[0];
+    } catch (err) {
+        console.error('Error getting detail Companies by email:', err);
+        return [];
+    }
+}
+
 const getInfoUserOfCompany = async (congTyId) => {
     try {
         const sqlQuery = `select (ho + ' ' + ten) as hoTen, sdt, email from CONGTY join NGUOIDUNG on CONGTY.userId = NGUOIDUNG.userId and CONGTY.congTyId = ${congTyId}`;
@@ -98,6 +108,7 @@ module.exports = {
     getAllCompanies,
     getCompanyById,
     getCompanyBySlug,
+    getCompanyByEmail,
     getInfoUserOfCompany,
     getAllCompaniesBySearch,
     getInfoCompanyByIdUser,

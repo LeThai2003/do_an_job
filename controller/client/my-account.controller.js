@@ -77,6 +77,7 @@ module.exports.editPost = async (req, res) => {
 
         res.redirect("back");
     } catch (error) {
+        console.log("update thông tin user + err: ", error);
         res.redirect("/");
     }
 }
@@ -110,7 +111,24 @@ module.exports.editCompanyInfo = async (req, res) => {
     try {
         const companyId = req.params.companyId;
 
+        const company = await CompanyModel.getCompanyById(companyId);
+        const oldEmail = company.emailCT;
+
+        req.body.quyMo = parseInt(req.body.quyMo);
+
         const infoCompany = req.body;
+
+        if(oldEmail != infoCompany.emailCT)
+        {
+            const existCompany = await CompanyModel.getCompanyByEmail(infoCompany.emailCT);
+
+            if(existCompany)
+            {
+                req.flash("error", "Email trùng, vui lòng nhập lại!");
+                res.redirect("back");
+                return;
+            }
+        }
 
         if(req.file && req.file.filename)
         {
@@ -121,6 +139,7 @@ module.exports.editCompanyInfo = async (req, res) => {
 
         res.redirect("back");
     } catch (error) {
+        console.log(error);
         res.redirect("/");
     }
 }
@@ -129,13 +148,23 @@ module.exports.editCompanyInfo = async (req, res) => {
 module.exports.createCompany = async (req, res) => {
 
     try {
-        // console.log(req.body)
+        console.log(req.body)
 
         // console.log(req.file)
+        req.body.quyMo = parseInt(req.body.quyMo);
 
         const userId = res.locals.User.userId;
 
         const infoCompany = req.body;
+
+        const existCompany = await CompanyModel.getCompanyByEmail(infoCompany.emailCT);
+
+        if(existCompany)
+        {
+            req.flash("error", "Email trùng, vui lòng nhập lại!");
+            res.redirect("back");
+            return;
+        }
 
         if(req.file && req.file.filename)
         {
@@ -145,6 +174,7 @@ module.exports.createCompany = async (req, res) => {
         await CompanyModel.insertCompany(userId, infoCompany);
         res.redirect("back");
     } catch (error) {
+        console.log(error);
         res.redirect("/");
     }
 }

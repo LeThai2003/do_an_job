@@ -17,9 +17,9 @@ router.post("/edit/info-user/:userId", validate.infoUser, controller.editPost);
 
 router.post("/edit/avatar-user/:userId",upload.single('avatar'), controller.editAvatar);
 
-router.post("/edit/info-company/:companyId", upload.single('logo'), controller.editCompanyInfo);
+router.post("/edit/info-company/:companyId", upload.single('logo'), validate.createCompany, controller.editCompanyInfo);
 
-router.post("/create/company", upload.single('logo'), controller.createCompany);
+router.post("/create/company", upload.single('logo'), validate.createCompany, controller.createCompany);
 
 
 module.exports = router;

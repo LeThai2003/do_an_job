@@ -11,6 +11,9 @@ let res_dangnhap = document.getElementsByClassName("res-dangnhap")[0]
 
 let box_left = document.getElementsByClassName("box-left")[0]
 let box_right = document.getElementsByClassName("box-right")[0]
+
+var url = new URL(window.location.href);
+
 const dangky_click =  ()=>{
     dangnhap.style.display = "block"
     dangky.style.display = "none"
@@ -22,6 +25,8 @@ const dangky_click =  ()=>{
     res_dangnhap.style.display = "block"
     res_dangky.style.display = "none"
     res_qmk.style.display = "none"
+
+    
 }
 const dangnhap_click = ()=>{
     dangnhap.style.display = "none"
@@ -34,6 +39,8 @@ const dangnhap_click = ()=>{
     res_dangnhap.style.display = "none"
     res_dangky.style.display = "block"
     res_qmk.style.display = "block"
+
+    
 }
 const dangky_click_res =  ()=>{
     dangnhap.style.display = "block"
@@ -67,10 +74,31 @@ const dangnhap_click_res = ()=>{
 }
 // su kien nhan dang ki
 dangky.addEventListener("click",dangky_click)
+dangky.addEventListener("click",() => {
+    url.searchParams.set("view", "register")
+    window.location.href = url.href;
+})
+
 res_dangky.addEventListener("click",dangky_click_res)
 //su kien nhan dang nhap
 dangnhap.addEventListener("click", dangnhap_click)
+dangnhap.addEventListener("click", () => {
+    url.searchParams.set("view", "login")
+    window.location.href = url.href;
+})
 res_dangnhap.addEventListener("click", dangnhap_click_res)
+
+
+if (url.href.includes("view")) {
+    const content = url.searchParams.get("view");
+    if (content == "login") {
+        dangnhap_click();
+    } else if (content == "register") {
+        dangky_click();
+    }
+}
+
+
 // bắt sự kiện khi responsive 
 const respon =  ()=>{
     var windowWidth = windowReference.innerWidth;

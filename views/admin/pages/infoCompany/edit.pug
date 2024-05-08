@@ -6,9 +6,10 @@ block main
     div(class="box")
         div(class="box-body")
             form(
-                action=`/${prefixAdmin}/infoCompany/${congTyId}/edit`
+                action=`/${prefixAdmin}/infoCompany/${company.congTyId}/edit`
                 method="post"
                 form-edit-infoCompany
+                enctype="multipart/form-data"
             )   
                 div(class="box-info mb-2")
                     div(image-preview class="box-info_img") 
@@ -20,12 +21,12 @@ block main
                             )
                             
                         input(
-                                type="file"
-                                class="form-control-file d-none"
-                                name="logo"
-                                accept="image/*"
-                                image-preview-input
-                            )
+                            type="file"
+                            class="form-control-file d-none"
+                            name="logo"
+                            accept="image/*"
+                            image-preview-input
+                        )
 
                         div(class="icon-img-company") 
                             <i class="fa-solid fa-camera-retro"></i>
@@ -87,11 +88,11 @@ block main
 
                 
                 div(class="form-group")
-                    label(for="jobdetail") <b>Mô tả công ty</b>
+                    label(for="moTa") <b>Mô tả công ty</b>
                     textarea(
                         class="form-control"
-                        id="jobdetail"
-                        name="chiTietCV"
+                        id="moTa"
+                        name="moTa"
                         rows="5"
                         textarea-mce
                     ) #{company.moTa}

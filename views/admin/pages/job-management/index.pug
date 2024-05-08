@@ -15,13 +15,33 @@ block main
                             +filterStatus(filterStatus)
                         .col-5 
                             +formSearch(keyword)
+    
+    .card.mb-3 
+        .card-header Sắp xếp 
+        .card-body 
+            .row 
+                .col-4 
+                    div(sort)
+                        select(
+                            name="sort"
+                            sort-select 
+                            class="form-control"
+                        ) 
+                            option(value="ngayTao-desc") Ngày tạo giảm dần
+                            option(value="ngayTao-asc") Ngày tạo tăng dần
+                            option(value="tenCV-desc") Tên công việc giảm dần 
+                            option(value="tenCV-asc") Tên công việc tăng dần  
+                            
+                        button(
+                            class="btn btn-danger mt-2"
+                            sort-clear 
+                        ) Clear 
 
     .card.mb-3 
             .card-header Danh sách 
                 .card-body 
                     .row 
                         .col-8 
-                            //- +changeMulti(`/${prefixAdmin}/products/changeMulti?_method=PATCH`)
                         
                         .col-4(style="text-align:right;") 
                             a(

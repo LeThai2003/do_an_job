@@ -63,6 +63,44 @@ module.exports.index = async(req, res) => {
             keyword = req.query.keyword;
             jobs = jobs.filter(job => job.tenCV.toLowerCase().includes(req.query.keyword.toLowerCase()));
         }
+
+        // mặc định ngày tạo giảm dần
+        jobs.sort((a, b) => new Date(b.ngayTao) - new Date(a.ngayTao));
+
+        if(req.query.sortKey && req.query.sortValue)
+        {
+            const sortKey = req.query.sortKey;
+            const sortValue = req.query.sortValue;
+
+            if (sortKey === "tenCV") 
+                {
+                if (sortValue === "asc") 
+                {
+                    jobs.sort((a, b) => {
+                        if (a.tenCV < b.tenCV) return -1;
+                        if (a.tenCV > b.tenCV) return 1;  // nếu tên công việc đứng trước mà lớn hơn thì đổi chỗ  ---> mảng tăng dần
+                        return 0;
+                    });
+                } 
+                else if (sortValue === "desc") 
+                {
+                    jobs.sort((a, b) => {
+                        if (a.tenCV > b.tenCV) return -1;
+                        if (a.tenCV < b.tenCV) return 1;  // nếu tên công việc đứng sau mà lớn hơn thì đổi chỗ --> mảng giảm dần
+                        return 0;
+                    });
+                }
+            }
+            else if(sortKey=="ngayTao" && sortValue=="asc")
+            {
+                jobs.sort((a, b) => new Date(a.ngayTao) - new Date(b.ngayTao)); // a đứng trước b, nhưng nếu ngayTao của a > ngayTao của b thì đổi chỗ
+            }
+            else if(sortKey=="ngayTao" && sortValue=="desc")
+            {
+                jobs.sort((a, b) => new Date(b.ngayTao) - new Date(a.ngayTao));  // a đứng trước b, nhưng nếu ngayTao cua b > ngayTao của a: thì đổi chỗ
+            }
+            
+        }
         
         res.render("admin/pages/job-management/index", {
             title: "Trang quản lý việc làm",

@@ -385,24 +385,47 @@ span.name{
     margin: 1.5rem;
 }
 
-.card[filter-job] button{
+.card[filter-sort] button{
     border: 1px solid #50A5ED;
     color: #50A5ED;
 }
 
-.card[filter-job] button:hover{
+.card[filter-sort] button:hover{
     color: #fff;
     background: #50A5ED;
 }
 
-.card[filter-job] button.active{
+.card[filter-sort] button.active{
     color: #fff;
     background: #50A5ED;
     font-weight: 600;
 }
 
-.card[filter-job] button:focus{
+.card[filter-sort] button:focus{
     box-shadow: 0 0 0 .25rem rgba(101, 212, 246, 0.5)
 }
 
-  
+.card[filter-sort] [sort]{
+    display: flex;
+    align-items: center;
+}
+
+.card[filter-sort] [sort] select{
+    height: 40px;
+}
+
+.card[filter-sort] [sort] button{
+    width: 120px;
+}
+
+.card[filter-sort] [sort] button{
+    width: 120px;
+    color: #fff;
+    background: #50A5ED;
+}
+
+.card[filter-sort] [sort] button:hover{
+    border: 1px solid #50A5ED;
+    color: #50A5ED;
+    background:#fff;
+}

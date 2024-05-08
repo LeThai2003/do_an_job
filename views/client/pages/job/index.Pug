@@ -2,19 +2,21 @@ extends ../../layouts/default.pug
 include ../../mixins/box-head.pug 
 include ../../mixins/time-apply.pug
 include ../../mixins/filterStatus.pug
-//- include ../../mixins/sort.pug
+include ../../mixins/sort.pug
 
 block main 
 
     .container-fluid 
         +box-head(title)
 
-        .card.mb-1(filter-job) 
-            .card-header Bộ lọc và tìm kiếm 
+        .card.mb-1(filter-sort) 
+            .card-header Bộ lọc và sắp xếp công việc
             .card-body 
                 .row 
-                    .col-7
+                    .col-8(style="display: flex")
                         +filterStatus(filterStatus)
+                    .col-4
+                        +sort(sortObj)
 
     .section-list.container-fluid
         .section-item.row.row-cols-1.row-cols-md-2.row-cols-lg-4.p-4(job-list)

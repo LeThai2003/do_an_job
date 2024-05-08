@@ -250,3 +250,39 @@ if(buttonStatus)
     });
 }
 // -----end trang công việc --- filter status -----
+
+
+// -----trang công việc --- sort
+const sort = document.querySelector("[sort]");
+if(sort)
+{
+    const sortSelect = sort.querySelector("select[name='sort']");
+    let url = new URL(window.location.href);
+    sortSelect.addEventListener("change", () => {
+        let [sortKey, sortValue] = sortSelect.value.split("-");
+        console.log(sortKey);
+        console.log(sortValue);
+        url.searchParams.set("sortKey", sortKey);
+        url.searchParams.set("sortValue", sortValue);
+
+        window.location.href = url.href;
+    });
+
+    // trả lại giao diện
+    const sortKey = url.searchParams.get("sortKey");
+    const sortValue = url.searchParams.get("sortValue");
+    if(sortKey && sortValue)
+    {
+        const option = sortSelect.querySelector(`option[value="${sortKey}-${sortValue}"]`);
+        option.selected = true;
+    }
+
+    const clearButton = sort.querySelector("[sort-clear]");
+    clearButton.addEventListener("click", () => {
+        url.searchParams.delete("sortKey");
+        url.searchParams.delete("sortValue");
+
+        window.location.href = url.href;
+    });
+}
+// -----trang công việc --- sort

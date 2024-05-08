@@ -46,11 +46,23 @@ module.exports.getAllJobs = async (req, res) => {
             jobs = filterStatusHelper.jobList(status, jobs);
         }
 
+        // --sort---
+        const sortObj = selectionSortHelper.job();
+
+        if(req.query.sortKey && req.query.sortValue)
+        {
+            const sortKey = req.query.sortKey;
+            const sortValue = req.query.sortValue;
+
+            jobs = selectionSortHelper.jobSort(sortKey, sortValue, jobs);
+        }
+
         res.render("client/pages/job/index", {
             title: "Trang danh sách công việc",
             jobs: jobs,
             pagination: JSON.stringify(objPagination),
-            filterStatus
+            filterStatus,
+            sortObj
         })
     } catch (error) {
         res.redirect("back")

@@ -29,16 +29,16 @@ module.exports.jobSort = (sortKey, sortValue, jobs) => {
         if (sortValue === "asc") 
         {
             jobs.sort((a, b) => {
-                if (a.tenCV < b.tenCV) return -1;
-                if (a.tenCV > b.tenCV) return 1;  // nếu tên công việc đứng trước mà lớn hơn thì đổi chỗ  ---> mảng tăng dần
+                if (a.tenCV.toLowerCase() < b.tenCV.toLowerCase()) return -1;
+                if (a.tenCV.toLowerCase() > b.tenCV.toLowerCase()) return 1;  // nếu tên công việc đứng trước mà lớn hơn thì đổi chỗ  ---> mảng tăng dần
                 return 0;
             });
         } 
         else if (sortValue === "desc") 
         {
             jobs.sort((a, b) => {
-                if (a.tenCV > b.tenCV) return -1;
-                if (a.tenCV < b.tenCV) return 1;  // nếu tên công việc đứng sau mà lớn hơn thì đổi chỗ --> mảng giảm dần
+                if (a.tenCV.toLowerCase() > b.tenCV.toLowerCase()) return -1;
+                if (a.tenCV.toLowerCase() < b.tenCV.toLowerCase()) return 1;  // nếu tên công việc đứng sau mà lớn hơn thì đổi chỗ --> mảng giảm dần
                 return 0;
             });
         }
@@ -86,16 +86,16 @@ module.exports.cvSort = (sortKey, sortValue, jobsDetail) => {
         if (sortValue === "asc") 
         {
             jobsDetail.sort((a, b) => {
-                if (a.infoJob.tenCV < b.infoJob.tenCV) return -1;
-                if (a.infoJob.tenCV > b.infoJob.tenCV) return 1;  // nếu tên công việc đứng trước mà lớn hơn thì đổi chỗ  ---> mảng tăng dần
+                if (a.infoJob.tenCV.toLowerCase() < b.infoJob.tenCV.toLowerCase()) return -1;
+                if (a.infoJob.tenCV.toLowerCase() > b.infoJob.tenCV.toLowerCase()) return 1;  // nếu tên công việc đứng trước mà lớn hơn thì đổi chỗ  ---> mảng tăng dần
                 return 0;
             });
         } 
         else if (sortValue === "desc") 
         {
             jobsDetail.sort((a, b) => {
-                if (a.infoJob.tenCV > b.infoJob.tenCV) return -1;
-                if (a.infoJob.tenCV < b.infoJob.tenCV) return 1;  // nếu tên công việc đứng sau mà lớn hơn thì đổi chỗ --> mảng giảm dần
+                if (a.infoJob.tenCV.toLowerCase() > b.infoJob.tenCV.toLowerCase()) return -1;
+                if (a.infoJob.tenCV.toLowerCase() < b.infoJob.tenCV.toLowerCase()) return 1;  // nếu tên công việc đứng sau mà lớn hơn thì đổi chỗ --> mảng giảm dần
                 return 0;
             });
         }

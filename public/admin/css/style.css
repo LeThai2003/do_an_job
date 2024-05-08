@@ -455,4 +455,52 @@ a:hover {
     flex: 1;
     padding: 0px 40px;
 }
+
+
+[image-preview]
+{
+    position: relative;
+    display: inline-block;
+    height: 150px;
+}
+
+.anhcongty{
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.icon-img-company{
+    position: absolute;
+    bottom: 0px;
+    color: #4c4c4c;
+    font-size: 20px;
+    right: 15%;
+    opacity: 0.6;
+}
+
+.icon-img-company:hover{
+    opacity: 1;
+    cursor: pointer;
+}
+
+.anhcongty img{
+    width: 100%;
+    object-fit: cover;
+}
+
+
+.box-info{
+    display: flex;
+    border: 1px solid #ececec;
+    border-radius: 5px;
+    padding: 10px 20px;
+}
+
+.box-info .box-info_texts{
+    flex: 1;
+    padding: 0 20px;
+}
+
 /* -----------info-company-------------- */

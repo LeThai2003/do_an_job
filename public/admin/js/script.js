@@ -127,3 +127,28 @@ if(sort)
     });
 }
 // -----trang công việc --- sort
+
+
+// preview image upload COMPANY
+const imagePreview = document.querySelector("[image-preview]");
+
+const imagePreviewFunction = () => {
+    const imagePreviewInput = imagePreview.querySelector("[image-preview-input]");
+    const imagePreViewSee = imagePreview.querySelector("[image-preview-see]");
+
+    imagePreviewInput.click();
+
+    imagePreviewInput.addEventListener("change", () => {
+        const [file] = imagePreviewInput.files;
+        if (file) {
+            imagePreViewSee.src = URL.createObjectURL(file);
+        }
+    });
+}
+
+const iconChangeImgCompany = document.querySelector(".icon-img-company");
+if (iconChangeImgCompany) {
+    iconChangeImgCompany.addEventListener("click", () => {
+        imagePreviewFunction();
+    });
+}

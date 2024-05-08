@@ -173,7 +173,7 @@ const imagePreviewFunction = () => {
     });
 }
 
-const iconChangeImgCompany = document.querySelector(".icon-change-img-company");
+const iconChangeImgCompany = document.querySelector(".icon-img-company");
 if (iconChangeImgCompany) {
     iconChangeImgCompany.addEventListener("click", () => {
         imagePreviewFunction();

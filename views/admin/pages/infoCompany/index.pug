@@ -20,3 +20,8 @@ block main
             p <b>Mô tả công ty</b>
         .card-body 
             p #{company.moTa}         
+
+    a(
+        href=`/${prefixAdmin}/infoCompany/${company.congTyId}/edit`
+        class="btn btn-primary"
+    ) Chỉnh sửa thông tin 

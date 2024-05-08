@@ -52,6 +52,7 @@ module.exports.detail = async(req, res) => {
         const userId = res.locals.User.userId;
 
         const slugJob = req.params.slug;
+
         const job = await JobModel.getJobBySlug(slugJob);
 
         const company = await CompanyModel.getCompanyById(job.congTyId);
@@ -62,10 +63,17 @@ module.exports.detail = async(req, res) => {
 
         const jobAreas = await JobAreaModel.getAreaOfJob(slugJob);
 
+        console.log(job);
+
         //lay congTyId của user nếu có
         let congTyUser = await CompanyModel.getInfoCompanyByIdUser(userId);
 
-        const congTyUserId = congTyUser.congTyId;
+        let congTyUserId;
+
+        if(congTyUser)
+        {
+            congTyUserId = congTyUser.congTyId;
+        }
 
         res.render("client/pages/job/detail.pug", {
             job: job,

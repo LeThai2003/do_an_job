@@ -1,24 +1,37 @@
 extends ../../layouts/default.pug 
 include ../../mixins/moment.pug
+include ../../mixins/filterStatus.pug
+include ../../mixins/searchForm.pug
+include ../../mixins/sort.pug
+
 
 block main
     h2 Danh sách CV
 
     .card.mb-3 
+        .card-header Bộ lọc và tìm kiếm 
+        .card-body 
+            .container 
+                .row 
+                    .col-7
+                        +filterStatus(filterStatus)
+                    //- .col-5 
+                    //-     +formSearch(keyword)
+    
+    .card.mb-3 
+        .card-header Sắp xếp 
+        .card-body 
+            .row 
+                .col-4 
+                    +sort(sortObj)
+
+    .card.mb-3 
             .card-header Danh sách 
             .card-body 
-                .row 
-                    .col-8 
-                        //- +changeMulti(`/${prefixAdmin}/products/changeMulti?_method=PATCH`)
-                    
                 if(jobsDetail.length > 0)
                     table.table.table-hover.table-sm(box-check)
                         thead 
                             tr 
-                                td 
-                                    input(type="checkbox"
-                                    name="checkAll"
-                                )
                                 th STT 
                                 th Tên công việc 
                                 th Họ tên
@@ -31,11 +44,6 @@ block main
                         tbody
                             each jobDetail, index in jobsDetail
                                 tr 
-                                    td 
-                                        input(
-                                            type="checkbox"
-                                            name="id"
-                                        )
                                     td #{index + 1}
                                     td #{jobDetail.infoJob.tenCV}
                                     td #{jobDetail.infoUser.hoTen}

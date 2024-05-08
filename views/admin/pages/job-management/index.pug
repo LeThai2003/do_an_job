@@ -2,6 +2,7 @@ extends ../../layouts/default.pug
 include ../../mixins/moment.pug
 include ../../mixins/filterStatus.pug
 include ../../mixins/searchForm.pug
+include ../../mixins/sort.pug
 
 block main
     h2 Danh sách công việc
@@ -21,21 +22,7 @@ block main
         .card-body 
             .row 
                 .col-4 
-                    div(sort)
-                        select(
-                            name="sort"
-                            sort-select 
-                            class="form-control"
-                        ) 
-                            option(value="ngayTao-desc") Ngày tạo giảm dần
-                            option(value="ngayTao-asc") Ngày tạo tăng dần
-                            option(value="tenCV-desc") Tên công việc giảm dần 
-                            option(value="tenCV-asc") Tên công việc tăng dần  
-                            
-                        button(
-                            class="btn btn-danger mt-2"
-                            sort-clear 
-                        ) Clear 
+                    +sort(sortObj)
 
     .card.mb-3 
             .card-header Danh sách 

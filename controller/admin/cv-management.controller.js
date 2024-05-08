@@ -5,7 +5,7 @@ const UserModel = require("../../models/User.model");
 const AreaModel = require("../../models/Area.model");
 const selectionSortHelper = require("../../helpers/selection-sort.helper");
 const filterStatusHelper = require("../../helpers/filter-status.helper");
-
+const paginationHelper = require("../../helpers/pagination.helper")
 
 //[GET] /manage/cv-managemant/:congTyId
 module.exports.index = async(req, res) => {
@@ -61,12 +61,23 @@ module.exports.index = async(req, res) => {
             jobsDetail = selectionSortHelper.cvSort(sortKey, sortValue, jobsDetail);
         }
 
+        // ----pagination---
+        const countCV = jobsDetail.length;
+
+        const objPagination = paginationHelper(req.query, countCV);
+
+        const startIndex = (objPagination.currentPage - 1) * objPagination.limitPerPage;
+        const endIndex = startIndex + objPagination.limitPerPage;
+
+        jobsDetail = jobsDetail.slice(startIndex, endIndex);
+
 
         res.render("admin/pages/cv-management/index", {
             title: "Trang danh sách cv",
             jobsDetail: jobsDetail,
             filterStatus,
-            sortObj
+            sortObj,
+            pagination: objPagination
         })
 
     } catch (error) {

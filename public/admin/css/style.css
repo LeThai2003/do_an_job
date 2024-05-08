@@ -381,3 +381,57 @@ a:hover {
     cursor: pointer;
   }
   /* ---end alert */
+
+
+  /* -----------pagination--------------- */
+.paginationn{
+    text-align: center;
+    margin: 30px 30px 60px;
+    user-select: none; 
+    /* user-select: copy */
+}
+
+.paginationn li
+{
+    display: inline-block;
+    margin: 5px;
+    box-shadow: 0 5px 25px rgb(1 1 1 / 10%);
+}
+
+.paginationn li a{
+    line-height: 35px;
+    text-decoration: none;
+    color: #fff;
+    font-size: 1em;
+}
+
+.paginationn .pre-page, .ne-page {
+    background: #50A5ED;
+    width: 80px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: 0.3s ease;
+}
+
+.paginationn .pre-page:hover {
+    transform: translateX(-5px);
+}
+
+.paginationn .ne-page:hover{
+    transform: translateX(5px);
+}
+
+.paginationn .current-page, .dots {
+    background: #ccc;
+    width: 45px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.paginationn .active{
+    background: #50A5ED;
+}
+
+.paginationn .disable{
+    background: #ccc;
+}

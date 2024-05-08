@@ -1,7 +1,7 @@
 module.exports = (query, countItems) => {
     const objPagination = {
         currentPage : 1,
-        limitPerPage : 4 
+        limitPerPage : 8 
     }
     
 

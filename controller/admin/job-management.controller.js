@@ -10,6 +10,7 @@ const hotTroFormSearchHelper = require("../../helpers/ho-tro-form-search");
 const timeApplyHelper = require("../../helpers/time-apply.helper");
 const filterStatusHelper = require("../../helpers/filter-status.helper");
 const selectionSortHelper = require("../../helpers/selection-sort.helper");
+const paginationHelper = require("../../helpers/pagination.helper")
 const he = require('he');
 
 
@@ -34,12 +35,14 @@ module.exports.index = async(req, res) => {
             job.tenKinhNghiem = objKinhNghiem.find(item => item.value == job.kinhNghiem).name;
         }
 
+        // ---filter---
         if(req.query.status)
         {
             const status = req.query.status;
             jobs = filterStatusHelper.jobList(status, jobs);
         }
 
+        // ---search---
         let keyword = "";
 
         if(req.query.keyword)
@@ -48,6 +51,7 @@ module.exports.index = async(req, res) => {
             jobs = jobs.filter(job => job.tenCV.toLowerCase().includes(req.query.keyword.toLowerCase()));
         }
 
+        // ----sort---
         // mặc định ngày tạo giảm dần
         jobs.sort((a, b) => new Date(b.ngayTao) - new Date(a.ngayTao));
 
@@ -60,6 +64,16 @@ module.exports.index = async(req, res) => {
 
             jobs = selectionSortHelper.jobSort(sortKey, sortValue, jobs);
         }
+
+        // ----pagination---
+        const countJob = jobs.length;
+
+        const objPagination = paginationHelper(req.query, countJob);
+
+        const startIndex = (objPagination.currentPage - 1) * objPagination.limitPerPage;
+        const endIndex = startIndex + objPagination.limitPerPage;
+
+        jobs = jobs.slice(startIndex, endIndex);
         
         res.render("admin/pages/job-management/index", {
             title: "Trang quản lý việc làm",
@@ -67,7 +81,8 @@ module.exports.index = async(req, res) => {
             congTyId: congTyId,
             filterStatus,
             sortObj,
-            keyword
+            keyword,
+            pagination: objPagination
         });
     } catch (error) {
         res.redirect("/")

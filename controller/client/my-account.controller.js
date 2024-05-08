@@ -110,20 +110,14 @@ module.exports.editCompanyInfo = async (req, res) => {
     try {
         const companyId = req.params.companyId;
 
-        let query = ``;
-
         const infoCompany = req.body;
 
         if(req.file && req.file.filename)
         {
             infoCompany.logo = `/uploads/${req.file.filename}`;
-            query = `update CONGTY set tenCT = N'${infoCompany.tenCT}', diaDiem = N'${infoCompany.diaDiem}', sdtCT = '${infoCompany.sdtCT}', emailCT = '${infoCompany.emailCT}', quyMo = ${infoCompany.quyMo}, moTa = N'${infoCompany.moTa}', logo = N'${infoCompany.logo}' where congTyId = ${companyId}`;
         }
-        else{
-            query = `update CONGTY set tenCT = N'${infoCompany.tenCT}', diaDiem = N'${infoCompany.diaDiem}', sdtCT = '${infoCompany.sdtCT}', emailCT = '${infoCompany.emailCT}', quyMo = ${infoCompany.quyMo}, moTa = N'${infoCompany.moTa}' where congTyId = ${companyId}`;
-        }
-
-        await CompanyModel.updateInfoCompany(query);
+        
+        await CompanyModel.updateInfoCompany(infoCompany, companyId);
 
         res.redirect("back");
     } catch (error) {

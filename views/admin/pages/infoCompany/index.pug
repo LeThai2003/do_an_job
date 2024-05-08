@@ -19,7 +19,7 @@ block main
         .card-header 
             p <b>Mô tả công ty</b>
         .card-body 
-            p #{company.moTa}         
+            | !{company.moTa}         
 
     a(
         href=`/${prefixAdmin}/infoCompany/${company.congTyId}/edit`

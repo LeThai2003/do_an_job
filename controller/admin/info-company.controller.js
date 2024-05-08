@@ -35,20 +35,14 @@ module.exports.editPost = async(req, res) => {
         req.body.moTa = he.decode(req.body.moTa);
         req.body.quyMo = parseInt(req.body.quyMo);
 
-        let query = ``;
-
         const infoCompany = req.body;
 
         if(req.file && req.file.filename)
         {
             infoCompany.logo = `/uploads/${req.file.filename}`;
-            query = `update CONGTY set tenCT = N'${infoCompany.tenCT}', diaDiem = N'${infoCompany.diaDiem}', sdtCT = '${infoCompany.sdtCT}', emailCT = '${infoCompany.emailCT}', quyMo = ${infoCompany.quyMo}, moTa = N'${infoCompany.moTa}', logo = N'${infoCompany.logo}' where congTyId = ${congTyId}`;
-        }
-        else{
-            query = `update CONGTY set tenCT = N'${infoCompany.tenCT}', diaDiem = N'${infoCompany.diaDiem}', sdtCT = '${infoCompany.sdtCT}', emailCT = '${infoCompany.emailCT}', quyMo = ${infoCompany.quyMo}, moTa = N'${infoCompany.moTa}' where congTyId = ${congTyId}`;
         }
 
-        await CompanyModel.updateInfoCompany(query);
+        await CompanyModel.updateInfoCompany(infoCompany, congTyId);
 
         res.redirect("back")
     } catch (error) {

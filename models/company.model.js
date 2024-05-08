@@ -62,8 +62,13 @@ const getAllCompaniesBySearch = async (stringQuery) => {
         return [];
     }
 }
-const updateInfoCompany = async (stringQuery) => {
+const updateInfoCompany = async (infoCompany, congTyId) => {
     try {
+        let stringQuery = `update CONGTY set tenCT = N'${infoCompany.tenCT}', diaDiem = N'${infoCompany.diaDiem}', sdtCT = '${infoCompany.sdtCT}', emailCT = '${infoCompany.emailCT}', quyMo = ${infoCompany.quyMo}, moTa = N'${infoCompany.moTa}' where congTyId = ${congTyId}`
+        if(infoCompany.logo)
+        {
+            stringQuery = `update CONGTY set tenCT = N'${infoCompany.tenCT}', diaDiem = N'${infoCompany.diaDiem}', sdtCT = '${infoCompany.sdtCT}', emailCT = '${infoCompany.emailCT}', quyMo = ${infoCompany.quyMo}, moTa = N'${infoCompany.moTa}', logo = N'${infoCompany.logo}' where congTyId = ${congTyId}`;
+        }
         await sql.query(stringQuery);
         console.log("----------update info company success!")
         return;

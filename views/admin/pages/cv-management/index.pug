@@ -3,6 +3,7 @@ include ../../mixins/moment.pug
 include ../../mixins/filterStatus.pug
 include ../../mixins/searchForm.pug
 include ../../mixins/sort.pug
+include ../../mixins/searchForm.pug
 
 
 block main
@@ -15,8 +16,8 @@ block main
                 .row 
                     .col-7
                         +filterStatus(filterStatus)
-                    //- .col-5 
-                    //-     +formSearch(keyword)
+                    .col-5 
+                        +formSearch(keyword)
     
     .card.mb-3 
         .card-header Sắp xếp 

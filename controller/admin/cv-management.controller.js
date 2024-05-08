@@ -48,6 +48,15 @@ module.exports.index = async(req, res) => {
             jobsDetail = filterStatusHelper.cvList(status, jobsDetail);
         }
 
+        // ---search---
+        let keyword = "";
+
+        if(req.query.keyword)
+        {
+            keyword = req.query.keyword;
+            jobsDetail = jobsDetail.filter(jobDetail => jobDetail.infoUser.hoTen.toLowerCase().includes(keyword.toLowerCase()));
+        }
+
         //--mặc định ngày gửi mới nhất ~~ ngày gửi giảm dần
         jobsDetail.sort((a, b) => new Date(b.thoiGianNop) - new Date(a.thoiGianNop));
 
@@ -77,7 +86,8 @@ module.exports.index = async(req, res) => {
             jobsDetail: jobsDetail,
             filterStatus,
             sortObj,
-            pagination: objPagination
+            pagination: objPagination,
+            keyword
         })
 
     } catch (error) {

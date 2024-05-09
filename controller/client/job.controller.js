@@ -86,10 +86,13 @@ module.exports.detail = async(req, res) => {
 
         const jobAreas = await JobAreaModel.getAreaOfJob(slugJob);
 
-        console.log(job);
 
         //lay congTyId của user nếu có
         let congTyUser = await CompanyModel.getInfoCompanyByIdUser(userId);
+
+        let jobDetail = await JobDetailModel.getDetailJobByMaCV_UserId(job.maCV, userId);
+
+        console.log(jobDetail);
 
         let congTyUserId;
 
@@ -103,7 +106,8 @@ module.exports.detail = async(req, res) => {
             company: company,
             jobOfCompany: jobOfCompany,
             jobAreas: jobAreas,
-            congTyUserId: congTyUserId
+            congTyUserId: congTyUserId,
+            applied: jobDetail.length
         });
     } catch (error) {
         console.log("Công việc đã bị xóa Hoặc Slug bị sai");

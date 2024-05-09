@@ -18,35 +18,45 @@ const upload = (e) =>{
     }
 }
 
+const tooltip = document.querySelector("[tooltip]");
+
 const buttonUngTuyen = document.querySelector("[button-ungtuyen]");
 if(buttonUngTuyen)
 {
     const job = JSON.parse(buttonUngTuyen.getAttribute("button-ungtuyen"));
-    console.log(job)
-    // nếu hết hạn thì không cho nộp cv
+
+    const divCongTyId = document.querySelector("[congTyIdUser]");
+    const divApplied = document.querySelector("[applied]");
+
+     // nếu hết hạn thì không cho nộp cv
     const chkHetHan = job.hetHan;
     if(chkHetHan)
     {
+        tooltip.title = "Hết hạn ứng tuyển";
         buttonUngTuyen.disabled = true;
     }
     else
     {
-        buttonUngTuyen.disabled = false;
-    }
-
-    // nếu người đó tạo ra công việc đó thì không cho nộp cv
-    const divCongTyId = document.querySelector("[congTyIdUser]");
-    if(divCongTyId)
-    {
-        const congTyIdUser = parseInt(divCongTyId.innerText);
-        if(congTyIdUser && (congTyIdUser == job.congTyId))
+        if(divCongTyId) // xem thử người này tạo ra job đó không
         {
-            buttonUngTuyen.disabled = true;
-            console.log(congTyIdUser);
-            console.log(job.congTyId);
-        }
-        else{
-            buttonUngTuyen.disabled = false;
+            const congTyIdUser = parseInt(divCongTyId.innerText);
+            if(congTyIdUser && (congTyIdUser == job.congTyId))
+            {
+                tooltip.title = "Bạn là người tạo ra công việc này";
+                buttonUngTuyen.disabled = true;
+            }
+            else // không phải người này tạo job
+            {
+                if(divApplied) // chứng tỏ người này đã nộp đơn rồi
+                {
+                    tooltip.title = "Bạn đã nộp đơn rồi";
+                    buttonUngTuyen.disabled = true;
+                }
+                else
+                {
+                    buttonUngTuyen.disabled = false;
+                }
+            }
         }
     }
 }

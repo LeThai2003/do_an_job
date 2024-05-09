@@ -75,6 +75,7 @@ const dangnhap_click_res = ()=>{
 // su kien nhan dang ki
 dangky.addEventListener("click",dangky_click)
 dangky.addEventListener("click",() => {
+    url.href = `${url.origin}/user`;
     url.searchParams.set("view", "register")
     window.location.href = url.href;
 })
@@ -83,7 +84,8 @@ res_dangky.addEventListener("click",dangky_click_res)
 //su kien nhan dang nhap
 dangnhap.addEventListener("click", dangnhap_click)
 dangnhap.addEventListener("click", () => {
-    url.searchParams.set("view", "login")
+    url.href = `${url.origin}/user`;
+    url.searchParams.set("view", "login");
     window.location.href = url.href;
 })
 res_dangnhap.addEventListener("click", dangnhap_click_res)
@@ -97,6 +99,11 @@ if (url.href.includes("view")) {
         dangky_click();
     }
 }
+
+quenmk.addEventListener("click" , () => {
+    url.href = `${url.origin}${url.pathname}/password/forgot`;
+    window.location.href = url.href;
+})
 
 
 // bắt sự kiện khi responsive 

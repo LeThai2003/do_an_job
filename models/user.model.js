@@ -28,6 +28,16 @@ const updateAvatarUser = async (userId, avatar) => {
     }
 }
 
+const updateMatKhau = async (matKhau, token) => {
+    try {
+        const queryString = `update NGUOIDUNG set matKhau = '${matKhau}' where token = '${token}'`
+        await sql.query(queryString);
+        console.log("----------------- updateMatKhau ok-----------------")
+    } catch (err) {
+        console.error('Error updateMatKhau:', err);
+    }
+}
+
 const getUserByToken = async (token) => {
     try {
         const result = await sql.query`select userId, ho, ten, sdt, gioiTinh, ngaySinh, email, avatar from NGUOIDUNG where token = ${token}`;
@@ -65,5 +75,6 @@ module.exports = {
     getUserByEmail,
     updateUser,
     updateAvatarUser,
-    getInfoUserByUserId
+    getInfoUserByUserId,
+    updateMatKhau
 };

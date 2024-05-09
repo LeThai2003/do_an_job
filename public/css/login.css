@@ -109,6 +109,44 @@ body{
 }
 
 
+[otp-password] h1{
+    color: var(--blue-font);
+}
+
+[otp-password] label{
+    font-size: 2em;
+    color: var(--blue-font);
+    font-weight: 500;
+}
+
+[otp-password] input{
+    border: none;
+    font-size: 20px;
+    outline-color: var(--blue-font);
+    border-bottom: 2px solid var(--blue-font);
+    margin-bottom: 2rem;
+    color: var(--blue-font);
+}
+[reset-password] h1{
+    color: var(--blue-font);
+}
+
+[reset-password] label{
+    font-size: 2em;
+    color: var(--blue-font);
+    font-weight: 500;
+}
+
+[reset-password] input{
+    border: none;
+    font-size: 20px;
+    outline-color: var(--blue-font);
+    border-bottom: 2px solid var(--blue-font);
+    margin-bottom: 2rem;
+    color: var(--blue-font);
+}
+
+
 /* .reposive 
 p.res-dangky.res Đăng ký
 p.res-dangky.res Quên mật khẩu 

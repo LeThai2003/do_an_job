@@ -30,6 +30,7 @@ if(buttonUngTuyen)
 
      // nếu hết hạn thì không cho nộp cv
     const chkHetHan = job.hetHan;
+    const chkTrangThai = job.trangThai;
     if(chkHetHan)
     {
         tooltip.title = "Hết hạn ứng tuyển";
@@ -37,26 +38,34 @@ if(buttonUngTuyen)
     }
     else
     {
-        if(divCongTyId) // xem thử người này tạo ra job đó không
+        if(chkTrangThai) // nếu chưa hết hạn -> trạng thái đang tuyển
         {
-            const congTyIdUser = parseInt(divCongTyId.innerText);
-            if(congTyIdUser && (congTyIdUser == job.congTyId))
+            if(divCongTyId) // xem thử người này tạo ra job đó không
             {
-                tooltip.title = "Bạn là người tạo ra công việc này";
-                buttonUngTuyen.disabled = true;
-            }
-            else // không phải người này tạo job
-            {
-                if(divApplied) // chứng tỏ người này đã nộp đơn rồi
+                const congTyIdUser = parseInt(divCongTyId.innerText);
+                if(congTyIdUser && (congTyIdUser == job.congTyId))
                 {
-                    tooltip.title = "Bạn đã nộp đơn rồi";
+                    tooltip.title = "Bạn là người tạo ra công việc này";
                     buttonUngTuyen.disabled = true;
                 }
-                else
+                else // không phải người này tạo job
                 {
-                    buttonUngTuyen.disabled = false;
+                    if(divApplied) // chứng tỏ người này đã nộp đơn rồi
+                    {
+                        tooltip.title = "Bạn đã nộp đơn rồi";
+                        buttonUngTuyen.disabled = true;
+                    }
+                    else
+                    {
+                        buttonUngTuyen.disabled = false;
+                    }
                 }
             }
+        }
+        else
+        {
+            tooltip.title = "Việc dừng tuyển dụng";
+            buttonUngTuyen.disabled = true;
         }
     }
 }

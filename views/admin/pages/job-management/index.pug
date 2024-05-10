@@ -5,6 +5,12 @@ include ../../mixins/searchForm.pug
 include ../../mixins/sort.pug
 
 block main
+    div(
+        class= "alert alert-danger d-none" 
+        alert
+        data-time=4000
+    ) Công việc đã hết hạn, không thể thay đổi trang thái <span close-alert>X</span>
+
     h2 Danh sách công việc
 
     .card.mb-3 
@@ -69,13 +75,19 @@ block main
                                         td
                                             if(job.trangThai == false)
                                                 a(
-                                                    href="#"
+                                                    href="javascript:;"
                                                     class="badge rounded-pill bg-danger"
+                                                    status-job=0
+                                                    maCV=job.maCV
+                                                    hetHan=job.hetHan
                                                 ) Dừng tuyển 
                                             else 
                                                 a(
-                                                    href="#"
+                                                    href="javascript:;"
                                                     class="badge rounded-pill bg-success"
+                                                    status-job=1
+                                                    maCV=job.maCV
+                                                    hetHan=job.hetHan
                                                 ) Đang tuyển 
                                         td 
                                             a(href=`/${prefixAdmin}/job-management/${User.congTyId}/detail/${job.slug}`)
@@ -100,6 +112,14 @@ block main
                                     b Không có danh sách để hiển thị    
 
     div(class="paginationn" pagination=pagination)  
+
+    form(
+        action="" 
+        method="post"
+        form-status-job
+        path=`/${prefixAdmin}/job-management/${congTyId}`
+    )
+
 
 block script 
     script(src="/admin/js/pagination.js") 

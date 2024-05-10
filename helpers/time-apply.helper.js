@@ -20,11 +20,12 @@ module.exports.time = async (jobs) => {
         job.soNgayTuNgayKhoiTao = soNgayTuNgayKhoiTao;
         job.soNgayHieuLuc = soNgayHieuLuc;
 
-        if(job.soNgayTuNgayKhoiTao - job.soNgayHieuLuc > 0)
+        if(job.soNgayTuNgayKhoiTao - job.soNgayHieuLuc > 0) // Hết hạn
         {
             JobModel.updateJobDateApply(job.maCV, 1); 
+            JobModel.updateJobStatus(job.maCV, 0); // Nếu hết hạn thì cho trạng thái dừng tuyển luôn
         }
-        else
+        else  
         {
             JobModel.updateJobDateApply(job.maCV, 0);
         }

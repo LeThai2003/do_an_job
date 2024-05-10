@@ -76,6 +76,15 @@ const updateJobDateApply = async (maCV, value) => {
     }
 }
 
+const updateJobStatus = async (maCV, value) => {
+    try {
+        await sql.query`update CONGVIEC set trangThai = ${value} where maCV = ${maCV}`;
+        console.log("----------update Trạng thái công việc thành công------------");
+    } catch (err) {
+        console.log('Update job: updateJobStatus', err);
+    }
+}
+
 const countJobDangTuyen = async (congTyId) => {
     try {
         const stringQuery = `select count(*) soluong from CONGVIEC where (congTyId = ${congTyId}) and (trangThai = 1) and (deleted = 0)`
@@ -171,5 +180,6 @@ module.exports = {
     countJob,
     getAllJobsPagi,
     countAllJob,
-    updateJob
+    updateJob,
+    updateJobStatus
 };

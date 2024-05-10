@@ -16,4 +16,6 @@ router.get("/:congTyId/edit/:slugCV", controller.edit);
 
 router.post("/:congTyId/edit/:maCV", validate.createNewJob, controller.postEdit);
 
+router.patch("/:congTyId/:changeStatus/:maCV", controller.changStatus);
+
 module.exports = router;

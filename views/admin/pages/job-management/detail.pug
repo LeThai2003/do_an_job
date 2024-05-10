@@ -32,13 +32,14 @@ block main
                 p <b>Chi tiết công việc</b> 
             .card-body 
                 | !{job.chiTietCV}
-
-        button(
-            class="btn btn-warning me-1"
-            style="width: 100px"
-            button-edit = acceptEdit 
-            slug = job.slug
-        ) Sửa
+        span(class="d-inline-block" tabindex="0" data-toggle="tooltip" title="" tooltip)
+            button(
+                class="btn btn-warning me-1"
+                style="width: 100px"
+                button-edit=acceptEdit 
+                hetHan=job.hetHan
+                slug=job.slug
+            ) Sửa
 
         //- a(href=`/${prefixAdmin}/job-management/${User.congTyId}/edit/${job.slug}`)
         

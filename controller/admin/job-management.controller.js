@@ -10,7 +10,7 @@ const hotTroFormSearchHelper = require("../../helpers/ho-tro-form-search");
 const timeApplyHelper = require("../../helpers/time-apply.helper");
 const filterStatusHelper = require("../../helpers/filter-status.helper");
 const selectionSortHelper = require("../../helpers/selection-sort.helper");
-const paginationHelper = require("../../helpers/pagination.helper")
+const paginationHelper = require("../../helpers/pagination.helper");
 const he = require('he');
 
 
@@ -85,6 +85,7 @@ module.exports.index = async(req, res) => {
             pagination: objPagination
         });
     } catch (error) {
+        console.log(error);
         res.redirect("/")
     }
 }
@@ -196,7 +197,7 @@ module.exports.detail = async(req, res) => {
         let acceptEdit = 1;
 
         if(JobDetailOfJOb.length > 0){
-            acceptEdit = 0;
+            acceptEdit = 0;  // Đã có người nộp cv => không thể sửa
         }
 
 
@@ -305,5 +306,25 @@ module.exports.postEdit = async(req, res) => {
     }
 }
 
+
+//[PATCH]/manage/job-management/:congTyId/:changeStatus/:maCV
+module.exports.changStatus = async(req, res) => {
+    try {
+        const changeStatus = parseInt(req.params.changeStatus);
+        const maCV = parseInt(req.params.maCV);
+        const congTyId = req.params.congTyId;
+
+        console.log(changeStatus);
+        console.log(maCV);
+        console.log(congTyId);
+
+        await JobModle.updateJobStatus(maCV, changeStatus);
+
+        res.redirect("back");
+    } catch (error) {
+        console.log(error);
+        res.redirect("/");   
+    }
+}
 
 

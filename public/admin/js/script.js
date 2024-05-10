@@ -1,22 +1,56 @@
+// alert function
+function handleAlert(alertSelector) {
+    const alert = document.querySelector(alertSelector);
+    if (alert) {
+        let time = alert.getAttribute("data-time");
+        time = parseInt(time);
+        setTimeout(() => {
+            alert.classList.add("alert-hidden");
+        }, time);
 
+        const closeAlert = alert.querySelector("[close-alert]");
+        closeAlert.addEventListener("click", () => {
+            alert.classList.add("alert-hidden");
+        });
+    }
+}
 
 
 //alert
-const alert = document.querySelector("[show-alert]");
-if(alert)
-{
-    let time = alert.getAttribute("data-time");
-    time = parseInt(time);
-    setTimeout(() => {
-        alert.classList.add("alert-hidden");
-    }, time);
-
-    const closeAlert = alert.querySelector("[close-alert]");
-    closeAlert.addEventListener("click", () => {
-        alert.classList.add("alert-hidden");
-    });
-}
+handleAlert("[show-alert]");
 //end alert
+
+// ------------Trang công việc --------------
+const buttonStatusJob = document.querySelectorAll("[status-job]");
+if(buttonStatusJob)
+{
+    const formStatusJob = document.querySelector("[form-status-job]")
+    buttonStatusJob.forEach(button => {
+        let url = new URL(window.location.href);
+        button.addEventListener("click", () => {
+            const status = button.getAttribute("status-job");
+            const hetHan = button.getAttribute("hetHan");
+
+            if(!hetHan)  // nếu chưa hết hạn thì mới cho thay đổi trạng thái còn tuyển hay không
+            {
+                const maCV = button.getAttribute("maCV");
+                const changeStatus = (status == "1" ? "0" : "1");
+                
+                const path = formStatusJob.getAttribute("path");
+                const action = `${path}/${changeStatus}/${maCV}?_method=PATCH`;
+                formStatusJob.action = action;
+                formStatusJob.submit();
+            }
+            else
+            {
+                let alert = document.querySelector("[alert]");
+                alert.classList.remove("d-none");
+                handleAlert("[alert]");
+            }
+        })
+    })
+}
+// ------------Trang công việc --------------
 
 // ------Trang chi tiết công việc------------
 const detailJobContainer = document.querySelector("[detail-job]");
@@ -24,24 +58,36 @@ if(detailJobContainer)
 {   
     const formEdit = detailJobContainer.querySelector("[form-edit]");
 
+    let tooltip = detailJobContainer.querySelector("[tooltip]");
+
     const buttonEdit = detailJobContainer.querySelector("[button-edit]");
     const slug = buttonEdit.getAttribute("slug");
     const value = parseInt(buttonEdit.getAttribute("button-edit"));
+    const hetHan = buttonEdit.getAttribute("hetHan");
 
-    if(value == 0)
+    if(hetHan) // nếu hết hạn thì không thể sửa
     {
         buttonEdit.disabled = true;
+        tooltip.title = "Bạn không thể sửa thông tin vì công việc đã hết hạn";
     }
     else
     {
-        buttonEdit.disabled = false;
-        
-        buttonEdit.addEventListener("click", () => {
-            const path = formEdit.getAttribute("path");
-            const action = `${path}/edit/${slug}`;
-            formEdit.action = action;
-            formEdit.submit();
-        })
+        if(value == 0)  // nếu chưa hết hạn tuyển và đã có người nộp đơn
+        {
+            buttonEdit.disabled = true;
+            tooltip.title = "Bạn không thể sửa thông tin vì đã có người nộp đơn";
+        }
+        else
+        {
+            buttonEdit.disabled = false;
+            
+            buttonEdit.addEventListener("click", () => {
+                const path = formEdit.getAttribute("path");
+                const action = `${path}/edit/${slug}`;
+                formEdit.action = action;
+                formEdit.submit();
+            })
+        }
     }
 }
 // ------end Trang chi tiết công việc------------

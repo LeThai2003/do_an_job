@@ -105,10 +105,12 @@ block main
                                                     slug=job.slug
                                                 ) Sửa
 
-                                            a(href=`#`)
+                                            span(class="d-inline-block" tabindex="0" data-toggle="tooltip" title="" tooltip)
                                                 button(
                                                     class="btn btn-danger"
-                                                    button-delete  
+                                                    button-delete-job
+                                                    button-delete=job.acceptEdit
+                                                    slug=job.slug
                                                 ) Xóa 
                     else 
                         .row     
@@ -130,6 +132,13 @@ block main
         method="get"
         path=`/${prefixAdmin}/job-management/${User.congTyId}`
         form-edit
+    ) 
+
+    form(
+        action="" 
+        method="post"
+        path=`/${prefixAdmin}/job-management/${User.congTyId}`
+        form-delete
     ) 
 
 

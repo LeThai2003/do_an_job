@@ -336,4 +336,14 @@ module.exports.changStatus = async(req, res) => {
     }
 }
 
-
+//[PATCH]/manage/job-management/:congTyId/delete/:slug
+module.exports.delete = async(req, res) => {
+    try {
+        const slug = req.params.slug;
+        await JobModle.deleteJob(slug);
+        res.redirect("back");
+    } catch (error) {
+        console.log(error);
+        res.redirect("/");
+    }
+}

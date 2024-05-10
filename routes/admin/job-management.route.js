@@ -18,4 +18,6 @@ router.post("/:congTyId/edit/:maCV", validate.createNewJob, controller.postEdit)
 
 router.patch("/:congTyId/:changeStatus/:maCV", controller.changStatus);
 
+router.patch("/:congTyId/delete/job/:slug", controller.delete);
+
 module.exports = router;

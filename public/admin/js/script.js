@@ -95,6 +95,35 @@ if(buttonEditJob)
         handleEditButton(button, tooltip, formEdit, slug);
     })
 }
+
+// --- xóa công việc ----
+const buttonDeleteJob = document.querySelectorAll("[button-delete-job]");
+if(buttonDeleteJob)
+{
+    const formDelete = document.querySelector("[form-delete]");
+    buttonDeleteJob.forEach(button => {
+        let tooltip = button.closest("[data-toggle='tooltip']");
+        const value = parseInt(button.getAttribute("button-delete"));
+        const slug = button.getAttribute("slug");
+
+        if (value == 0) 
+        { 
+            button.disabled = true;
+            tooltip.title = "Bạn không thể xóa công việc vì đã có người nộp đơn";
+        } 
+        else 
+        {
+            button.disabled = false;
+            button.addEventListener("click", () => {
+                const path = formDelete.getAttribute("path");
+                const action = `${path}/delete/job/${slug}?_method=PATCH`;
+                formDelete.action = action;
+                console.log(action);
+                formDelete.submit();
+            });
+        }
+    });
+}
 // ------------Trang công việc --------------
 
 // ------Trang chi tiết công việc------------

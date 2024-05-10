@@ -2,7 +2,7 @@ const {sql} = require("../config/database")
 
 const getAllJobs = async () => {
     try {
-        const result = await sql.query`select * from CONGVIEC`;
+        const result = await sql.query`select * from CONGVIEC where deleted=0`;
         return result.recordset;
     } catch (err) {
         console.log('Error getting jobs:', err);
@@ -14,6 +14,7 @@ const getAllJobsPagi = async (limitPerPage, skip) => {
     try {
         const stringQuery = `SELECT * 
         FROM CONGVIEC 
+        WHERE deleted=0
         ORDER BY ngayTao DESC
         OFFSET ${skip} ROWS 
         FETCH NEXT ${limitPerPage} ROWS ONLY`
@@ -38,7 +39,7 @@ const getJobsByForm = async (query) => {
 
 const getJobBySlug = async (slug) => {
     try {
-        const result = await sql.query`select * from CONGVIEC where slug = ${slug}`;
+        const result = await sql.query`select * from CONGVIEC where slug = ${slug} and deleted=0`;
         return result.recordset[0];
     } catch (err) {
         console.log('Error getting jobs:', err);
@@ -48,7 +49,7 @@ const getJobBySlug = async (slug) => {
 
 const getJobNameByMaCV = async (maCV) => {
     try {
-        const result = await sql.query`select maCV, tenCV, chiTietCV from CONGVIEC where maCV = ${maCV}`;
+        const result = await sql.query`select maCV, tenCV, chiTietCV from CONGVIEC where maCV = ${maCV} and deleted=0`;
         return result.recordset[0];
     } catch (err) {
         console.log('Error getting getJobNameByMaCV:', err);
@@ -60,7 +61,7 @@ const getJobNameByMaCV = async (maCV) => {
 
 const getJobOfCompany = async (id) => {
     try {
-        const result = await sql.query`select * from CONGVIEC where CONGVIEC.congTyId = ${id}`;
+        const result = await sql.query`select * from CONGVIEC where CONGVIEC.congTyId = ${id} and deleted=0`;
         return result.recordset;
     } catch (err) {
         console.log('Error getting jobs:', err);
@@ -82,6 +83,15 @@ const updateJobStatus = async (maCV, value) => {
         console.log("----------update Trạng thái công việc thành công------------");
     } catch (err) {
         console.log('Update job: updateJobStatus', err);
+    }
+}
+
+const deleteJob = async (slug) => {
+    try {
+        await sql.query`update CONGVIEC set deleted = 1 where slug = ${slug}`;
+        console.log("----------deleteJob công việc thành công------------");
+    } catch (err) {
+        console.log('Update job: deleteJob', err);
     }
 }
 
@@ -181,5 +191,6 @@ module.exports = {
     getAllJobsPagi,
     countAllJob,
     updateJob,
-    updateJobStatus
+    updateJobStatus,
+    deleteJob
 };

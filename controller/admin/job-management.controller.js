@@ -74,6 +74,19 @@ module.exports.index = async(req, res) => {
         const endIndex = startIndex + objPagination.limitPerPage;
 
         jobs = jobs.slice(startIndex, endIndex);
+
+        // -------------xem thử job đó có ai nộp đơn xin việc chưa để cho sửa thông tin-----
+        for (const job of jobs) {
+            const JobDetailOfJOb = await JobDetailModel.getAllJobByMaCV(job.maCV);
+            let acceptEdit = 1;
+
+            if(JobDetailOfJOb.length > 0){
+                acceptEdit = 0;  // Đã có người nộp cv => không thể sửa
+            }
+
+            job.acceptEdit = acceptEdit;
+        }
+        
         
         res.render("admin/pages/job-management/index", {
             title: "Trang quản lý việc làm",
@@ -313,10 +326,6 @@ module.exports.changStatus = async(req, res) => {
         const changeStatus = parseInt(req.params.changeStatus);
         const maCV = parseInt(req.params.maCV);
         const congTyId = req.params.congTyId;
-
-        console.log(changeStatus);
-        console.log(maCV);
-        console.log(congTyId);
 
         await JobModle.updateJobStatus(maCV, changeStatus);
 

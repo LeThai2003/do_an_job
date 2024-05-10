@@ -50,6 +50,51 @@ if(buttonStatusJob)
         })
     })
 }
+
+// ----đoạn code cho nút sửa ----
+const handleEditButton = (button, tooltip, formEdit, slug) => {
+    const value = parseInt(button.getAttribute("button-edit"));
+    const hetHan = button.getAttribute("hetHan");
+
+    if (hetHan) 
+    { 
+        button.disabled = true;
+        tooltip.title = "Bạn không thể sửa thông tin vì công việc đã hết hạn";
+    } 
+    else 
+    {
+        if (value === 0) 
+        { 
+            button.disabled = true;
+            tooltip.title = "Bạn không thể sửa thông tin vì đã có người nộp đơn";
+        } 
+        else 
+        {
+            button.disabled = false;
+            button.addEventListener("click", () => {
+                const path = formEdit.getAttribute("path");
+                const action = `${path}/edit/${slug}`;
+                formEdit.action = action;
+                formEdit.submit();
+            });
+        }
+    }
+}
+
+const buttonEditJob = document.querySelectorAll("[button-edit-job]");
+if(buttonEditJob)
+{
+    const formEdit = document.querySelector("[form-edit]");
+    buttonEditJob.forEach(button => {
+
+        let tooltip = button.closest("[data-toggle='tooltip']");
+        const value = parseInt(button.getAttribute("button-edit"));
+        const hetHan = button.getAttribute("hetHan");
+        const slug = button.getAttribute("slug");
+
+        handleEditButton(button, tooltip, formEdit, slug);
+    })
+}
 // ------------Trang công việc --------------
 
 // ------Trang chi tiết công việc------------
@@ -61,34 +106,13 @@ if(detailJobContainer)
     let tooltip = detailJobContainer.querySelector("[tooltip]");
 
     const buttonEdit = detailJobContainer.querySelector("[button-edit]");
+
+
     const slug = buttonEdit.getAttribute("slug");
     const value = parseInt(buttonEdit.getAttribute("button-edit"));
     const hetHan = buttonEdit.getAttribute("hetHan");
 
-    if(hetHan) // nếu hết hạn thì không thể sửa
-    {
-        buttonEdit.disabled = true;
-        tooltip.title = "Bạn không thể sửa thông tin vì công việc đã hết hạn";
-    }
-    else
-    {
-        if(value == 0)  // nếu chưa hết hạn tuyển và đã có người nộp đơn
-        {
-            buttonEdit.disabled = true;
-            tooltip.title = "Bạn không thể sửa thông tin vì đã có người nộp đơn";
-        }
-        else
-        {
-            buttonEdit.disabled = false;
-            
-            buttonEdit.addEventListener("click", () => {
-                const path = formEdit.getAttribute("path");
-                const action = `${path}/edit/${slug}`;
-                formEdit.action = action;
-                formEdit.submit();
-            })
-        }
-    }
+    handleEditButton(buttonEdit, tooltip, formEdit, slug);
 }
 // ------end Trang chi tiết công việc------------
 

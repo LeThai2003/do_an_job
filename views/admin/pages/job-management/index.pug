@@ -95,11 +95,16 @@ block main
                                                     class="btn btn-secondary me-1"
                                                     button-detail 
                                                 ) Xem chi tiết 
-                                            a(href=`/${prefixAdmin}/job-management/${User.congTyId}/edit/${job.slug}`)
+                                            
+                                            span(class="d-inline-block" tabindex="0" data-toggle="tooltip" title="" tooltip)  
                                                 button(
                                                     class="btn btn-warning me-1"
-                                                    button-edit 
+                                                    button-edit-job
+                                                    button-edit=job.acceptEdit 
+                                                    hetHan=job.hetHan
+                                                    slug=job.slug
                                                 ) Sửa
+
                                             a(href=`#`)
                                                 button(
                                                     class="btn btn-danger"
@@ -119,6 +124,13 @@ block main
         form-status-job
         path=`/${prefixAdmin}/job-management/${congTyId}`
     )
+
+    form(
+        action="" 
+        method="get"
+        path=`/${prefixAdmin}/job-management/${User.congTyId}`
+        form-edit
+    ) 
 
 
 block script 

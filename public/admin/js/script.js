@@ -126,6 +126,27 @@ if(buttonDeleteJob)
 }
 // ------------Trang công việc --------------
 
+
+// ---------------trang chi tiết CV --------------
+const buttonAccept = document.querySelector("[button-accept]");
+if(buttonAccept)
+{
+    const formAcctionCV = document.querySelector("[form-acction-cv]");
+    buttonAccept.addEventListener("click", () => {
+        const path = formAcctionCV.getAttribute("path");
+        console.log(path);
+        formAcctionCV.action = path;
+        formAcctionCV.submit();
+    });
+}
+
+const buttonRefuse = document.querySelector("[button-refuse]");
+if(buttonRefuse)
+{
+    console.log(buttonRefuse);
+}
+// ---------------end trang chi tiết CV --------------
+
 // ------Trang chi tiết công việc------------
 const detailJobContainer = document.querySelector("[detail-job]");
 if(detailJobContainer)

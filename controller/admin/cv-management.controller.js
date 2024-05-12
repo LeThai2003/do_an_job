@@ -100,6 +100,8 @@ module.exports.index = async(req, res) => {
 //[GET] /manage/cv-managemant/:congTyId/detail/:maCTCV
 module.exports.detailCV = async(req, res) => {
     try {
+
+        const congTyId = req.params.congTyId;
         
         const maCTCV = req.params.maCTCV;
 
@@ -118,7 +120,8 @@ module.exports.detailCV = async(req, res) => {
 
         res.render("admin/pages/cv-management/detail", {
             title: "Trang danh sách cv",
-            jobDetail: jobDetail
+            jobDetail: jobDetail,
+            congTyId
         })
 
     } catch (error) {

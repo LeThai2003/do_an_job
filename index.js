@@ -1,5 +1,4 @@
 const express = require("express");
-const app = express();
 const methodOverride = require('method-override')
 const bodyParser = require('body-parser')
 const dotenv = require("dotenv");
@@ -10,22 +9,31 @@ const connect = require("./config/database");
 const moment = require('moment');
 const Swal = require('sweetalert2') 
 const path = require('path');
+const http = require('http');
+const { Server } = require("socket.io");
 
+const app = express();
+
+dotenv.config();
+const port = process.env.PORT;
+connect.connectDB();
 
 const routerClient = require("./routes/client/index.route");
 const routerAdmin = require("./routes/admin/index.route");
 
 const systemConfig = require("./config/system");
 
-dotenv.config();
 
-connect.connectDB();
+// SocketIO
+const server = http.createServer(app);
+const io = new Server(server);
+global._io = io;
+// End SocketIO
 
 app.use(cookieParser('abcdefgh'));
 app.use(session({ cookie: { maxAge: 60000 }}));
 app.use(flash());
 
-const port = process.env.PORT;
 
 app.use((req, res, next) => {
     res.locals.moment = moment;
@@ -61,6 +69,6 @@ app.get('/uploads/:filename', (req, res) => {
 routerClient(app);
 routerAdmin(app);
 
-app.listen(port, () => {
+server.listen(port, () => {
     console.log("Đang chạy trên cổng: " + port);
 });

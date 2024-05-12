@@ -127,24 +127,24 @@ if(buttonDeleteJob)
 // ------------Trang công việc --------------
 
 
-// ---------------trang chi tiết CV --------------
-const buttonAccept = document.querySelector("[button-accept]");
-if(buttonAccept)
+// ---------------trang chi tiết CV  civi--------------
+const formAcctionCV = document.querySelector("[form-action-cv]");
+if(formAcctionCV)
 {
-    const formAcctionCV = document.querySelector("[form-acction-cv]");
-    buttonAccept.addEventListener("click", () => {
+    formAcctionCV.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const buttonSubmit = formAcctionCV.querySelector("[button-submit]");
+        const userId = buttonSubmit.getAttribute("userId");
+        const maCV = buttonSubmit.getAttribute("maCV");
         const path = formAcctionCV.getAttribute("path");
-        console.log(path);
-        formAcctionCV.action = path;
+        const action = `${path}/${maCV}/${userId}`;
+        formAcctionCV.action = action;
         formAcctionCV.submit();
-    });
+    }); 
 }
 
-const buttonRefuse = document.querySelector("[button-refuse]");
-if(buttonRefuse)
-{
-    console.log(buttonRefuse);
-}
+
+
 // ---------------end trang chi tiết CV --------------
 
 // ------Trang chi tiết công việc------------

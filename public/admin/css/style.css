@@ -541,3 +541,73 @@ a:hover {
 }
 
 /* -----------info-company-------------- */
+
+
+/* ---model */
+.section-modal .btn-primary.focus, .btn-primary:focus {
+    border: 0;
+    box-shadow: none;
+    background-color: #0069d9;
+    border-color: #0062cc;
+}
+
+.section_body_top .box_info .modal-header{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position: relative;
+}
+
+.modal-title
+{
+    /* margin: 10px 0; */
+    font-weight: 700;
+}
+
+
+.section_body_top .box_info .modal-header{
+    position: relative;
+}
+
+.section_body_top .box_info .modal-header .btn-close{
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    background: #000000;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    opacity: 0.9;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-body .form-group {
+    margin-bottom: 20px;
+}
+
+.modal-body label {
+    font-weight: bold;
+}
+
+.modal-body  input{
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box; /* Đảm bảo kích thước của input không bị thay đổi bởi padding và border */
+}
+
+.modal-body button{
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    border: none;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease; 
+}

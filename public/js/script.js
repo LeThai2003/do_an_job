@@ -291,13 +291,13 @@ if(sort)
 // ---------thông báo -------------
 
 socket.on("SERVER_SEND_ANNOUNCE", data => {
-    console.log(data);
+    // console.log(data);
     const listNotice = document.querySelector(`[list-notice="${data.userId}"]`);
     if(listNotice)
     {
         const html = `
             <li class="notice-item not-seen" userId="${data.userId}" maCV="${data.maCV}"> 
-                <a class="notice-link" href="#"> 
+                <a class="notice-link" href="/announce/${data.maCV}/${data.userId}"> 
                     <img src="${data.infoCT_CV.logo}" alt="${data.infoCT_CV.tenCT}">
                     <div class="notice-item_content">
                         <span class="notice-item_tenCT">${data.infoCT_CV.tenCT}</span>
@@ -308,7 +308,30 @@ socket.on("SERVER_SEND_ANNOUNCE", data => {
         `;
         listNotice.insertAdjacentHTML("afterbegin", html);
     }
+
+
+    // Bắt lại sự kiện sau khi vẽ mới
+    const listNotice2 = document.querySelectorAll(".notice-item");
+    if(listNotice2)
+    {
+        listNotice2.forEach(item => {
+            item.addEventListener("click", () => {
+                if(item.classList.contains("not-seen"))
+                {
+                    const userId = item.getAttribute("userId");
+                    const maCV = item.getAttribute("maCV");
+
+                    socket.emit("USER_CLICK_ANNOUNCE_NOTSEEN", {
+                        userId: userId,
+                        maCV: maCV,
+                    });
+                }
+            })
+        })
+    }
+
 })
+
 
 const badge = document.querySelector(".badge");
 if(badge)

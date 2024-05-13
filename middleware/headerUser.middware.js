@@ -44,11 +44,14 @@ module.exports.infoUser = async(req, res, next) => {
             {
                 for (const announce of announces) {
                     const infoCT_CV = await CompanyModel.getCompanyByMaCV(announce.maCV);
-                
                     announce.infoCT_CV = infoCT_CV;
                 }
             }
 
+            const SoLuongChuaXem = await AnnounceModel.countAnnounceNotSeenOfUser(user.userId);
+            announces.SoLuongChuaXem = SoLuongChuaXem.soluong;
+
+            console.log(announces.SoLuongChuaXem)
 
             res.locals.User = user;
             res.locals.Announces = announces;

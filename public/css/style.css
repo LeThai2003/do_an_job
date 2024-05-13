@@ -436,6 +436,17 @@ span.name{
     position: relative;
 }
 
+.badge{
+    position: absolute;
+    right: 13px;
+    width: 18px;
+    height: 18px;
+    font-size: 10px;
+    text-align: center;
+    line-height: 11.5px;
+    border-radius: 50%;
+}
+
 .notice:hover .notice-box{
     display: block;
     transform-origin: calc(100% - 5px) top;

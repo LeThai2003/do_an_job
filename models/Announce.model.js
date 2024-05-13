@@ -11,6 +11,15 @@ const getAnnounceOfUser = async (userId) => {
     }
 }
 
+const countAnnounceNotSeenOfUser = async (userId) => {
+    try {
+        const stringQuery = `select count(*) soluong from THONGBAO where daXem = 0 and userId = ${userId}`
+        const result = await sql.query(stringQuery);
+        return result.recordset[0];
+    } catch (err) {
+        console.log('err countAnnounceNotSeenOfUser:', err);
+    }
+}
 
 const insertAnnounce = async (maCV, userId, thongBao) => {
     try {
@@ -29,5 +38,6 @@ const insertAnnounce = async (maCV, userId, thongBao) => {
 
 module.exports = {
     insertAnnounce,
-    getAnnounceOfUser
+    getAnnounceOfUser,
+    countAnnounceNotSeenOfUser
 };

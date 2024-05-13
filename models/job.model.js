@@ -80,7 +80,7 @@ const updateJobDateApply = async (maCV, value) => {
 const updateJobStatus = async (maCV, value) => {
     try {
         await sql.query`update CONGVIEC set trangThai = ${value} where maCV = ${maCV}`;
-        console.log("----------update Trạng thái công việc thành công------------");
+        // console.log("----------update Trạng thái công việc thành công------------");
     } catch (err) {
         console.log('Update job: updateJobStatus', err);
     }

@@ -6,6 +6,11 @@
         .container-info.d-flex.d-flex.align-items-center.justify-content-center
             .notice
                 img(src="/images/notification-bell.png", alt="notice")
+                span(
+                    class="badge bg-danger"
+                    badge-soLuong = User.userId
+                ) #{Announces.SoLuongChuaXem}
+
 
                 .notice-box 
                     p Thông báo 
@@ -18,19 +23,6 @@
                                         .notice-item_content
                                             span(class="notice-item_tenCT") #{announce.infoCT_CV.tenCT}
                                             span(class="notice-item_tenCV") #{announce.infoCT_CV.tenCV} 
-                        //- li(class="notice-item")
-                        //-     a(href="#" class="notice-link") 
-                        //-         img(src="https://inkythuatso.com/uploads/thumbnails/800/2021/11/logo-fpt-inkythuatso-1-01-01-14-33-35.jpg" alt="")
-                        //-         .notice-item_content
-                        //-             span(class="notice-item_tenCT") Công ty FPT  
-                        //-             span(class="notice-item_tenCV") Công việc lập trình ABC 
-                        //- li(class="notice-item")
-                        //-     a(href="#" class="notice-link") 
-                        //-         img(src="https://marketplace.canva.com/EAF2NKpTznA/2/0/1600w/canva-v%C3%A0ng-m%C3%A0u-chuy%E1%BB%83n-ti%E1%BA%BFp-chuy%C3%AAn-nghi%E1%BB%87p-c%C3%B4ng-ty-ph%C3%A1t-tri%E1%BB%83n-%E1%BB%A9ng-d%E1%BB%A5ng-logo-Z0qVYgs8lcU.jpg" alt="")
-                        //-         .notice-item_content
-                        //-             span(class="notice-item_tenCT") Công ty VinaTech 
-                        //-             span(class="notice-item_tenCV") Công việc lập trình ABC 
-
                         
 
             .info.d-flex.align-items-center.justify-content-center

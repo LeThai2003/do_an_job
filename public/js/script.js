@@ -287,7 +287,45 @@ if(sort)
 }
 // -----trang công việc --- sort
 
+
 // ---------thông báo -------------
+const listNotice = document.querySelector(".list-notice");
+
 socket.on("SERVER_SEND_ANNOUNCE", data => {
     console.log(data);
+    const html = `
+        <li class="notice-item not-seen"> 
+            <a class="notice-link" href="#"> 
+                <img src="${data.infoCT_CV.logo}" alt="${data.infoCT_CV.tenCT}">
+                <div class="notice-item_content">
+                    <span class="notice-item_tenCT">${data.infoCT_CV.tenCT} aabc</span>
+                    <span class="notice-item_tenCV">${data.infoCT_CV.tenCV}</span>
+                </div>
+            </a>
+        </li>
+    `;
+    listNotice.insertAdjacentHTML("afterbegin", html);
+})
+
+const badge = document.querySelector(".badge");
+if(badge)
+{
+    const value = badge.textContent;
+    if(value == "0")
+    {
+        badge.style.opacity = '0';
+    }
+}
+
+// SERVER_SEND_LENGTH_ANNOUNCE_NOTSEEN
+socket.on("SERVER_SEND_LENGTH_ANNOUNCE_NOTSEEN", data => {
+    const badgeSoLuong = document.querySelector(`[badge-soLuong="${data.userId}"]`);
+    if(badgeSoLuong)
+    {
+        if(badgeSoLuong.textContent == "0")
+        {
+            badge.style.opacity = '1';
+        }
+        badgeSoLuong.innerHTML = data.soLuongChuaXem;
+    }
 })

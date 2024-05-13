@@ -14,7 +14,6 @@ module.exports.index = async (req, res) => {
 
     // SocketIO
     _io.once("connection", async (socket) => {
-
         console.log("Kết nối socket thành công!");
 
         // ----trả ra giao diện real-time ----

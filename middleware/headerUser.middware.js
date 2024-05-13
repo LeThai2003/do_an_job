@@ -51,7 +51,7 @@ module.exports.infoUser = async(req, res, next) => {
             const SoLuongChuaXem = await AnnounceModel.countAnnounceNotSeenOfUser(user.userId);
             announces.SoLuongChuaXem = SoLuongChuaXem.soluong;
 
-            console.log(announces.SoLuongChuaXem)
+            // console.log(announces)
 
             res.locals.User = user;
             res.locals.Announces = announces;

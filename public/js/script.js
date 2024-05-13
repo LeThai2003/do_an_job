@@ -289,22 +289,25 @@ if(sort)
 
 
 // ---------thông báo -------------
-const listNotice = document.querySelector(".list-notice");
 
 socket.on("SERVER_SEND_ANNOUNCE", data => {
     console.log(data);
-    const html = `
-        <li class="notice-item not-seen"> 
-            <a class="notice-link" href="#"> 
-                <img src="${data.infoCT_CV.logo}" alt="${data.infoCT_CV.tenCT}">
-                <div class="notice-item_content">
-                    <span class="notice-item_tenCT">${data.infoCT_CV.tenCT} aabc</span>
-                    <span class="notice-item_tenCV">${data.infoCT_CV.tenCV}</span>
-                </div>
-            </a>
-        </li>
-    `;
-    listNotice.insertAdjacentHTML("afterbegin", html);
+    const listNotice = document.querySelector(`[list-notice="${data.userId}"]`);
+    if(listNotice)
+    {
+        const html = `
+            <li class="notice-item not-seen" userId="${data.userId}" maCV="${data.maCV}"> 
+                <a class="notice-link" href="#"> 
+                    <img src="${data.infoCT_CV.logo}" alt="${data.infoCT_CV.tenCT}">
+                    <div class="notice-item_content">
+                        <span class="notice-item_tenCT">${data.infoCT_CV.tenCT}</span>
+                        <span class="notice-item_tenCV">${data.infoCT_CV.tenCV}</span>
+                    </div>
+                </a>
+            </li>
+        `;
+        listNotice.insertAdjacentHTML("afterbegin", html);
+    }
 })
 
 const badge = document.querySelector(".badge");
@@ -329,3 +332,25 @@ socket.on("SERVER_SEND_LENGTH_ANNOUNCE_NOTSEEN", data => {
         badgeSoLuong.innerHTML = data.soLuongChuaXem;
     }
 })
+
+
+// click thì chuyển từ chưa xem -> đã xem
+const listNotice = document.querySelectorAll(".notice-item");
+if(listNotice)
+{
+    listNotice.forEach(item => {
+        item.addEventListener("click", () => {
+            if(item.classList.contains("not-seen"))
+            {
+                const userId = item.getAttribute("userId");
+                const maCV = item.getAttribute("maCV");
+
+                socket.emit("USER_CLICK_ANNOUNCE_NOTSEEN", {
+                    userId: userId,
+                    maCV: maCV,
+                });
+            }
+        })
+    })
+}
+

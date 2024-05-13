@@ -3,6 +3,7 @@ const jobRouter = require("./job.route");
 const companyRoute = require("./compay.route")
 const userRoute = require("./user.route")
 const myAccountRoute = require("./my-account.route");
+const AnnounceRoute = require("./announce.route");
 
 const navigationMenuMiddleware = require("../../middleware/navigationMenu");
 const headerMenuMiddleware = require("../../middleware/headerUser.middware");
@@ -19,4 +20,8 @@ module.exports = (app) => {
     app.use("/my-account", myAccountRoute);
 
     app.use("/user", userRoute);
+
+    app.use("/announce", AnnounceRoute);
+
+
 }

@@ -35,9 +35,24 @@ const insertAnnounce = async (maCV, userId, thongBao) => {
     }
 }
 
+const updateAnnounce = async (maCV, userId) => {
+    try {
+        
+        stringQuery = `update THONGBAO
+        set daXem = 1 where userId = ${userId} and maCV = ${maCV}
+        `;
+
+        await sql.query(stringQuery);
+        console.log("----- updateAnnounce success!---")
+    } catch (err) {
+        console.log('updateAnnounce err:', err);
+    }
+}
+
 
 module.exports = {
     insertAnnounce,
     getAnnounceOfUser,
-    countAnnounceNotSeenOfUser
+    countAnnounceNotSeenOfUser,
+    updateAnnounce
 };

@@ -4,26 +4,27 @@
             a(href="/" link-home) 
                 <span>T</span>uyen<span>d</span>ung 
         .container-info.d-flex.d-flex.align-items-center.justify-content-center
-            .notice
-                img(src="/images/notification-bell.png", alt="notice")
-                span(
-                    class="badge bg-danger"
-                    badge-soLuong = User.userId
-                ) #{Announces.SoLuongChuaXem}
+            if(User)
+                .notice
+                    img(src="/images/notification-bell.png", alt="notice")
+                    span(
+                        class="badge bg-danger"
+                        badge-soLuong = User.userId
+                    ) #{Announces.SoLuongChuaXem}
 
 
-                .notice-box 
-                    p Thông báo 
-                    ul(class="list-notice")
-                        if(Announces.length > 0)
-                            each announce in Announces
-                                li(class=`notice-item ${announce.daXem == false ? "not-seen" : ""}`)  
-                                    a(href="#" class="notice-link") 
-                                        img(src=announce.infoCT_CV.logo alt=announce.infoCT_CV.tenCT)
-                                        .notice-item_content
-                                            span(class="notice-item_tenCT") #{announce.infoCT_CV.tenCT}
-                                            span(class="notice-item_tenCV") #{announce.infoCT_CV.tenCV} 
-                        
+                    .notice-box 
+                        p Thông báo 
+                        ul(class="list-notice" list-notice=User.userId)
+                            if(Announces.length > 0)
+                                each announce in Announces
+                                    li(class=`notice-item ${announce.daXem == false ? "not-seen" : ""}` userId=announce.userId maCV=announce.maCV)  
+                                        a(href=`/announce/${announce.maCV}/${announce.userId}` class="notice-link") 
+                                            img(src=announce.infoCT_CV.logo alt=announce.infoCT_CV.tenCT)
+                                            .notice-item_content
+                                                span(class="notice-item_tenCT") #{announce.infoCT_CV.tenCT}
+                                                span(class="notice-item_tenCV") #{announce.infoCT_CV.tenCV} 
+                    
 
             .info.d-flex.align-items-center.justify-content-center
                 .box-img.d-flex.align-items-center.justify-content-center

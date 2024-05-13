@@ -51,6 +51,17 @@ const getInfoUserOfCompany = async (congTyId) => {
     }
 }
 
+const getCompanyByMaCV = async (maCV) => {
+    try {
+        const sqlQuery = `select tenCT, tenCV, logo from CONGVIEC, CONGTY where CONGVIEC.congTyId = CONGTY.congTyId and CONGVIEC.maCV = ${maCV}`;
+        const result = await sql.query(sqlQuery);
+        return result.recordset[0];
+    } catch (err) {
+        console.error('Error getting getCompanyByMaCV:', err);
+        return [];
+    }
+}
+
 const getInfoCompanyByIdUser = async (userId) => {
     try {
         const sqlQuery = `SELECT dbo.NGUOIDUNG.userId, dbo.NGUOIDUNG.sdt, dbo.NGUOIDUNG.email, dbo.CONGTY.congTyId, dbo.CONGTY.tenCT, dbo.CONGTY.diaDiem, dbo.CONGTY.quyMo, dbo.CONGTY.moTa, dbo.CONGTY.logo, dbo.CONGTY.slug, dbo.CONGTY.sdtCT, dbo.CONGTY.emailCT
@@ -109,6 +120,7 @@ module.exports = {
     getCompanyById,
     getCompanyBySlug,
     getCompanyByEmail,
+    getCompanyByMaCV,
     getInfoUserOfCompany,
     getAllCompaniesBySearch,
     getInfoCompanyByIdUser,

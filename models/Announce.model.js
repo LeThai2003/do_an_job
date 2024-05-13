@@ -1,15 +1,15 @@
 const {sql} = require("../config/database")
 
 
-// const getJobBySlug = async (slug) => {
-//     try {
-//         const result = await sql.query`select * from CONGVIEC where slug = ${slug} and deleted=0`;
-//         return result.recordset[0];
-//     } catch (err) {
-//         console.log('Error getting jobs:', err);
-//         return [];
-//     }
-// }
+const getAnnounceOfUser = async (userId) => {
+    try {
+        const result = await sql.query`select * from THONGBAO where userId = ${userId}`;
+        return result.recordset;
+    } catch (err) {
+        console.log('Error getting jobs:', err);
+        return [];
+    }
+}
 
 
 const insertAnnounce = async (maCV, userId, thongBao) => {
@@ -29,4 +29,5 @@ const insertAnnounce = async (maCV, userId, thongBao) => {
 
 module.exports = {
     insertAnnounce,
+    getAnnounceOfUser
 };

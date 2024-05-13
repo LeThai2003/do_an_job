@@ -1,5 +1,7 @@
 const UserModel = require("../models/User.model");
 const CompanyModel = require("../models/Company.model");
+const AnnounceModel = require("../models/Announce.model");
+const JobModel = require("../models/Job.model");
 
 module.exports.infoUser = async(req, res, next) => {
     const token = req.cookies.tokenUser;
@@ -35,7 +37,21 @@ module.exports.infoUser = async(req, res, next) => {
 
             // console.log(user)
 
+            
+            // ---announce of user---
+            const announces = await AnnounceModel.getAnnounceOfUser(user.userId);   
+            if(announces)
+            {
+                for (const announce of announces) {
+                    const infoCT_CV = await CompanyModel.getCompanyByMaCV(announce.maCV);
+                
+                    announce.infoCT_CV = infoCT_CV;
+                }
+            }
+
+
             res.locals.User = user;
+            res.locals.Announces = announces;
 
             next();
             return;

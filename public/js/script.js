@@ -286,3 +286,8 @@ if(sort)
     });
 }
 // -----trang công việc --- sort
+
+// ---------thông báo -------------
+socket.on("SERVER_SEND_ANNOUNCE", data => {
+    console.log(data);
+})

@@ -139,6 +139,10 @@ if(formAcctionCV)
         const path = formAcctionCV.getAttribute("path");
         const action = `${path}/${maCV}/${userId}`;
         formAcctionCV.action = action;
+        socket.emit("COMPANY_SEND_ANNOUNCE", {
+            userId: userId,
+            maCV: maCV,
+        });
         formAcctionCV.submit();
     }); 
 }

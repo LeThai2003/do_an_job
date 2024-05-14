@@ -15,17 +15,18 @@
 
                     .notice-box 
                         p Thông báo 
-                        ul(class="list-notice" list-notice=User.userId)
-                            if(Announces.length > 0)
-                                each announce in Announces
-                                    li(class=`notice-item ${announce.daXem == false ? "not-seen" : ""}` userId=announce.userId maCV=announce.maCV)  
-                                        a(href=`/announce/${announce.maCV}/${announce.userId}` class="notice-link") 
-                                            img(src=announce.infoCT_CV.logo alt=announce.infoCT_CV.tenCT)
-                                            .notice-item_content
-                                                span(class="notice-item_tenCT") #{announce.infoCT_CV.tenCT}
-                                                span(class="notice-item_tenCV") #{announce.infoCT_CV.tenCV} 
-                                                span(class="notice-item_time") #{announce.thoiGianGui} 
-                    
+                        .notice-content
+                            ul(class="list-notice" list-notice=User.userId)
+                                if(Announces.length > 0)
+                                    each announce in Announces
+                                        li(class=`notice-item ${announce.daXem == false ? "not-seen" : ""}` userId=announce.userId maCV=announce.maCV)  
+                                            a(href=`/announce/${announce.maCV}/${announce.userId}` class="notice-link") 
+                                                img(src=announce.infoCT_CV.logo alt=announce.infoCT_CV.tenCT)
+                                                .notice-item_content
+                                                    span(class="notice-item_tenCT") #{announce.infoCT_CV.tenCT}
+                                                    span(class="notice-item_tenCV") #{announce.infoCT_CV.tenCV} 
+                                                    span(class="notice-item_time") #{announce.thoiGianGui} 
+                        
 
             .info.d-flex.align-items-center.justify-content-center
                 .box-img.d-flex.align-items-center.justify-content-center

@@ -290,7 +290,27 @@ if(sort)
 
 // ---------thông báo -------------
 
+const getTime = (d) => {
+    const date = new Date(d);
+    let second = date.getSeconds();
+    second = second > 9 ? second : `0${second}`;
+    let minute = date.getMinutes();
+    minute = minute > 9 ? minute : `0${minute}`;
+    let hour = date.getHours();
+    hour = hour > 9 ? hour : `0${hour}`;
+    let day = date.getDate();
+    day = day > 9 ? day : `0${day}`;
+    let month = date.getMonth() + 1;
+    month = month > 9 ? month : `0${month}`;
+    const year = date.getFullYear();
+    return `${day}-${month}-${year} ${hour}:${minute}:${second}`;
+}
+
 socket.on("SERVER_SEND_ANNOUNCE", data => {
+
+    const currentDate = new Date();
+    const time = getTime(currentDate);
+
     // console.log(data);
     const listNotice = document.querySelector(`[list-notice="${data.userId}"]`);
     if(listNotice)
@@ -302,6 +322,7 @@ socket.on("SERVER_SEND_ANNOUNCE", data => {
                     <div class="notice-item_content">
                         <span class="notice-item_tenCT">${data.infoCT_CV.tenCT}</span>
                         <span class="notice-item_tenCV">${data.infoCT_CV.tenCV}</span>
+                        <span class="notice-item_time">${time}</span>
                     </div>
                 </a>
             </li>

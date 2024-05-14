@@ -12,7 +12,7 @@ module.exports.index = async (req, res) => {
     const userId = req.params.userId;
     const congTyId = req.params.congTyId;
 
-     //check trước xem thử đã có người đó chưa
+    //check trước xem thử đã có người đó chưa
     const userExist = await AnnounceModel.checkAnnounce(userId, maCV);
     if(userExist)
     {

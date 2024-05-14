@@ -180,59 +180,6 @@ if(buttonActions)
 
 
 
-// const formAcctionCV = document.querySelector("[form-action-cv]");
-// if(formAcctionCV)
-// {
-//     formAcctionCV.addEventListener("submit", (e) => {
-//         e.preventDefault();
-//         const buttonSubmit = formAcctionCV.querySelector("[button-submit]");
-//         const type = buttonSubmit.getAttribute("button-submit"); // accept / reject
-//         const inputType = formAcctionCV.querySelector(`input[name="type"]`);
-//         inputType.value = type;
-//         const userId = buttonSubmit.getAttribute("userId");
-//         const maCV = buttonSubmit.getAttribute("maCV");
-//         const thongBao = formAcctionCV.querySelector("#thongBao");
-        
-//         // Đóng modal
-//         console.log("chịu");
-//         const modal = new bootstrap.Modal(document.getElementById("staticBackdrop"));
-//         modal.hide();
-//         console.log("chịu");
-
-//         socket.emit("COMPANY_SEND_ANNOUNCE", {
-//             userId: userId,
-//             maCV: maCV,
-//             type: type,
-//         });
-//     }); 
-// }
-
-
-// const formAcctionCV = document.querySelector("[form-action-cv]");
-// if(formAcctionCV)
-// {
-//     formAcctionCV.addEventListener("submit", (e) => {
-//         e.preventDefault();
-//         const buttonSubmit = formAcctionCV.querySelector("[button-submit]");
-//         const type = buttonSubmit.getAttribute("button-submit"); // accept / reject
-//         const inputType = formAcctionCV.querySelector(`input[name="type"]`);
-//         inputType.value = type;
-//         const userId = buttonSubmit.getAttribute("userId");
-//         const maCV = buttonSubmit.getAttribute("maCV");
-//         const thongBao = formAcctionCV.querySelector("#thongBao");
-//         const path = formAcctionCV.getAttribute("path");
-//         const action = `${path}/${maCV}/${userId}`;
-//         formAcctionCV.action = action;
-//         socket.emit("COMPANY_SEND_ANNOUNCE", {
-//             userId: userId,
-//             maCV: maCV,
-//             type: type,
-//         });
-//         formAcctionCV.submit();
-//     }); 
-// }
-
-
 const thongBaoDiv = document.querySelector("[thongBao]");
 if(thongBaoDiv)
 {
@@ -369,6 +316,33 @@ socket.on("SERVER_RETURN_EXIST_USER", data => {
 
 
 // ---------------end trang chi tiết CV --------------
+
+// ------Trang CV-----
+const buttonDetailCVs = document.querySelectorAll("[button-detail-cv]");
+if(buttonDetailCVs)
+{
+    buttonDetailCVs.forEach(button => {
+        button.addEventListener("click", () => {
+            const maCTCV = button.getAttribute("button-detail-cv");
+            console.log(maCTCV);
+            socket.emit("COMPANY_CLICK_CV_USER", {
+                maCTCV: maCTCV,
+            })
+        })
+    })
+}
+
+// khi nghe thấy thì load lại trang
+socket.on("SERVER_RETURN_CV_SEEN", (data) => {
+    const form = document.querySelector("[form-watch-cv]");
+    console.log(data);
+    const path = form.getAttribute("path");
+    const action = `${path}/${data.maCTCV}`;
+    location.reload();
+    window.location.href = action;
+})
+
+// ------end Trang CV-----
 
 // ------Trang chi tiết công việc------------
 const detailJobContainer = document.querySelector("[detail-job]");

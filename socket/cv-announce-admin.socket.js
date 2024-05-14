@@ -1,5 +1,6 @@
 const AnnounceModel = require("../models/Announce.model");
-const CompanyModel = require("../models/Company.model")
+const CompanyModel = require("../models/Company.model");
+const JobDetailModel = require("../models/Job-detail.model");
 
 module.exports.clickButtonSubmit = async (req, res, jobDetail) => {
     _io.once("connection", async (socket) => {
@@ -47,5 +48,19 @@ module.exports.clickButtonSubmit = async (req, res, jobDetail) => {
             
         })
         
+    });
+}
+
+module.exports.clickButtonWatchCV = async (req, res, jobDetail) => {
+    _io.once("connection", async (socket) => {
+        socket.on("COMPANY_CLICK_CV_USER", async (data) => {
+            console.log("//////////---------");
+            console.log(data);
+            await JobDetailModel.updateDaXemCV(data.maCTCV);
+
+            socket.emit("SERVER_RETURN_CV_SEEN", {
+                maCTCV: data.maCTCV
+            })
+        })
     });
 }

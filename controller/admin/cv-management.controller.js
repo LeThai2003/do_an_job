@@ -15,6 +15,10 @@ module.exports.index = async(req, res) => {
         
         const congTyId = req.params.congTyId;
 
+        // socket
+        cvSocket.clickButtonWatchCV();
+        // socket
+
         // -- Lấy danh sách mã công việc của công ty đó
         const jobOfCompany = await JobModel.getJobOfCompany(congTyId);
         let listMaCV = jobOfCompany.map(job => job.maCV);

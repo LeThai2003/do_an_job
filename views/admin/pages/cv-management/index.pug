@@ -55,20 +55,20 @@ block main
                                     td #{jobDetail.infoArea.tenKV}
                                     td
                                         if(jobDetail.daXem == false)
-                                            a(
+                                            span(
                                                 href="#"
                                                 class="badge rounded-pill bg-warning"
                                             ) Chưa xem
                                         else 
-                                            a(
+                                            span(
                                                 href="#"
                                                 class="badge rounded-pill bg-success"
                                             ) Đã xem
                                     td 
-                                        a(href=`/${prefixAdmin}/cv-management/${User.congTyId}/detail/${jobDetail.maCTCV}`)
+                                        a(href=`javascript:;`)
                                             button(
                                                 class="btn btn-secondary me-1"
-                                                button-detail 
+                                                button-detail-cv=jobDetail.maCTCV
                                             ) Xem chi tiết 
                                         a(href=`#`)
                                             button(
@@ -82,6 +82,12 @@ block main
                                 b Không có danh sách để hiển thị    
     
     div(class="paginationn" pagination=pagination)  
+
+    form(
+        form-watch-cv 
+        action 
+        path=`/${prefixAdmin}/cv-management/${User.congTyId}/detail`
+    ) 
 
 block script 
     script(src="/admin/js/pagination.js") 

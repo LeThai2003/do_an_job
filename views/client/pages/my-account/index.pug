@@ -30,7 +30,7 @@ block main
                             option(value="Nữ" selected=(User.gioiTinh == false ? true : false)) Nữ
                     .item.form-group 
                         p.title Ngày sinh :
-                        input.text(name="ngaySinh" class="text"  type="date")
+                        input.text(name="ngaySinh" class="text"  type="date" value=User.ngaySinh)
                         //- value=User.ngaySinhFormatted
                         
                     .item.form-group

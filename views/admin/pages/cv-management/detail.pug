@@ -5,6 +5,7 @@ include ../../mixins/modal.pug
 
 block main
     +alert-success(4000)
+    +alert-error(4000)
 
     h2 Chi tiết CV
 
@@ -27,22 +28,21 @@ block main
 
             button(
                 class="btn btn-success me-2"
-                data-bs-target="#staticBackdrop"
-                data-bs-toggle="modal"
+                modal_id="modalAccept"
+                button-action
             ) Chấp nhận
 
-            +modal(jobDetail, "staticBackdrop", "Chấp nhận", "accept")
-
-            
+            +modal(jobDetail, "modalAccept", "Chấp nhận", "accept")
                             
             button(
                 class="btn btn-warning"  
-                data-bs-target="#rejectModal"  
-                data-bs-toggle="modal"
+                modal_id="modalReject"
+                button-action
             ) Từ chối
 
-            +modal(jobDetail, "rejectModal", "Từ chối", "reject")
+            +modal(jobDetail, "modalReject", "Từ chối", "reject")
 
+            div(class="thongBao" thongBao=announce)
         
 
     .card.my-3 

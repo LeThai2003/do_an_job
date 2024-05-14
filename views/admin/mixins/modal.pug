@@ -1,18 +1,12 @@
 mixin modal(jobDetail, modalId, modalTitle, btnType)
-    div(class="modal fade" id=modalId data-bs-backdrop="static" data-bs-keyboard="false"
-        tabindex="-1" aria-labelledby=modalId+'Label' aria-hidden="true"
-    )
-        div(class="modal-dialog modal-dialog-centered")
-            div(class="modal-content")
-                div(class="modal-header")
-                    h5(class="modal-title" id=modalId+'Label') #{modalTitle}
-                    button(type="button" class="btn-close" data-bs-dismiss="modal") 
-                div(class="modal-body")
-                    form(method="post"
-                        action
-                        form-action-cv
-                        path=`/${prefixAdmin}/announce/${congTyId}` 
-                    )
+    .box-container(modalId=modalId)
+        .box-content 
+            .box-head 
+                .box-title #{modalTitle} 
+                .box-close <i class="fa-solid fa-xmark"></i>
+            .box-body 
+                .box-form 
+                    form(form-action-cv) 
                         div(class="form-group")
                             label(for="HoTen") Họ tên 
                             input(type="text" class="form-control" id="HoTen" name="HoTen" value=jobDetail.infoUser.hoTen readonly)
@@ -27,10 +21,12 @@ mixin modal(jobDetail, modalId, modalTitle, btnType)
                                 textarea(name="thongBao" id="thongBao" class="form-control" rows="5" textarea-mce)
                                     | Thật tiếc nhưng chúng tôi thấy bạn chưa phù hợp với vị trí này!
 
+                        input(type="text" class="form-control d-none" name="type" readonly)
+
                         button(
                             type="submit"
                             userId=jobDetail.userId 
                             maCV=jobDetail.maCV
-                            class="btn btn-primary btn-large " 
+                            class="btn btn-primary btn-large mt-2" 
                             button-submit=btnType
                         ) Gửi

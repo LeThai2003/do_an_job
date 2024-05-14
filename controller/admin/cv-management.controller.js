@@ -2,6 +2,7 @@ const CompanyModel = require("../../models/Company.model");
 const JobModel = require("../../models/Job.model");
 const JobDetailModel = require("../../models/Job-detail.model");
 const UserModel = require("../../models/User.model");
+const AnnounceModel = require("../../models/Announce.model");
 const AreaModel = require("../../models/Area.model");
 const selectionSortHelper = require("../../helpers/selection-sort.helper");
 const filterStatusHelper = require("../../helpers/filter-status.helper");
@@ -118,15 +119,18 @@ module.exports.detailCV = async(req, res) => {
         jobDetail.infoUser = infoUser;
         jobDetail.infoArea = infoArea;
 
+
         // -----socket----
-        cvSocket.clickButtonSubmit();
+        cvSocket.clickButtonSubmit(req, res, jobDetail);
         // -----socket----
 
+        const announce = await AnnounceModel.checkAnnounce(jobDetail.userId, jobDetail.maCV);
 
         res.render("admin/pages/cv-management/detail", {
             title: "Trang danh sách cv",
             jobDetail: jobDetail,
-            congTyId
+            congTyId,
+            announce: JSON.stringify(announce)
         })
 
     } catch (error) {

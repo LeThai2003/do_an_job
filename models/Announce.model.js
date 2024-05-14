@@ -11,6 +11,18 @@ const getAnnounceOfUser = async (userId) => {
     }
 }
 
+const checkAnnounce = async (userId, maCV) => {
+    try {
+        const result = await sql.query`select * from THONGBAO where userId = ${userId} and maCV = ${maCV}`;
+        return result.recordset[0];
+    } catch (err) {
+        console.log('Error getting checkAnnounce:', err);
+        return [];
+    }
+}
+
+
+
 const countAnnounceNotSeenOfUser = async (userId) => {
     try {
         const stringQuery = `select count(*) soluong from THONGBAO where daXem = 0 and userId = ${userId}`
@@ -54,5 +66,6 @@ module.exports = {
     insertAnnounce,
     getAnnounceOfUser,
     countAnnounceNotSeenOfUser,
-    updateAnnounce
+    updateAnnounce,
+    checkAnnounce
 };

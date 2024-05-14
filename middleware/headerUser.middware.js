@@ -2,6 +2,7 @@ const UserModel = require("../models/User.model");
 const CompanyModel = require("../models/Company.model");
 const AnnounceModel = require("../models/Announce.model");
 const JobModel = require("../models/Job.model");
+const timeHelper = require("../helpers/date.helper");
 
 module.exports.infoUser = async(req, res, next) => {
     const token = req.cookies.tokenUser;
@@ -12,21 +13,8 @@ module.exports.infoUser = async(req, res, next) => {
         if(user)
         {
             user.hoVaTen = user.ho + " " + user.ten;
-            // var ngaySinh = user.ngaySinh;
-
-            // console.log(ngaySinh);
-
-            // // Định dạng ngày tháng
-            // var ngay = ngaySinh.getDate().toString().padStart(2, '0'); // Lấy ngày và đảm bảo là 2 chữ số
-            // var thang = (ngaySinh.getMonth() + 1).toString().padStart(2, '0'); // Lấy tháng (tháng bắt đầu từ 0) và đảm bảo là 2 chữ số
-            // var nam = ngaySinh.getFullYear().toString();
-
-
-            // // Tạo chuỗi định dạng ngày tháng
-            // var ngaySinhFormatted = `${nam}-${thang}-${ngay}`;
-
-            // user.ngaySinhFormatted = ngaySinhFormatted
-
+            
+            user.ngaySinh = timeHelper.getDate(user.ngaySinh);
 
             // ---- cong ty neu co ----
             const company = await CompanyModel.getInfoCompanyByIdUser(user.userId);
@@ -45,6 +33,7 @@ module.exports.infoUser = async(req, res, next) => {
                 for (const announce of announces) {
                     const infoCT_CV = await CompanyModel.getCompanyByMaCV(announce.maCV);
                     announce.infoCT_CV = infoCT_CV;
+                    announce.thoiGianGui = timeHelper.getTime(announce.thoiGianGui);   // -> "2/1/2013 7:37:08 AM"
                 }
             }
 

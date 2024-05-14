@@ -13,11 +13,8 @@ block main
             .card-text 
                 .tenUV Ứng viên: <b>#{user.hoTen}</b>
                 .tenCV Tên công việc: <b>#{job.tenCV}</b>
-                .ketQua Kết quả:  
-                    if announce.ketQua 
-                        b Đạt 
-                    else 
-                        b Rớt 
+                .ketQua(class=announce.ketQua ? '' : 'ketQua-failed') Kết quả: 
+                    b #{announce.ketQua ? 'Đạt' : 'Rớt'}
                 .thongBao 
                     | !{announce.thongBao}
 

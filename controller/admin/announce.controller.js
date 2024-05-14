@@ -10,7 +10,7 @@ module.exports.index = async (req, res) => {
     const maCV = req.params.maCV;
     const userId = req.params.userId;
 
-    await AnnounceModel.insertAnnounce(maCV, userId, req.body.thongBao);
+    // await AnnounceModel.insertAnnounce(maCV, userId, req.body.thongBao);
 
     // SocketIO
     _io.once("connection", async (socket) => {
@@ -19,7 +19,7 @@ module.exports.index = async (req, res) => {
         // ----trả ra giao diện real-time ----
         const infoCT_CV = await CompanyModel.getCompanyByMaCV(maCV);
 
-        console.log(infoCT_CV);
+        // console.log(infoCT_CV);
         
         socket.broadcast.emit("SERVER_SEND_ANNOUNCE", {
             userId: userId,

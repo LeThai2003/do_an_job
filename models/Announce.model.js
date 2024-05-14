@@ -21,11 +21,11 @@ const countAnnounceNotSeenOfUser = async (userId) => {
     }
 }
 
-const insertAnnounce = async (maCV, userId, thongBao) => {
+const insertAnnounce = async (maCV, userId, thongBao, type) => {
     try {
         
-        stringQuery = `insert into THONGBAO(maCV, userId, thongBao, thoiGianGui)
-        values(${maCV}, ${userId}, N'${thongBao}', CONVERT(datetime, getdate())) 
+        stringQuery = `insert into THONGBAO(maCV, userId, thongBao, thoiGianGui, ketQua)
+        values(${maCV}, ${userId}, N'${thongBao}', CONVERT(datetime, getdate()), ${type}) 
         `;
 
         await sql.query(stringQuery);

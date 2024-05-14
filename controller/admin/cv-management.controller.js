@@ -5,7 +5,8 @@ const UserModel = require("../../models/User.model");
 const AreaModel = require("../../models/Area.model");
 const selectionSortHelper = require("../../helpers/selection-sort.helper");
 const filterStatusHelper = require("../../helpers/filter-status.helper");
-const paginationHelper = require("../../helpers/pagination.helper")
+const paginationHelper = require("../../helpers/pagination.helper");
+const cvSocket = require("../../socket/cv-announce-admin.socket");
 
 //[GET] /manage/cv-managemant/:congTyId
 module.exports.index = async(req, res) => {
@@ -116,6 +117,10 @@ module.exports.detailCV = async(req, res) => {
         jobDetail.infoJob = infoJob;
         jobDetail.infoUser = infoUser;
         jobDetail.infoArea = infoArea;
+
+        // -----socket----
+        cvSocket.clickButtonSubmit();
+        // -----socket----
 
 
         res.render("admin/pages/cv-management/detail", {

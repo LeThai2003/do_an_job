@@ -134,14 +134,18 @@ if(formAcctionCV)
     formAcctionCV.addEventListener("submit", (e) => {
         e.preventDefault();
         const buttonSubmit = formAcctionCV.querySelector("[button-submit]");
+        const type = buttonSubmit.getAttribute("button-submit"); // accept / reject
         const userId = buttonSubmit.getAttribute("userId");
         const maCV = buttonSubmit.getAttribute("maCV");
+        const thongBao = formAcctionCV.querySelector("#thongBao");
         const path = formAcctionCV.getAttribute("path");
         const action = `${path}/${maCV}/${userId}`;
         formAcctionCV.action = action;
         socket.emit("COMPANY_SEND_ANNOUNCE", {
             userId: userId,
             maCV: maCV,
+            type: type,
+            thongBao: thongBao.value
         });
         formAcctionCV.submit();
     }); 

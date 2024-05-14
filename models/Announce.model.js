@@ -9,6 +9,16 @@ const getAnnounceOfUser = async (userId) => {
         console.log('Error getting jobs:', err);
         return [];
     }
+
+}
+const getAnnounce = async (userId, maCV) => {
+    try {
+        const result = await sql.query`select * from THONGBAO where userId = ${userId} and maCV=${maCV}`;
+        return result.recordset[0];
+    } catch (err) {
+        console.log('Error getting getAnnounce:', err);
+        return [];
+    }
 }
 
 const checkAnnounce = async (userId, maCV) => {
@@ -67,5 +77,6 @@ module.exports = {
     getAnnounceOfUser,
     countAnnounceNotSeenOfUser,
     updateAnnounce,
-    checkAnnounce
+    checkAnnounce,
+    getAnnounce
 };

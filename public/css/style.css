@@ -591,3 +591,50 @@ span.name{
     text-align: right;
     padding-right: 10px;
 }
+
+
+/* Trang xem kết quả */
+.card-container{
+    width: 98vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card-content{
+    border: 1px solid var(--blue-font);
+    padding: 10px 20px 2px 20px;
+    border-radius: 8px;
+    max-width: 650px;
+}
+
+.card-head{
+    display: flex;
+}
+
+.card-image{
+    width: 70px;
+    padding: 5px;
+}
+
+.card-image img{
+    width: 100%;
+    object-fit: cover;
+}
+
+.card-title{
+    flex: 1;
+    padding: 5px 10px;
+    text-align: center;
+}
+
+.card-title p{
+    margin: 0;
+}
+
+.card-title p.time{
+    font-size: 12px;
+    text-align: right;
+}
+
+/* Trang xem kết quả */

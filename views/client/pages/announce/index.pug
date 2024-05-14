@@ -1,4 +1,23 @@
 extends ../../layouts/announce.pug 
 
 block main 
-    h2 Kết quả 
+    .card-container.my-2
+        .card-content 
+            .card-head 
+                .card-image 
+                    img(src=job.logo alt=job.tenCT)
+                .card-title 
+                    .tenCT #{job.tenCT}
+                    p <b>THÔNG BÁO KẾT QUẢ CV</b>
+                    p.time <i>Ngày gửi: #{announce.thoiGianGui}</i>
+            .card-text 
+                .tenUV Ứng viên: <b>#{user.hoTen}</b>
+                .tenCV Tên công việc: <b>#{job.tenCV}</b>
+                .ketQua Kết quả:  
+                    if announce.ketQua 
+                        b Đạt 
+                    else 
+                        b Rớt 
+                .thongBao 
+                    | !{announce.thongBao}
+

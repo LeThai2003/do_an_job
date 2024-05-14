@@ -39,3 +39,13 @@ module.exports.getDate = (d) => {
     return `${year}-${month}-${day}`;
 }
 
+module.exports.getDate2 = (d) => {
+    const date = new Date(d);
+    let day = date.getUTCDate();
+    day = day > 9 ? day : `0${day}`;
+    let month = date.getUTCMonth() + 1; // Tháng bắt đầu từ 0
+    month = month > 9 ? month : `0${month}`;
+    const year = date.getUTCFullYear();
+    return `${day}-${month}-${year}`;
+}
+

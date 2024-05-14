@@ -1,6 +1,7 @@
 const AnnounceModel = require("../models/Announce.model");
 const CompanyModel = require("../models/Company.model");
 const JobDetailModel = require("../models/Job-detail.model");
+const he = require('he');
 
 module.exports.clickButtonSubmit = async (req, res, jobDetail) => {
     _io.once("connection", async (socket) => {
@@ -26,6 +27,9 @@ module.exports.clickButtonSubmit = async (req, res, jobDetail) => {
                 {
                     type = "1";
                 }
+
+                data.thongBao = he.decode(data.thongBao);
+
                 await AnnounceModel.insertAnnounce(maCV, userId, data.thongBao , type);
 
                 // ----trả ra giao diện real-time ----

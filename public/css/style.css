@@ -302,6 +302,44 @@ span.name{
     color: #000;
 }
 
+/* Section list job  */
+[company] .section-list .section-item .item{
+    padding: 0 100px;
+}
+[company] .section-list .section-item .box{
+    border: 2px solid black;
+    padding: 10px 40px;
+    justify-content: space-between;
+    height: 120px;
+    overflow: hidden;
+    cursor: pointer;
+}
+[company] .section-list .section-item .box .item-left .item-img img{
+    width: 80px;
+    height: 80px;
+    margin-right: 20px;
+}
+[company] .section-list .section-item .box .item-left .ttle-job .name-job{
+    font-size: 24px;
+    color: var(--font-color--hover);
+}
+[company] .section-list .section-item .box .item-right{
+    width: 30%;
+    height: 100px;
+    overflow: hidden;
+}
+[company] .section-list .section-item .box .item-right .desr-title{
+    color: var(--font-color--hover);
+}
+
+/* animation hover */
+
+[company] .section-list .section-item .box:hover{
+    border-color: var(--font-color--hover);
+}
+
+
+
 /* footer */
 .footer{
     background-color: var(--blue-font);

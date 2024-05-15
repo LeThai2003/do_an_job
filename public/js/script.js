@@ -37,10 +37,13 @@ if (formSearch) {
         e.preventDefault();
 
         let url = new URL(window.location.href);
-        if(!url.pathname == "/jobs")
+        if(url.pathname != "/jobs")
         {
             url = new URL(`${url.origin}/jobs`);
         }
+
+        console.log(url)
+        console.log(url.href);
    
         const inputViTri = formSearch.querySelector("input[name='vitri']");
         const selectArea = formSearch.querySelector("[select-area]");
@@ -56,6 +59,9 @@ if (formSearch) {
         url.searchParams.set("khuvuc", area);
         url.searchParams.set("kinhnghiem", experience);
         url.searchParams.set("luong", salary);
+
+        console.log(url);
+        console.log(url.href);
 
         window.location.href = url.href;
     });

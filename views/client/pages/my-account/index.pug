@@ -90,9 +90,6 @@ block main
                             .account-email 
                                 p.title Email :
                                 input.text(name="emailCT" type="email")  
-                        .item-account
-                            p.title Mô tả :
-                            textarea.text_moto.text(name="moTa")
                         .item-account-button 
                             button(type="submit") Tạo mới
 
@@ -138,10 +135,7 @@ block main
                                 input.text(name="sdtCT" value=company.sdtCT)
                             .account-email 
                                 p.title Email :
-                                input.text(name="emailCT" value=company.emailCT type="email")  
-                        .item-account
-                            p.title Mô tả :
-                            textarea.text_moto.text(name="moTa") #{company.moTa}  
+                                input.text(name="emailCT" value=company.emailCT type="email")   
                         .item-account-button 
                             button.account-xac_nhan(type="submit") Xác nhận
 

@@ -8,28 +8,33 @@ const announceSocket = require("../../socket/announce-client.socket");
 
 //[GET]/announce/:maCV/:userId
 module.exports.index = async(req, res) => {
-    const maCV = req.params.maCV;
-    const userId = req.params.userId;
+    try {
+        const maCV = req.params.maCV;
+        const userId = req.params.userId;
 
-    // SocketIO
-    announceSocket();
-    // End SocketIO
+        // SocketIO
+        announceSocket();
+        // End SocketIO
 
-    const announce = await AnnounceModel.getAnnounce(userId, maCV);
-    announce.thoiGianGui = timeHelper.getDate2(announce.thoiGianGui);
+        const announce = await AnnounceModel.getAnnounce(userId, maCV);
+        announce.thoiGianGui = timeHelper.getDate2(announce.thoiGianGui);
 
-    const user = await UserModel.getInfoUserByUserId(userId);
-    const job = await CompanyModel.getCompanyByMaCV(maCV);
+        const user = await UserModel.getInfoUserByUserId(userId);
+        const job = await CompanyModel.getCompanyByMaCV(maCV);
 
-    job.tenCT = job.tenCT.toUpperCase();
+        job.tenCT = job.tenCT.toUpperCase();
 
-    console.log(user);
-    console.log(job);
+        console.log(user);
+        console.log(job);
 
-    res.render("client/pages/announce/index", {
-        title: "Trang kết quả",
-        announce: announce,
-        job: job,
-        user: user
-    })
+        res.render("client/pages/announce/index", {
+            title: "Trang kết quả",
+            announce: announce,
+            job: job,
+            user: user
+        })
+    } catch (error) {
+        console.log(error);
+        res.redirect("/");
+    }
 }

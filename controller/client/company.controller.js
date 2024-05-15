@@ -26,7 +26,8 @@ module.exports.index = async(req, res) => {
             }
             else
             {
-                query = `select * from CONGTY where (tenCT like N'%${tenCT}%') and (diaDiem like N'${khuVuc}%')`;
+                query = `select * from CONGTY where (tenCT like N'%${tenCT}%') and (diaDiem like N'%${khuVuc}%')`;
+                // console.log(query);
             }
     
             companies = await CompanyModel.getAllCompaniesBySearch(query);

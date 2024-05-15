@@ -5,16 +5,21 @@ const md5 = require("md5");
 
 //[GET]/my-account
 module.exports.index = async(req, res) => {
-    const userId = res.locals.User.userId;
+    try {
+        const userId = res.locals.User.userId;
 
-    const company = await CompanyModel.getInfoCompanyByIdUser(userId);
+        const company = await CompanyModel.getInfoCompanyByIdUser(userId);
 
-    // console.log(company);
+        // console.log(company);
 
-    res.render("client/pages/my-account/index",{
-        title: "Trang công ty",
-        company: company
-    })
+        res.render("client/pages/my-account/index",{
+            title: "Trang công ty",
+            company: company
+        })
+    } catch (error) {
+        console.log(error);
+        res.redirect(`/user?view=login`);
+    }
 }
 
 //[POST]/my-account/edit/info-user/:userId
@@ -135,7 +140,7 @@ module.exports.editCompanyInfo = async (req, res) => {
             infoCompany.logo = `/uploads/${req.file.filename}`;
         }
         
-        await CompanyModel.updateInfoCompany(infoCompany, companyId);
+        await CompanyModel.updateInfoCompany2(infoCompany, companyId);
 
         res.redirect("back");
     } catch (error) {

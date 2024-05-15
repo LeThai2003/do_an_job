@@ -30,6 +30,7 @@ const getJobsByForm = async (query) => {
     try {
         const queryString = query.toString();
         const result = await sql.query(queryString);
+        console.log("okko")
         return result.recordset;
     } catch (error) {
         console.log("Error getting jobs by form search", error);
@@ -71,7 +72,10 @@ const getJobOfCompany = async (id) => {
 
 const updateJobDateApply = async (maCV, value) => {
     try {
-        await sql.query`update CONGVIEC set hetHan = ${value} where maCV = ${maCV}`;
+        // console.log(maCV);
+        const stringQuery = `update CONGVIEC set hetHan = ${value} where maCV = ${maCV}`;
+        // console.log(stringQuery);
+        await sql.query(stringQuery);
     } catch (err) {
         console.log('Update job: date for apply err:', err);
     }
@@ -79,7 +83,10 @@ const updateJobDateApply = async (maCV, value) => {
 
 const updateJobStatus = async (maCV, value) => {
     try {
-        await sql.query`update CONGVIEC set trangThai = ${value} where maCV = ${maCV}`;
+        // console.log(maCV);
+        const stringQuery = `update CONGVIEC set trangThai = ${value} where maCV = ${maCV}`;
+        // console.log(stringQuery);
+        await sql.query(stringQuery);
         // console.log("----------update Trạng thái công việc thành công------------");
     } catch (err) {
         console.log('Update job: updateJobStatus', err);

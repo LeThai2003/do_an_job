@@ -98,12 +98,27 @@ const updateInfoCompany = async (infoCompany, congTyId) => {
     }
 }
 
+const updateInfoCompanyClient = async (infoCompany, congTyId) => {
+    try {
+        let stringQuery = `update CONGTY set tenCT = N'${infoCompany.tenCT}', diaDiem = N'${infoCompany.diaDiem}', sdtCT = '${infoCompany.sdtCT}', emailCT = '${infoCompany.emailCT}', quyMo = ${infoCompany.quyMo} where congTyId = ${congTyId}`
+        if(infoCompany.logo)
+        {
+            stringQuery = `update CONGTY set tenCT = N'${infoCompany.tenCT}', diaDiem = N'${infoCompany.diaDiem}', sdtCT = '${infoCompany.sdtCT}', emailCT = '${infoCompany.emailCT}', quyMo = ${infoCompany.quyMo}, logo = N'${infoCompany.logo}' where congTyId = ${congTyId}`;
+        }
+        await sql.query(stringQuery);
+        console.log("----------update info company success!")
+        return;
+    } catch (err) {
+        console.error('Error getting updateInfoCompany:', err);
+    }
+}
+
 const insertCompany = async (userId, infoCompany) => {
     try {
-        const {tenCT, quyMo, diaDiem, sdtCT, emailCT, moTa, logo} = infoCompany;
+        const {tenCT, quyMo, diaDiem, sdtCT, emailCT, logo} = infoCompany;
         const stringQuery = `
             insert into CONGTY(userId, tenCT, diaDiem, quyMo, moTa, logo, sdtCT, emailCT)
-            values(${userId}, N'${tenCT}', N'${diaDiem}', ${quyMo}, N'${moTa}', N'${logo}', '${sdtCT}', '${emailCT}')
+            values(${userId}, N'${tenCT}', N'${diaDiem}', ${quyMo}, N'${logo}', '${sdtCT}', '${emailCT}')
         `
         await sql.query(stringQuery);
         console.log("----------create info company success!")

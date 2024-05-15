@@ -100,8 +100,11 @@ if (url.href.includes("view")) {
     }
 }
 
+
+
 quenmk.addEventListener("click" , () => {
-    url.href = `${url.origin}${url.pathname}/password/forgot`;
+    url.href = `${url.origin}/user/password/forgot`;
+    console.log(url);
     window.location.href = url.href;
 })
 

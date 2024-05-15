@@ -41,6 +41,7 @@ module.exports.infoUser = async(req, res, next) => {
             announces.SoLuongChuaXem = SoLuongChuaXem.soluong;
 
             res.locals.User = user;
+
             res.locals.Announces = announces;
 
             next();

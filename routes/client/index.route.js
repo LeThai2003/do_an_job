@@ -5,6 +5,7 @@ const userRoute = require("./user.route")
 const myAccountRoute = require("./my-account.route");
 const AnnounceRoute = require("./announce.route");
 
+const authMiddleware = require("../../middleware/auth.middleware");
 const navigationMenuMiddleware = require("../../middleware/navigationMenu");
 const headerMenuMiddleware = require("../../middleware/headerUser.middware");
 
@@ -15,13 +16,13 @@ module.exports = (app) => {
 
     app.use("/jobs", navigationMenuMiddleware.index, jobRouter);
 
-    app.use("/companys" , navigationMenuMiddleware.index, companyRoute);
+    app.use("/companys", navigationMenuMiddleware.index, companyRoute);
 
-    app.use("/my-account", myAccountRoute);
+    app.use("/my-account",authMiddleware.requireAuth, myAccountRoute);
 
     app.use("/user", userRoute);
 
-    app.use("/announce", AnnounceRoute);
+    app.use("/announce", authMiddleware.requireAuth, AnnounceRoute);
 
 
 }

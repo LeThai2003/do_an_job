@@ -13,7 +13,9 @@ module.exports.getAllJobs = async (req, res) => {
     try {
         var getJobs = [];
 
-        if(req.query.vitri)
+        // console.log(req.query);
+
+        if('vitri' in req.query)
         {
             const query = searchFormHelper.search(req.query);
             getJobs = await JobModel.getJobsByForm(query);

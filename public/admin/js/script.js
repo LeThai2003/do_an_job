@@ -118,8 +118,19 @@ if(buttonDeleteJob)
                 const path = formDelete.getAttribute("path");
                 const action = `${path}/delete/job/${slug}?_method=PATCH`;
                 formDelete.action = action;
-                console.log(action);
-                formDelete.submit();
+                Swal.fire({
+                    title: 'Bạn có muốn xóa công việc này không?',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Xóa',
+                    cancelButtonText: 'Hủy',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        formDelete.submit();
+                    }
+                })
             });
         }
     });
@@ -361,8 +372,19 @@ if(buttonDeleteCVs)
                 const path = formDelete.getAttribute("path");
                 const action = `${path}/${maCTCVC}?_method=PATCH`;
                 formDelete.action = action;
-                console.log(action);
-                formDelete.submit();
+                Swal.fire({
+                    title: 'Bạn có muốn xóa CV này không?',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Xóa',
+                    cancelButtonText: 'Hủy',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        formDelete.submit();
+                    }
+                })
             });
         }
     })

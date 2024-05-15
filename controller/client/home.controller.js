@@ -1,4 +1,5 @@
 const JobModel = require("../../models/Job.model");
+const CompanyModel = require("../../models/Company.model");
 const timeApplyHelper = require("../../helpers/time-apply.helper")
 const announceSocket = require("../../socket/announce-client.socket");
 
@@ -7,16 +8,20 @@ const announceSocket = require("../../socket/announce-client.socket");
 module.exports.index =async (req, res) => {
     const getJobs = await JobModel.getAllJobs();
 
-    const jobs = await timeApplyHelper.time(getJobs);
+    var jobs = await timeApplyHelper.time(getJobs);
+
+    jobs = jobs.reverse().slice(0,6);
+
+    var companies = await CompanyModel.getAllCompanies();
+    companies = companies.slice(0,2);
 
     // SocketIO
     announceSocket();
     // End SocketIO
 
-    const User = res.locals.User;
-
     res.render("client/pages/home/index.pug", {
         title: "Trang chủ",
-        jobs: jobs 
+        jobs: jobs,
+        companies: companies
     });
 };

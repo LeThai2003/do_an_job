@@ -20,6 +20,8 @@ a {
 
 }
 
+
+
 .header{
     position: fixed;
     width: 100%;
@@ -153,34 +155,53 @@ span.name{
 }
 
 /* Section list job  */
-.section-list .section-item .box{
+.swiper-contain{
+    padding: 10px;
+    background: #def0ff;
+    margin-bottom: 5px;
+    border-radius: 5px;
+}
+
+.swiper-button-prev, .swiper-button-next{
+    opacity: 0;
+    transition: 0.1s;
+    /* visibility: hidden; */
+}
+
+.swiper-button-prev:hover, .swiper-button-next:hover{
+    opacity: 1;
+    /* visibility: visible; */
+}
+
+.section-list .box{
     border: 3px solid var(--blue-font);
     position: relative;
     box-sizing: border-box;
     margin: 2px;
+    background: #fff;
 }
-.section-list .section-item .item .item-top .item-img{
+.section-list .item-top .item-img{
     border: 2px solid var(--blue-font);
     height: 65px;
     margin-right: 20px;
 }
-.section-list .section-item .item .item-top .name-job, .name-cmp{
+.section-list .item-top .name-job, .name-cmp{
     width: 150px;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
     margin-bottom: 6px;
 }
-.section-list .section-item .item .item-top .name-job{
+.section-list .item-top .name-job{
     font-size: 18px;
     font-weight: 500;
     word-break: break-all;
 }
-.section-list .section-item .item .item-top img{
+.section-list .item-top img{
     width: 60px;    
     height: 60px;
 }
-.section-list .section-item .item .item-bot .info-job span{
+.section-list .item-bot .info-job span{
     font-size: 14px;
     color: var(--blue-font);
     border: 1px solid var(--blue-font);
@@ -189,14 +210,14 @@ span.name{
     margin: 4px;
 }
 
-.section-list .section-item .item .item-bot .info-job .desr span{
+.section-list .item-bot .info-job .desr span{
     border: none;
 }
 
-.section-list .section-item .item .empty{
+.section-list .empty{
     width: 50%;
 }
-.section-list .section-item .item .ungtuyen{
+.section-list .ungtuyen{
     border: 2px solid var(--blue-font);
     padding: 5px 10px;
     margin-bottom: -1.5rem;
@@ -230,10 +251,10 @@ span.name{
       transform: rotateZ(0);
     }
   }
-.section-list .section-item .item .ungtuyen:hover{
+.section-list .ungtuyen:hover{
     animation: wiggle 2s linear infinite;
 }
-.section-list .section-item .item .xem{
+.section-list .xem{
     position: absolute;
     display: none;
     top: 75px;
@@ -245,12 +266,46 @@ span.name{
     z-index: 10;
     cursor: pointer;
 }
-.item:hover .button.xem {
+.box:hover .button.xem {
     display: inline-block;
 }
+
+.read-all{
+    display: flex;
+    margin: auto;
+    padding: 8px 16px;
+    color: #003a6d;
+    position: relative;
+    border-radius: 5px;
+    background: transparent;
+    border: none;
+}
+
+.read-all::before{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, 0);
+    height: 100%;
+    width: 0;
+    background-color: var(--blue-font);
+    z-index: -1;
+    transition: width 0.5s ease-in;
+}
+
+.read-all:hover:before{
+    width: 100%;
+}
+
+.read-all a:hover{
+    color: #000;
+}
+
 /* footer */
 .footer{
     background-color: var(--blue-font);
+    margin-top: 20px;
 }
 .footer .box-item{
     padding: 15px;
@@ -272,8 +327,9 @@ span.name{
 
 /* box - head  */
 .box-head {
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     padding-left: 1.5rem;
+    padding-left: 0px;
 }
 
 .box-head .inner-title {

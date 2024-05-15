@@ -1,28 +1,66 @@
 extends ../../layouts/default.pug 
 include ../../mixins/time-apply.pug
+include ../../mixins/box-head.pug
+include ../../mixins/swiper.pug
 
 block main 
     //- Hien thi trang 1 CV (10 trang)
-    .section-list.container-fluid
-        .section-item.row.row-cols-1.row-cols-md-2.row-cols-lg-4.p-4
-            for job in jobs 
-                .item.col-sm-12.col-md-6.col-lg-4.col-xl-3.mb-4.p-2
-                    .box.p-4
-                        .item-top.d-flex.mb-2
-                            .item-img
-                                img(src=job.company.logo, alt="logo công ty")
-                            .ttle-job 
-                                .name-job #{job.tenCV}
-                                //- Điền vào tên
-                                .name-comp #{job.company.tenCT}
-                                //- Điền tên công ty 
-                        .item-bot
-                            .info-job 
-                                span.desr #{job.luong} triệu
-                                span.desr 
-                                    +time-apply(job.soNgayTuNgayKhoiTao, job.soNgayHieuLuc)
-                            .button-ut.d-flex.justify-content-between
-                                .empty 
-                                .ungtuyen.animate__pulse Ứng tuyển 
-                            .button.xem 
-                                a(href=`/jobs/detail/${job.slug}`) Xem >>
+    .section-list.container
+        +box-head("Danh sách công việc")
+        div(class="swiper-contain")
+            +swiper(jobs)
+        //- .section-item.row.row-cols-1.row-cols-md-2.row-cols-lg-4.p-4
+        //-     for job in jobs 
+        //-         .item.col-sm-12.col-md-6.col-lg-4.col-xl-3.mb-4.p-2
+        //-             .box.p-4
+        //-                 .item-top.d-flex.mb-2
+        //-                     .item-img
+        //-                         img(src=job.company.logo, alt="logo công ty")
+        //-                     .ttle-job 
+        //-                         .name-job #{job.tenCV}
+        //-                         //- Điền vào tên
+        //-                         .name-comp #{job.company.tenCT}
+        //-                         //- Điền tên công ty 
+        //-                 .item-bot
+        //-                     .info-job 
+        //-                         span.desr #{job.luong} triệu
+        //-                         span.desr 
+        //-                             +time-apply(job.soNgayTuNgayKhoiTao, job.soNgayHieuLuc)
+        //-                     .button-ut.d-flex.justify-content-between
+        //-                         .empty 
+        //-                         .ungtuyen.animate__pulse Ứng tuyển 
+        //-                     .button.xem 
+        //-                         a(href=`/jobs/detail/${job.slug}`) Xem >>
+        button(class="read-all") 
+            a(href=`/jobs`) 
+                b Xem tất cả  
+    .section-list.container
+        +box-head("Danh sách công ty")
+        .section-item.row.row-cols-1.row-cols-md-1.row-cols-lg-1.p-4.justify-content-center
+            .item.col-sm-12.col-md-12.col-lg-12.col-xl-10.mb-4
+                if(companies.length > 0)
+                    each company in companies 
+                        .box.mb-4.d-flex
+                            .item-left.d-flex.mb-2
+                                .item-img
+                                    a(href=`/companys/detail/${company.slug}`) 
+                                        img(src=company.logo, alt="logo công ty")
+                                .ttle-job 
+                                    .name-job 
+                                        a(href=`/companys/detail/${company.slug}`) #{company.tenCT}
+                                    //- Điền vào tên
+                                    .name-comp Địa điểm : #{company.diaDiem}
+                                    //- Điền tên công ty 
+                            .item-right
+                                .info-job.d-flex.flex-column
+                                    span.desr-title Mô tả :
+                                    span.desr 
+                                        | !{company.moTa}
+        button(class="read-all" style="margin-top: -50px;") 
+            a(href=`/jobs`) 
+                b Xem tất cả
+          
+
+block script 
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    script(src="/js/swiper.js") 

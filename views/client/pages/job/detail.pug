@@ -34,7 +34,16 @@ block main
                     if(applied)
                         p(applied) #{applied}
                 span(class="d-inline-block" tabindex="0" data-toggle="tooltip" title="" tooltip)
-                    button(class="btn btn-outline-success button-ungtuyen my-2" onClick="openUngTuyen()" button-ungtuyen=job) Ứng tuyển
+                    button(
+                            class="btn btn-outline-success button-ungtuyen my-2" 
+                            onClick="openUngTuyen()" 
+                            button-ungtuyen=job
+                        ) Ứng tuyển
+                    div(class="alert alert-info" role="alert" loginBeforApply) Bạn cần đăng nhập trước khi ứng tuyển!
+                        b 
+                            a(href=`/user?view=login`) Đăng nhập ngay 
+                        
+                    
                 .hanchot.d-flex.align-items-center
                     .burst-div.me-2
                     p.p-0.m-0 

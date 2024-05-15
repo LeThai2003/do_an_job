@@ -56,6 +56,7 @@ a {
     font-size: 40px;
     font-weight: 700;
 }
+
 .negative{
     position: fixed;
     top: 20%;
@@ -106,6 +107,16 @@ a {
     color: var(--blue-font);
     font-weight: 500;
 }
+
+[mota]{
+    background-color: var(--font-color);
+    padding: 10px;
+    border-radius: 20px;
+    font-size: 16px;
+    color: var(--blue-font);
+    font-weight: 500;
+}
+
 .section-CT-body .body-tintuyen .box-item {
     background-color: var(--font-color);
     height: 700px;

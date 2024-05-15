@@ -203,9 +203,13 @@ if(formSearchCompany)
 // điều hướng trang info user
 const myAccount = document.querySelector("[my-account]");
 
-myAccount.addEventListener("click", () => {
-    window.location.href = `${window.location.origin}/my-account?view-info=user`;
-})
+if(myAccount)
+{
+    myAccount.addEventListener("click", () => {
+        window.location.href = `${window.location.origin}/my-account?view-info=user`;
+    })
+}
+
 // điều hướng trang info user
 
 
@@ -229,6 +233,7 @@ if(alert)
 
 // -----trang công việc --- filter status -----
 const buttonStatus = document.querySelectorAll("[status]");
+console.log(buttonStatus)
 if(buttonStatus)
 {
     buttonStatus.forEach(button => {

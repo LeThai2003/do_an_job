@@ -313,3 +313,8 @@ span.name{
         font-size: 13px;
     }
 }
+
+
+[loginBeforApply]{
+    display: none;
+}

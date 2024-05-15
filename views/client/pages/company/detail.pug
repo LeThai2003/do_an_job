@@ -23,7 +23,9 @@ body
             .container-item 
                 .item 
                     p.title Mô tả :
-                    p.text #{company.moTa}
+                    div(mota) 
+                        | !{company.moTa}
+                    
                 .item 
                     p.title Quy mô :
                     p.text #{company.quyMo} nhân viên 

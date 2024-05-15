@@ -74,7 +74,7 @@ module.exports.getAllJobs = async (req, res) => {
 //[GET] /jobs/detail/:slug
 module.exports.detail = async(req, res) => {
     try {
-        const userId = res.locals.User.userId;
+        var userId = ( res.locals.User ? res.locals.User.userId : "");
 
         const slugJob = req.params.slug;
 
@@ -90,18 +90,24 @@ module.exports.detail = async(req, res) => {
 
 
         //lay congTyId của user nếu có
-        let congTyUser = await CompanyModel.getInfoCompanyByIdUser(userId);
+        var congTyUserId = -1;  // chưa đăng nhập thì không có công ty
+        var applied = 100; // chưa đăng nhập thì phải đăng nhập trước khi ứng tuyển 
 
-        let jobDetail = await JobDetailModel.getDetailJobByMaCV_UserId(job.maCV, userId);
-
-        console.log(jobDetail);
-
-        let congTyUserId;
-
-        if(congTyUser)
+        if(userId)  // nếu có đăng nhập
         {
-            congTyUserId = congTyUser.congTyId;
-        }
+            let congTyUser = await CompanyModel.getInfoCompanyByIdUser(userId);
+
+            let jobDetail = await JobDetailModel.getDetailJobByMaCV_UserId(job.maCV, userId);
+            if(jobDetail)
+            {
+                applied = 1;
+            }
+
+            if(congTyUser)
+            {
+                congTyUserId = congTyUser.congTyId;
+            }
+        }        
 
         res.render("client/pages/job/detail.pug", {
             job: job,
@@ -109,7 +115,7 @@ module.exports.detail = async(req, res) => {
             jobOfCompany: jobOfCompany,
             jobAreas: jobAreas,
             congTyUserId: congTyUserId,
-            applied: jobDetail.length
+            applied: applied
         });
     } catch (error) {
         console.log("Công việc đã bị xóa Hoặc Slug bị sai");

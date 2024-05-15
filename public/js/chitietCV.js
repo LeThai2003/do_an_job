@@ -52,7 +52,17 @@ if(buttonUngTuyen)
                 {
                     if(divApplied) // chứng tỏ người này đã nộp đơn rồi
                     {
-                        tooltip.title = "Bạn đã nộp đơn rồi";
+                        const loginBeforApply = document.querySelector("[loginBeforApply]");
+                        console.log(loginBeforApply);
+                        if(divApplied.textContent == 100)
+                        {
+                            tooltip.title = "Bạn cần đăng nhập trước khi ứng tuyển";
+                            loginBeforApply.style.display = "block";
+                        }
+                        else
+                        {
+                            tooltip.title = "Bạn đã nộp đơn rồi";
+                        }
                         buttonUngTuyen.disabled = true;
                     }
                     else

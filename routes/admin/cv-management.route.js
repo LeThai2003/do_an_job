@@ -7,4 +7,6 @@ router.get("/:congTyId", authMiddleware.requireAuthManage, controller.index);
 
 router.get("/:congTyId/detail/:maCTCV", authMiddleware.requireAuthManage, controller.detailCV);
 
+router.patch("/:congTyId/delete/:maCTCV", authMiddleware.requireAuthManage, controller.deleteCV)
+
 module.exports = router;

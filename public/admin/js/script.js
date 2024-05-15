@@ -342,7 +342,33 @@ socket.on("SERVER_RETURN_CV_SEEN", (data) => {
     window.location.href = action;
 })
 
-// ------end Trang CV-----
+const buttonDeleteCVs = document.querySelectorAll("[button-delete-cv]");
+if(buttonDeleteCVs)
+{
+    buttonDeleteCVs.forEach(button => {
+        const formDelete = document.querySelector("[form-delete-cv]")
+        const tooltip = button.closest(`[data-toggle="tooltip"]`);
+        const announceVal = button.getAttribute("announce");
+        if(announceVal == "1")
+        {
+            button.disabled = true;
+            tooltip.title = "Không thể xóa vì công việc đã được chọn/từ chối";
+        }
+        else
+        {
+            button.addEventListener("click", () => {
+                const maCTCVC = button.getAttribute("button-delete-cv");
+                const path = formDelete.getAttribute("path");
+                const action = `${path}/${maCTCVC}?_method=PATCH`;
+                formDelete.action = action;
+                console.log(action);
+                formDelete.submit();
+            });
+        }
+    })
+}
+
+// ------================end Trang CV====================-----
 
 // ------Trang chi tiết công việc------------
 const detailJobContainer = document.querySelector("[detail-job]");

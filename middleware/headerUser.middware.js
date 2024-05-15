@@ -42,7 +42,7 @@ module.exports.infoUser = async(req, res, next) => {
 
             res.locals.User = user;
 
-            res.locals.Announces = announces;
+            res.locals.Announces = announces.reverse();
 
             next();
             return;

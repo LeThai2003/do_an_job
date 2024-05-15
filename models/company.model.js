@@ -117,7 +117,7 @@ const insertCompany = async (userId, infoCompany) => {
     try {
         const {tenCT, quyMo, diaDiem, sdtCT, emailCT, logo} = infoCompany;
         const stringQuery = `
-            insert into CONGTY(userId, tenCT, diaDiem, quyMo, moTa, logo, sdtCT, emailCT)
+            insert into CONGTY(userId, tenCT, diaDiem, quyMo, logo, sdtCT, emailCT)
             values(${userId}, N'${tenCT}', N'${diaDiem}', ${quyMo}, N'${logo}', '${sdtCT}', '${emailCT}')
         `
         await sql.query(stringQuery);

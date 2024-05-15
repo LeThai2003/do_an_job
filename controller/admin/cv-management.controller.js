@@ -40,10 +40,12 @@ module.exports.index = async(req, res) => {
             const infoJob = await JobModel.getJobNameByMaCV(jobDetail.maCV);
             const infoUser = await UserModel.getInfoUserByUserId(jobDetail.userId);
             const infoArea = await AreaModel.getAreasWithMaKV(jobDetail.khuVucUT);
+            const announce = await AnnounceModel.getAnnounce(jobDetail.userId, jobDetail.maCV);
 
             jobDetail.infoJob = infoJob;
             jobDetail.infoUser = infoUser;
             jobDetail.infoArea = infoArea;
+            jobDetail.announce = (announce ? "1" : "0");
         }
 
         const filterStatus = filterStatusHelper.cv(req.query);
@@ -136,6 +138,30 @@ module.exports.detailCV = async(req, res) => {
             congTyId,
             announce: JSON.stringify(announce)
         })
+
+    } catch (error) {
+        console.log("Lỗi trang chi tiết cv");
+        res.redirect("/");   
+    }
+}
+
+//[GET] /manage/cv-managemant/:congTyId/delete/:maCTCV
+module.exports.deleteCV = async(req, res) => {
+    try {
+
+        const congTyId = req.params.congTyId;
+        
+        const maCTCV = req.params.maCTCV;
+
+        const jobDetail = await JobDetailModel.updateDelete(maCTCV);
+
+        console.log("mã chi tiết công việc: ", maCTCV)
+
+        // -----socket----
+        // cvSocket.clickButtonSubmit(req, res, jobDetail);
+        // -----socket----
+
+        res.redirect("back");
 
     } catch (error) {
         console.log("Lỗi trang chi tiết cv");

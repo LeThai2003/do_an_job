@@ -2,7 +2,7 @@ const {sql} = require("../config/database")
 
 const getAllJobDetails = async () => {
     try {
-        const result = await sql.query`select * from CHITIET_CV`;
+        const result = await sql.query`select * from CHITIET_CV where deleted = 0`;
         return result.recordset;
     } catch (err) {
         console.error('Error getting job detail:', err);
@@ -59,6 +59,14 @@ const updateDaXemCV = async (maCTCV) => {
     }
 }
 
+const updateDelete = async (maCTCV) => {
+    try {
+        await sql.query`update CHITIET_CV set deleted = 1 where maCTCV = ${maCTCV}`;
+    } catch (err) {
+        console.log('updateDelete err:', err);
+    }
+}
+
 const countCVDaXem = async (congTyId) => {
     try {
         const stringQuery = `SELECT count(*) as soluong
@@ -108,5 +116,6 @@ module.exports = {
     countCVChuaXem,
     countCV,
     getAllJobByMaCV,
-    getDetailJobByMaCV_UserId
+    getDetailJobByMaCV_UserId,
+    updateDelete
 };

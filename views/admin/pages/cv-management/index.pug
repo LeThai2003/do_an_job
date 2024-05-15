@@ -70,10 +70,11 @@ block main
                                                 class="btn btn-secondary me-1"
                                                 button-detail-cv=jobDetail.maCTCV
                                             ) Xem chi tiết 
-                                        a(href=`#`)
+                                        span(class="d-inline-block" tabindex="0" data-toggle="tooltip" title="" tooltip)
                                             button(
                                                 class="btn btn-danger"
-                                                button-delete  
+                                                button-delete-cv=jobDetail.maCTCV
+                                                announce = jobDetail.announce
                                             ) Xóa 
                 else 
                     .row     
@@ -87,6 +88,13 @@ block main
         form-watch-cv 
         action 
         path=`/${prefixAdmin}/cv-management/${User.congTyId}/detail`
+    ) 
+
+    form(
+        action="" 
+        method="post"
+        path=`/${prefixAdmin}/cv-management/${User.congTyId}/delete`
+        form-delete-cv
     ) 
 
 block script 

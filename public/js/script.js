@@ -42,8 +42,8 @@ if (formSearch) {
             url = new URL(`${url.origin}/jobs`);
         }
 
-        console.log(url)
-        console.log(url.href);
+        // console.log(url)
+        // console.log(url.href);
    
         const inputViTri = formSearch.querySelector("input[name='vitri']");
         const selectArea = formSearch.querySelector("[select-area]");
@@ -60,8 +60,8 @@ if (formSearch) {
         url.searchParams.set("kinhnghiem", experience);
         url.searchParams.set("luong", salary);
 
-        console.log(url);
-        console.log(url.href);
+        // console.log(url);
+        // console.log(url.href);
 
         window.location.href = url.href;
     });
@@ -239,7 +239,6 @@ if(alert)
 
 // -----trang công việc --- filter status -----
 const buttonStatus = document.querySelectorAll("[status]");
-console.log(buttonStatus)
 if(buttonStatus)
 {
     buttonStatus.forEach(button => {
@@ -408,4 +407,31 @@ if(listNotice)
         })
     })
 }
+
+
+// ---------===========job==========-----------
+const ungTuyenAnimation = document.querySelectorAll(".ungTuyenAnimation");
+if(ungTuyenAnimation)
+{
+    ungTuyenAnimation.forEach(button => {
+        button.addEventListener("click", () => {
+            const applied = button.getAttribute("applied");
+            const dateAndStatus = button.getAttribute("dateAndStatus");
+            let path = button.getAttribute("path");
+            
+            if(applied == "0" && dateAndStatus == "active")
+            {
+                path = `${url.origin}${path}`;
+                url.href = path;
+                url.searchParams.set("form", "applyJob")
+                window.location.href = url.href;
+            }
+            else
+            {
+                window.location.href = path;
+            }
+        })
+    })
+}
+// ---------===========end job==========-----------
 

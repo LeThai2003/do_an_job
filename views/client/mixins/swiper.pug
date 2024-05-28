@@ -19,7 +19,11 @@ mixin swiper(arr)
                                     +time-apply(item.soNgayTuNgayKhoiTao, item.soNgayHieuLuc)
                             .button-ut.d-flex.justify-content-between
                                 .empty 
-                                .ungtuyen.animate__pulse Ứng tuyển 
+                                div(class="ungTuyenAnimation ungtuyen animate__pulse" 
+                                    applied=item.applied 
+                                    dateAndStatus=item.dateAndStatus 
+                                    path=`/jobs/detail/${item.slug}`
+                                ) Ứng tuyển 
                             .button.xem 
                                 a(href=`/jobs/detail/${item.slug}`) Xem >>
 

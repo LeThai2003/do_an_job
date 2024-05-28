@@ -1,4 +1,5 @@
 const CompanyModel = require("../../models/Company.model");
+const slugHelper = require("../../helpers/convert-to-slug.helper");
 const he = require('he');
 
 //[GET] //manage/infoCompany/:congTyId
@@ -38,7 +39,12 @@ module.exports.editPost = async(req, res) => {
         req.body.moTa = he.decode(req.body.moTa);
         req.body.quyMo = parseInt(req.body.quyMo);
 
+        const slug = slugHelper.convertToSlug(req.body.tenCT);
+        req.body.slug = slug;
+
         const infoCompany = req.body;
+
+
 
         if(oldEmail != infoCompany.emailCT)
         {

@@ -2,6 +2,7 @@ const JobModel = require("../../models/Job.model");
 const CompanyModel = require("../../models/Company.model");
 const timeApplyHelper = require("../../helpers/time-apply.helper")
 const announceSocket = require("../../socket/announce-client.socket");
+const applyAnimationHelper = require("../../helpers/apply-animation.helper");
 
 
 //[GET]/
@@ -14,6 +15,10 @@ module.exports.index =async (req, res) => {
 
     var companies = await CompanyModel.getAllCompanies();
     companies = companies.slice(0,2);
+
+    // ----xử lý ứng tuyển ----
+    await applyAnimationHelper(jobs, res);
+    // ----xử lý ứng tuyển -----
 
     // SocketIO
     announceSocket();

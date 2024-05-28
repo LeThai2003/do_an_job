@@ -1,14 +1,30 @@
-const closeUngTuyen = () =>{
+let urlJob = new URL(window.location.href);
+
+const closeForm = () => {
     let overplay = document.getElementsByClassName("overplay")[0]
     let form = document.getElementsByClassName("box-ungtuyen")[0]
     overplay.style.display = 'none'
     form.style.display = 'none'
 }
-const openUngTuyen = () =>{
+
+const openForm = () => {
     let overplay = document.getElementsByClassName("overplay")[0]
     let form = document.getElementsByClassName("box-ungtuyen")[0]
     overplay.style.display = 'block'
     form.style.display = 'block'
+}
+
+const closeUngTuyen = () =>{
+    closeForm();
+
+    urlJob.searchParams.delete("form", "applyJob");
+    window.location.href = urlJob.href;
+}
+const openUngTuyen = () =>{
+    openForm();
+
+    urlJob.searchParams.set("form", "applyJob");
+    window.location.href = urlJob.href;
 }
 
 const upload = (e) =>{
@@ -18,9 +34,9 @@ const upload = (e) =>{
     }
 }
 
+var buttonUngTuyen = document.querySelector("[button-ungtuyen]");
 const tooltip = document.querySelector("[tooltip]");
 
-const buttonUngTuyen = document.querySelector("[button-ungtuyen]");
 if(buttonUngTuyen)
 {
     const job = JSON.parse(buttonUngTuyen.getAttribute("button-ungtuyen"));
@@ -84,4 +100,12 @@ if(buttonUngTuyen)
             buttonUngTuyen.disabled = true;
         }
     }
+}
+
+if((url.search == "?form=applyJob") && (buttonUngTuyen.disabled == false))
+{
+    openForm();
+}
+else{
+    closeForm();
 }

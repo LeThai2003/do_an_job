@@ -40,7 +40,7 @@ const getPageList = (totalPages, page, maxLength) => {
 let urlNow = new URL(window.location.href);
 let getCurrentPage = urlNow.searchParams.get("page");
 
-console.log(getCurrentPage);
+// console.log(getCurrentPage);
 
 
 const pagination = JSON.parse(document.querySelector("[pagination]").getAttribute("pagination"));
@@ -51,10 +51,10 @@ var totalPages = pagination.totalPage;
 var paginationSize = 5;  // ~~ độ dài tối đa của phân trang ~~ maxLength  [1, 2, 3, 4, 5, ..., 10]
 var currentPage;
 
-console.log("----------------")
-console.log(limitPerPage)
-console.log(totalPages)
-console.log(currentPage)
+// console.log("----------------")
+// console.log(limitPerPage)
+// console.log(totalPages)
+// console.log(currentPage)
 
 if(!getCurrentPage)
 {

@@ -39,7 +39,11 @@ block main
                                         +time-apply(job.soNgayTuNgayKhoiTao, job.soNgayHieuLuc)
                                 .button-ut.d-flex.justify-content-between
                                     .empty 
-                                    .ungtuyen.animate__pulse Ứng tuyển 
+                                    div(class="ungTuyenAnimation ungtuyen animate__pulse" 
+                                        applied=job.applied 
+                                        dateAndStatus=job.dateAndStatus 
+                                        path=`/jobs/detail/${job.slug}`
+                                    ) Ứng tuyển 
                                 .button.xem 
                                     a(href=`/jobs/detail/${job.slug}`) Xem >>
             else 

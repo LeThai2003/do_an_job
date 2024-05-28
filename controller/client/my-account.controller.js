@@ -1,5 +1,6 @@
 const UserModel = require("../../models/User.model");
 const CompanyModel = require("../../models/Company.model");
+const slugHelper = require("../../helpers/convert-to-slug.helper");
 
 const md5 = require("md5");
 
@@ -119,6 +120,9 @@ module.exports.editCompanyInfo = async (req, res) => {
         const company = await CompanyModel.getCompanyById(companyId);
         const oldEmail = company.emailCT;
 
+        const slug = slugHelper.convertToSlug(req.body.tenCT);
+        req.body.slug = slug;   
+
         req.body.quyMo = parseInt(req.body.quyMo);
 
         const infoCompany = req.body;
@@ -159,6 +163,9 @@ module.exports.createCompany = async (req, res) => {
         req.body.quyMo = parseInt(req.body.quyMo);
 
         const userId = res.locals.User.userId;
+
+        const slug = slugHelper.convertToSlug(req.body.tenCT);
+        req.body.slug = slug;
 
         const infoCompany = req.body;
 

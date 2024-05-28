@@ -7,6 +7,7 @@ const searchFormHelper = require("../../helpers/form-search.helper")
 const paginationHelper = require("../../helpers/pagination.helper")
 const filterStatusHelper = require("../../helpers/filter-status.helper");
 const selectionSortHelper = require("../../helpers/selection-sort.helper");
+const applyAnimationHelper = require("../../helpers/apply-animation.helper");
 
 // [GET] /jobs
 module.exports.getAllJobs = async (req, res) => {
@@ -59,12 +60,17 @@ module.exports.getAllJobs = async (req, res) => {
             jobs = selectionSortHelper.jobSort(sortKey, sortValue, jobs);
         }
 
+        // ----xử lý ứng tuyển -----
+        await applyAnimationHelper(jobs, res);
+        // ----xử lý ứng tuyển -----
+        
+
         res.render("client/pages/job/index", {
             title: "Trang danh sách công việc",
             jobs: jobs,
             pagination: JSON.stringify(objPagination),
             filterStatus,
-            sortObj
+            sortObj,
         })
     } catch (error) {
         res.redirect("back")
@@ -133,6 +139,9 @@ module.exports.applyJob = async(req, res) => {
 
     try {
         const maCV = req.params.maCV;
+
+        const job = await JobModel.getJobNameByMaCV(maCV);
+
         const userId = res.locals.User.userId;
         const jobDetail = {};
 
@@ -145,7 +154,7 @@ module.exports.applyJob = async(req, res) => {
 
         await JobDetailModel.insertJobDetail(jobDetail);
 
-        res.redirect("back");
+        res.redirect(`/jobs/detail/${job.slug}`);
     
         // res.render("client/pages/job/test", {
         //     title: "file"

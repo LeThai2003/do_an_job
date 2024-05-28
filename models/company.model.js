@@ -85,10 +85,10 @@ const getAllCompaniesBySearch = async (stringQuery) => {
 }
 const updateInfoCompany = async (infoCompany, congTyId) => {
     try {
-        let stringQuery = `update CONGTY set tenCT = N'${infoCompany.tenCT}', diaDiem = N'${infoCompany.diaDiem}', sdtCT = '${infoCompany.sdtCT}', emailCT = '${infoCompany.emailCT}', quyMo = ${infoCompany.quyMo}, moTa = N'${infoCompany.moTa}' where congTyId = ${congTyId}`
+        let stringQuery = `update CONGTY set tenCT = N'${infoCompany.tenCT}', diaDiem = N'${infoCompany.diaDiem}', sdtCT = '${infoCompany.sdtCT}', emailCT = '${infoCompany.emailCT}', quyMo = ${infoCompany.quyMo}, moTa = N'${infoCompany.moTa}', slug = '${infoCompany.slug}' where congTyId = ${congTyId}`
         if(infoCompany.logo)
         {
-            stringQuery = `update CONGTY set tenCT = N'${infoCompany.tenCT}', diaDiem = N'${infoCompany.diaDiem}', sdtCT = '${infoCompany.sdtCT}', emailCT = '${infoCompany.emailCT}', quyMo = ${infoCompany.quyMo}, moTa = N'${infoCompany.moTa}', logo = N'${infoCompany.logo}' where congTyId = ${congTyId}`;
+            stringQuery = `update CONGTY set tenCT = N'${infoCompany.tenCT}', diaDiem = N'${infoCompany.diaDiem}', sdtCT = '${infoCompany.sdtCT}', emailCT = '${infoCompany.emailCT}', quyMo = ${infoCompany.quyMo}, moTa = N'${infoCompany.moTa}', logo = N'${infoCompany.logo}', slug = '${infoCompany.slug}' where congTyId = ${congTyId}`;
         }
         await sql.query(stringQuery);
         console.log("----------update info company success!")
@@ -100,10 +100,10 @@ const updateInfoCompany = async (infoCompany, congTyId) => {
 
 const updateInfoCompanyClient = async (infoCompany, congTyId) => {
     try {
-        let stringQuery = `update CONGTY set tenCT = N'${infoCompany.tenCT}', diaDiem = N'${infoCompany.diaDiem}', sdtCT = '${infoCompany.sdtCT}', emailCT = '${infoCompany.emailCT}', quyMo = ${infoCompany.quyMo} where congTyId = ${congTyId}`
+        let stringQuery = `update CONGTY set tenCT = N'${infoCompany.tenCT}', diaDiem = N'${infoCompany.diaDiem}', sdtCT = '${infoCompany.sdtCT}', emailCT = '${infoCompany.emailCT}', quyMo = ${infoCompany.quyMo}, slug = '${infoCompany.slug}' where congTyId = ${congTyId}`
         if(infoCompany.logo)
         {
-            stringQuery = `update CONGTY set tenCT = N'${infoCompany.tenCT}', diaDiem = N'${infoCompany.diaDiem}', sdtCT = '${infoCompany.sdtCT}', emailCT = '${infoCompany.emailCT}', quyMo = ${infoCompany.quyMo}, logo = N'${infoCompany.logo}' where congTyId = ${congTyId}`;
+            stringQuery = `update CONGTY set tenCT = N'${infoCompany.tenCT}', diaDiem = N'${infoCompany.diaDiem}', sdtCT = '${infoCompany.sdtCT}', emailCT = '${infoCompany.emailCT}', quyMo = ${infoCompany.quyMo}, slug = '${infoCompany.slug}', logo = N'${infoCompany.logo}' where congTyId = ${congTyId}`;
         }
         await sql.query(stringQuery);
         console.log("----------update info company success!")

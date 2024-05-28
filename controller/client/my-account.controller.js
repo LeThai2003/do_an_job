@@ -140,7 +140,7 @@ module.exports.editCompanyInfo = async (req, res) => {
             infoCompany.logo = `/uploads/${req.file.filename}`;
         }
         
-        await CompanyModel.updateInfoCompany2(infoCompany, companyId);
+        await CompanyModel.updateInfoCompanyClient(infoCompany, companyId);
 
         res.redirect("back");
     } catch (error) {

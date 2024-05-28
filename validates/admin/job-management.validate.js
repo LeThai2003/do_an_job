@@ -23,6 +23,12 @@ module.exports.createNewJob = (req, res, next) => {
         res.redirect("back");
         return;
     }
+    if(req.body.luong.trim().startsWith("-"))
+    {
+        req.flash("error", "Lương không hợp lệ!");
+        res.redirect("back");
+        return;
+    } 
     if(!req.body.kinhNghiem)
     {
         req.flash("error", "Kinh nghiệm không được để trống!");
@@ -35,5 +41,18 @@ module.exports.createNewJob = (req, res, next) => {
         res.redirect("back");
         return;
     }
+
+    const ngayTao = new Date(req.body.hanChot);
+    const ngayHienTai = new Date();
+    
+    const soNgay = Math.floor((ngayTao - ngayHienTai) / (1000 * 60 * 60 * 24));
+
+    if(soNgay < 0)
+    {
+        req.flash("error", "Ngày tạo không hợp lệ!");
+        res.redirect("back");
+        return;
+    }
+
     next();
 }

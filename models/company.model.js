@@ -140,5 +140,6 @@ module.exports = {
     getAllCompaniesBySearch,
     getInfoCompanyByIdUser,
     updateInfoCompany,
+    updateInfoCompanyClient,
     insertCompany
 };

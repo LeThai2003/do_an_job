@@ -28,6 +28,8 @@ block main
                         select(name="gioiTinh" class="text form-control")
                             option(value="Nam" selected=(User.gioiTinh == true ? true : false)) Nam
                             option(value="Nữ" selected=(User.gioiTinh == false ? true : false)) Nữ
+                            //- option(value="Nam") Nam
+                            //- option(value="Nữ") Nữ
                     .item.form-group 
                         p.title Ngày sinh :
                         input.text(name="ngaySinh" class="text"  type="date" value=User.ngaySinh)
@@ -59,7 +61,6 @@ block main
                             .anhcongty
                                 img(
                                     src="https://cdn.photoroom.com/v1/assets-cached.jpg?path=backgrounds_v3/white/Photoroom_white_background_extremely_fine_texture_only_white_co_d4046f3b-0a21-404a-891e-3f8d37c5aa94.jpg", 
-                                    alt="Logo's Company"
                                     image-preview-see 
                                 )
                                 
@@ -79,7 +80,7 @@ block main
                             input.text(name="tenCT")
                         .item-account
                             p.title Quy mô :
-                            input.text(name="quyMo" type="number")
+                            input.text(name="quyMo" type="number" min="1")
                         .item-account
                             p.title Địa chi :
                             input.text(name="diaDiem")
@@ -101,10 +102,10 @@ block main
                         form-info-company
                         enctype="multipart/form-data"
                     ) 
-                        .item-account.box_anh_dai_dien(image-preview) 
+                        .item-account.box_anh_dai_dien(image-preview-create-company) 
                             .anhcongty
                                 img(
-                                    src=company.logo || "https://cdn.photoroom.com/v1/assets-cached.jpg?path=backgrounds_v3/white/Photoroom_white_background_extremely_fine_texture_only_white_co_d4046f3b-0a21-404a-891e-3f8d37c5aa94.jpg", 
+                                    src=company.logo
                                     alt=company.tenCT
                                     image-preview-see 
                                 )
@@ -125,7 +126,7 @@ block main
                             input.text(name="tenCT" value=company.tenCT)
                         .item-account
                             p.title Quy mô :
-                            input.text(name="quyMo" value=company.quyMo type="number")
+                            input.text(name="quyMo" value=company.quyMo type="number" min="1")
                         .item-account
                             p.title Địa chi :
                             input.text(name="diaDiem" value=company.diaDiem)

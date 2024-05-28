@@ -28,9 +28,9 @@ buttonSua.addEventListener("click", function () {
     inputs.forEach(function (input) {
         input.removeAttribute('readonly'); 
     });
-    // selects.forEach(function(select) {
-    //     select.removeAttribute('disabled');
-    // });
+    selects.forEach(function(select) {
+        select.removeAttribute('disabled');
+    });
 });
 
 buttonXacNhan.addEventListener("click", function () {
@@ -187,7 +187,8 @@ if (iconChangeImgCompany) {
 const imagePreviewUser = document.querySelector("[image-preview-avatar-user]");
 const formUserUpdateAvatar = document.querySelector("[form-user-update-avatar]");
 
-console.log(formUserUpdateAvatar)
+// console.log(formUserUpdateAvatar)
+
 
 const imagePreviewUserFunction = () => {
     const imagePreviewInput = imagePreviewUser.querySelector("[image-preview-input]");
@@ -244,9 +245,21 @@ const imagePreviewCreateCompanyFunction = () => {
     });
 }
 
+
 const iconCreateImgCompany = document.querySelector(".icon-create-img-company");
 if (iconCreateImgCompany) {
     iconCreateImgCompany.addEventListener("click", () => {
+        imagePreviewCreateCompanyFunction();
+    });
+}
+
+// preview image upload logo company when create
+
+// preview image upload logo company when update
+
+const iconUpdateImgCompany = document.querySelector(".icon-change-img-company");
+if (iconUpdateImgCompany) {
+    iconUpdateImgCompany.addEventListener("click", () => {
         imagePreviewCreateCompanyFunction();
     });
 }

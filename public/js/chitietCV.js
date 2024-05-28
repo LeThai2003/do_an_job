@@ -58,12 +58,18 @@ if(buttonUngTuyen)
                         {
                             tooltip.title = "Bạn cần đăng nhập trước khi ứng tuyển";
                             loginBeforApply.style.display = "block";
+                            buttonUngTuyen.disabled = true;
+                        }
+                        else if(divApplied.textContent == 1)
+                        {
+                            tooltip.title = "Bạn đã nộp đơn rồi";
+                            buttonUngTuyen.disabled = true;
                         }
                         else
                         {
-                            tooltip.title = "Bạn đã nộp đơn rồi";
+                            buttonUngTuyen.disabled = false;
                         }
-                        buttonUngTuyen.disabled = true;
+                        
                     }
                     else
                     {

@@ -39,10 +39,11 @@
                         ) 
                             img(src=(User.avatar || "/images/user-circle-solid-24.png") alt="user" style="object-fit: cover;width: 35px;height: auto;")
                             span.name #{User.hoVaTen}
-                        a(
-                            href=`/${prefixAdmin}/dashboard/${User.congTyId}`
-                            class="btn btn-outline-info btn-sm me-2"
-                        ) Dashboad 
+                        if(User.congTyId)
+                            a(
+                                href=`/${prefixAdmin}/dashboard/${User.congTyId}`
+                                class="btn btn-outline-info btn-sm me-2"
+                            ) Dashboad 
                         a(
                             href=`/user/logout`
                             class="btn btn-outline-danger btn-sm"

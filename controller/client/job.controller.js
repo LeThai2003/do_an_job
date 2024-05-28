@@ -98,9 +98,14 @@ module.exports.detail = async(req, res) => {
             let congTyUser = await CompanyModel.getInfoCompanyByIdUser(userId);
 
             let jobDetail = await JobDetailModel.getDetailJobByMaCV_UserId(job.maCV, userId);
-            if(jobDetail)
+            
+            if(jobDetail.length > 0)
             {
                 applied = 1;
+            }
+            else
+            {
+                applied = 0;
             }
 
             if(congTyUser)
@@ -140,7 +145,7 @@ module.exports.applyJob = async(req, res) => {
 
         await JobDetailModel.insertJobDetail(jobDetail);
 
-        res.send("ok");
+        res.redirect("back");
     
         // res.render("client/pages/job/test", {
         //     title: "file"

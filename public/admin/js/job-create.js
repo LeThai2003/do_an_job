@@ -219,10 +219,14 @@ const addTag = (e) => {
 
 inputTag.addEventListener("keydown", addTag);
 
-removeButton.addEventListener("click", () => {
-    tags.length = 0;
-    ul.querySelectorAll("li").forEach(li => li.remove());
-})
+if(removeButton)
+{
+    removeButton.addEventListener("click", () => {
+        tags.length = 0;
+        ul.querySelectorAll("li").forEach(li => li.remove());
+    })
+}
+
 
 
 

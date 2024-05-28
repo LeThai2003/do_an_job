@@ -174,10 +174,23 @@ module.exports.resetPassword = async (req, res) =>{
 
 //[POST]user/password/reset
 module.exports.resetPasswordPost = async (req, res) =>{ 
-    const tokenUser = req.cookies.tokenUser;
-    const newPassword = req.body.password;
-
-    await UserModel.updateMatKhau(newPassword, tokenUser);
+    try {
+        const tokenUser = req.cookies.tokenUser;
+        if(tokenUser)
+        {
+            const newPassword = md5(req.body.password);
+            await UserModel.updateMatKhau(newPassword, tokenUser);
+        }
+        else
+        {
+            req.flash("error", "Không hợp lệ");
+            return;
+        }
+        
+    } catch (error) {
+        console.log(error);
+    }
+    
 
     res.redirect("/");
 };

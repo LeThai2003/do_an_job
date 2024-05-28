@@ -19,7 +19,7 @@ block main
                     div(image-preview class="box-info_img") 
                         .anhcongty
                             img(
-                                src= company.logo || "https://cdn.photoroom.com/v1/assets-cached.jpg?path=backgrounds_v3/white/Photoroom_white_background_extremely_fine_texture_only_white_co_d4046f3b-0a21-404a-891e-3f8d37c5aa94.jpg", 
+                                src= company.logo , 
                                 alt="Logo's Company"
                                 image-preview-see 
                             )
@@ -85,6 +85,7 @@ block main
                                 id="quyMo"
                                 name="quyMo"
                                 required
+                                min="1"
                                 value=company.quyMo
                             )
 

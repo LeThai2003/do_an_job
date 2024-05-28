@@ -59,15 +59,22 @@ app.set("view engine", "pug");
 
 app.use(express.static("public"));
 
+// router client
+routerClient(app);
+routerAdmin(app);
+
 app.get('/uploads/:filename', (req, res) => {
     const filename = req.params.filename;
     const filePath = path.join(__dirname, 'public', 'uploads', filename);
     res.sendFile(filePath);
 });
 
-// router client
-routerClient(app);
-routerAdmin(app);
+app.get("*", (req, res) => {
+    res.render("client/pages/error/404",{
+        title: "404 not found",
+    })
+})
+
 
 server.listen(port, () => {
     console.log("Đang chạy trên cổng: " + port);

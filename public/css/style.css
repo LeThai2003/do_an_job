@@ -748,3 +748,31 @@ span.name{
 }
 
 /* Trang xem kết quả */
+
+/* 404-page */
+
+.pages-404-content{
+    position: relative;
+    top: 80px;
+    width: 99vw;
+    height: calc(100vh - 80px);
+    margin-bottom: 80px;
+}
+
+.background_404{
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.home{
+    position: absolute;
+    bottom: 60px;
+    right: calc(50% - 70px);
+}
+
+.pages-404-content img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}

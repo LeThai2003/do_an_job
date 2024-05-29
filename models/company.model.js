@@ -22,7 +22,8 @@ const getCompanyById = async (companyId) => {
 
 const getCompanyBySlug = async (slugCom) => {
     try {
-        const result = await sql.query`select * from CONGTY where slug = '${slugCom}'`;
+        const stringQuery = `select * from CONGTY where slug = '${slugCom}'`;
+        const result = await sql.query(stringQuery);
         return result.recordset[0];
     } catch (err) {
         console.error('Error getting detail Companies by slug:', err);

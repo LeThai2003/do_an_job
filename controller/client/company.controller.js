@@ -59,6 +59,8 @@ module.exports.detail = async(req, res) => {
 
     const company = await CompanyModel.getCompanyBySlug(slugCom);
 
+    console.log(company);
+
     const inforAdmin = await CompanyModel.getInfoUserOfCompany(company.congTyId);
 
     const getJobs = await JobModel.getJobOfCompany(company.congTyId);

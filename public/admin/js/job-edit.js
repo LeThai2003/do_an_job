@@ -33,7 +33,7 @@ var selectedIds = [];
 
 if(tenKhuVuc != "")
 {
-    selectedItems = tenKhuVuc.split(",");
+    selectedItems = tenKhuVuc.split(", ");
     let btnText = document.querySelector(".btn-text");
     btnText.innerHTML = tenKhuVuc;
 }
@@ -94,8 +94,8 @@ const addArea = () => {
     });
 };
 
-// console.log(selectedItems);
-// console.log(selectedIds);
+console.log(selectedItems);
+console.log(selectedIds);
 
 // Hàm cập nhật nút chọn
 const updateSelectedText = () => {
@@ -113,8 +113,8 @@ const updateSelectedText = () => {
 // Gọi hàm addCountry để gán sự kiện click cho danh sách ban đầu
 addArea();
 
-// console.log(selectedItems);
-// console.log(selectedIds);
+console.log(selectedItems);
+console.log(selectedIds);
 
 
 // Hàm gán sự kiện click cho các mục

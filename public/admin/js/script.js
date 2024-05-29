@@ -139,11 +139,6 @@ if(buttonDeleteJob)
 
 
 // ---------------trang chi tiết CV  civi--------------
-const closeX = document.querySelector(".box-close i");
-if(closeX)
-{
-    console.log("x");
-}
 
 const closeModal = (e, modal) => {
     e.addEventListener("click", () => {
@@ -158,9 +153,15 @@ if(buttonActions)
         button.addEventListener("click", () => {
             const value = button.getAttribute("modal_id");
             const modal = document.querySelector(`[modalId="${value}"]`);
+
+            const closeX = modal.querySelector(".box-close i");
+
+            console.log(modal);
+
             modal.style.display = "flex";
 
             closeX.addEventListener("click", () => {
+                console.log("----")
                 modal.style.display = "none";
             })
 

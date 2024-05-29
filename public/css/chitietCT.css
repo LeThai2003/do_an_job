@@ -185,3 +185,7 @@ a {
         font-weight: 500;
     }
 }
+
+[name='left-arrow-alt']{
+    cursor: pointer;
+}

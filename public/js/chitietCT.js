@@ -14,3 +14,11 @@ tintuyen.addEventListener("click", ()=>{
     trangchu.classList.remove("active")
     tintuyen.classList.add("active")
 })
+
+const buttonBack = document.querySelector("[name='left-arrow-alt']");
+if(buttonBack)
+{
+    buttonBack.addEventListener("click", () => {
+        window.history.back();
+    })
+}

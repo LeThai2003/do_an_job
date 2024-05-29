@@ -30,6 +30,16 @@ const getDetailJobByMaCV_UserId = async (maCV, userId) => {
     }
 }
 
+const getDetailJobByUserId = async (userId) => {
+    try {
+        const result = await sql.query`select * from CHITIET_CV where CHITIET_CV.userId =${userId}`;
+        return result.recordset;
+    } catch (err) {
+        console.error('Error getting getDetailJobByMaCV_UserId:', err);
+        return [];
+    }
+}
+
 const getJobDetailByMaCTCV = async (maCTCV) => {
     try {
         const result = await sql.query`select * from CHITIET_CV where maCTCV=${maCTCV}`;
@@ -117,5 +127,6 @@ module.exports = {
     countCV,
     getAllJobByMaCV,
     getDetailJobByMaCV_UserId,
-    updateDelete
+    updateDelete,
+    getDetailJobByUserId
 };

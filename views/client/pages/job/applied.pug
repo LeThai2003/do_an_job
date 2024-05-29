@@ -5,7 +5,7 @@ block main
     .container.my-3
         +box-head("Danh sách công việc đã nộp")
 
-        if(announces.length > 0)
+        if(jobDetails.length > 0)
             table(class="table table-hover")
                 thead   
                     th STT 
@@ -16,7 +16,7 @@ block main
                     th Ngày nhận kết quả
                     th Kết quả 
                 tbody 
-                    each item, index in announces
+                    each item, index in jobDetails
                         tr 
                             td #{index + 1} 
                             td #{item.infoCT_CV.tenCV} 
@@ -30,14 +30,13 @@ block main
                                 else 
                                     b Chưa có 
                             td 
-                                if(item.daXem)
+                                if(item.thoiGianGui)
                                     if(item.ketQua)
                                         a(href=`/announce/${item.maCV}/${item.userId}`) 
                                             b(style="color: green;") Đạt
                                     else 
                                         a(href=`/announce/${item.maCV}/${item.userId}`) 
-                                            b(style="color: red;") Rớt
-                                        
+                                            b(style="color: red;") Rớt      
                                 else 
                                     b Chưa có kết quả
         else 

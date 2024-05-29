@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const controller = require("../../controller/client/job.controller");
+const authMiddleware = require("../../middleware/auth.middleware");
 
 const validate = require("../../validates/client/job-detail.validate");
 
@@ -17,7 +18,7 @@ router.get("/detail/:slug", controller.detail);
 
 router.post("/apply-job/:maCV", upload.single('file'), validate.applyJob, controller.applyJob);
 
-router.get("/applied/:userId", controller.jobApplied);
+router.get("/applied/:userId", authMiddleware.requireAuthUser, controller.jobApplied);
 
 
 module.exports = router;

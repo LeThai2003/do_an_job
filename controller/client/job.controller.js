@@ -173,33 +173,76 @@ module.exports.jobApplied = async(req, res) => {
         const userId = req.params.userId;
         // ---announce of user---
         let announces = await AnnounceModel.getAnnounceOfUser(userId);   
-        if(announces)
+        let jobDetails = await JobDetailModel.getDetailJobByUserId(userId);
+
+        let listMaCVFromAnnounces = [];
+        if(announces.length > 0)
         {
             for (const announce of announces) {
-                const infoCT_CV = await CompanyModel.getCompanyByMaCV(announce.maCV);
-                announce.infoCT_CV = infoCT_CV;
-                announce.thoiGianGui = timeHelper.getDate2(announce.thoiGianGui);   // -> "2/1/2013 7:37:08 AM"
+                listMaCVFromAnnounces.push(announce.maCV);
+            }
+            for (const job of jobDetails) {
+                if(listMaCVFromAnnounces.includes(job.maCV))
+                {
+                    const announce = await AnnounceModel.getAnnounce(userId, job.maCV);
+                    job.thoiGianGui = timeHelper.getDate2(announce.thoiGianGui);
+                    job.ketQua = announce.ketQua;
+                }
+                const infoCT_CV = await CompanyModel.getCompanyByMaCV(job.maCV);
+                job.infoCT_CV = infoCT_CV;
 
-                const jobDetail = await JobDetailModel.getDetailJobByMaCV_UserId(announce.maCV, announce.userId);
+                const jobDetail = await JobDetailModel.getDetailJobByMaCV_UserId(job.maCV, userId);
                 const thoiGianNopDon = timeHelper.getDate2(jobDetail[0].thoiGianNop);
-                announce.thoiGianNop = thoiGianNopDon;
+                job.thoiGianNop = thoiGianNopDon;
+            }
+        }
+        else
+        {
+            if(jobDetails)
+            {
+                for (const job of jobDetails) {
+                    const infoCT_CV = await CompanyModel.getCompanyByMaCV(job.maCV);
+                    job.infoCT_CV = infoCT_CV;
+                    job.thoiGianGui = "";
+                    const jobDetail = await JobDetailModel.getDetailJobByMaCV_UserId(job.maCV, userId);
+                    const thoiGianNopDon = timeHelper.getDate2(jobDetail[0].thoiGianNop);
+                    job.thoiGianNop = thoiGianNopDon;
+                }
             }
         }
 
-        const countAnnounces = announces.length;
+        console.log(announces);
+        console.log(jobDetails);
 
-        const objPagination = paginationHelper(req.query, countAnnounces);
+        
+
+        // if(announces)
+        // {
+        //     for (const announce of announces) {
+        //         const infoCT_CV = await CompanyModel.getCompanyByMaCV(announce.maCV);
+        //         announce.infoCT_CV = infoCT_CV;
+        //         announce.thoiGianGui = timeHelper.getDate2(announce.thoiGianGui);   // -> "2/1/2013 7:37:08 AM"
+
+        //         const jobDetail = await JobDetailModel.getDetailJobByMaCV_UserId(announce.maCV, announce.userId);
+        //         const thoiGianNopDon = timeHelper.getDate2(jobDetail[0].thoiGianNop);
+        //         announce.thoiGianNop = thoiGianNopDon;
+        //     }
+        // }
+
+        const countJobApplied = jobDetails.length;
+
+        const objPagination = paginationHelper(req.query, countJobApplied);
 
         const startIndex = (objPagination.currentPage - 1) * objPagination.limitPerPage;
         const endIndex = startIndex + objPagination.limitPerPage;
 
-        announces = announces.reverse();
+        jobDetails = jobDetails.reverse();
 
-        announces = announces.slice(startIndex, endIndex);
+        jobDetails = jobDetails.slice(startIndex, endIndex);
 
         res.render("client/pages/job/applied", {
             title: "Trang danh sách công việc đã nộp",
-            announces: announces,
+            jobDetails: jobDetails,
             pagination: JSON.stringify(objPagination),
         })
     } catch (error) {

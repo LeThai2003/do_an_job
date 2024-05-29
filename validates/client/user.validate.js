@@ -1,4 +1,6 @@
 module.exports.register = (req, res, next) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const regexPhoneNumber = /0[35789][0-9]{8}\b/g;
 
     if(!req.body.fullname)
     {
@@ -14,6 +16,13 @@ module.exports.register = (req, res, next) => {
         return;
     }
 
+    if(!req.body["username-left"].trim().match(emailRegex))
+    {
+        req.flash("error", "Email không đúng định dạng!");
+        res.redirect("back");
+        return;
+    } 
+
     if(!req.body.password)
     {
         req.flash("error", "Mât khẩu không được để trống!");
@@ -28,6 +37,13 @@ module.exports.register = (req, res, next) => {
         return;
     }
 
+    if(!req.body.phone.trim().match(regexPhoneNumber))
+    {
+        req.flash("error", "Số điện thoại đúng định dạng!");
+        res.redirect("back");
+        return;
+    } 
+
     if(!req.body.gender)
     {
         req.flash("error", "Giới tính không được để trống!");
@@ -38,6 +54,18 @@ module.exports.register = (req, res, next) => {
     if(!req.body.birthdate)
     {
         req.flash("error", "Ngày sinh không được để trống!");
+        res.redirect("back");
+        return;
+    }
+
+    const ngaySinh = new Date(req.body.birthdate);
+    const ngayHienTai = new Date();
+    
+    const soNgay = Math.floor((ngayHienTai - ngaySinh) / (1000 * 60 * 60 * 24));
+
+    if(soNgay <= 0)
+    {
+        req.flash("error", "Ngày sinh không hợp lệ!");
         res.redirect("back");
         return;
     }

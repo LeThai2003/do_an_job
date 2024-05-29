@@ -38,6 +38,7 @@ module.exports.infoUser = async(req, res, next) => {
             }
 
             const SoLuongChuaXem = await AnnounceModel.countAnnounceNotSeenOfUser(user.userId);
+            // announces.SoLuongChuaXem = 2;
             announces.SoLuongChuaXem = SoLuongChuaXem.soluong;
 
             res.locals.User = user;

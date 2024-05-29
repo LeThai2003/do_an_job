@@ -1,4 +1,6 @@
 module.exports.createNewJob = (req, res, next) => {
+    console.log(req.body)
+
     if(!req.body.tenCV)
     {
         req.flash("error", "Tên công việc không được để trống!");
@@ -11,7 +13,7 @@ module.exports.createNewJob = (req, res, next) => {
         res.redirect("back");
         return;
     }
-    if(req.body.ids == '[]')
+    if(req.body.idsArea == '[]')
     {
         req.flash("error", "Địa điểm công việc không được để trống!");
         res.redirect("back");

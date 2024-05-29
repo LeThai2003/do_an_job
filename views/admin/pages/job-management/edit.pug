@@ -60,7 +60,7 @@ block main
                                             //- <li>html</li>
                                 .details
                                     p Còn <span>_</span> tags có thể thêm vào
-                                    button Xóa tất cả
+                                    
                         div(class="form-group col-4" class="areas")
                             input(type="text" name="idsArea" class="d-none")
                             .wrapper
@@ -84,6 +84,7 @@ block main
                                         id="luong"
                                         name="luong"
                                         required
+                                        min="0"
                                         value=job.luong
                                 )
                             div(class="form-group")

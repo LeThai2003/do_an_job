@@ -44,6 +44,7 @@ module.exports.editPost = async (req, res) => {
             if(req.body.email != res.locals.User.email)  // Nếu email nhập lại khác
             {
                 const existUser = await UserModel.getUserByEmail(inforUser.email);
+                const existEmailCty = await CompanyModel.getCompanyByEmail(inforUser.email);
 
                 if(existUser)
                 {
@@ -51,10 +52,51 @@ module.exports.editPost = async (req, res) => {
                     res.redirect("back");
                     return;
                 }
+                else
+                {
+                    if(existEmailCty)
+                    {
+                        const userIdFromCty = existEmailCty.userId;
+                        if(userIdFromCty != userId) // người này không là chủ sở hữu công ty 
+                        {
+                            req.flash("error", "Email trùng, vui lòng nhập lại!");
+                            res.redirect("back");
+                            return;
+                        }
+                    }
+                }
             }
 
             inforUser.sdt = req.body.sdt
 
+            const existSdt = await UserModel.getUserBySdt(inforUser.sdt);
+            const existSdtCty = await CompanyModel.getCompanyBySdt(inforUser.sdt);
+            
+
+            if(inforUser.sdt != res.locals.User.sdt) 
+            {
+                if(existSdt) 
+                {
+                    req.flash("error", "Số điện thoại trùng, vui lòng nhập lại!");
+                    res.redirect("back");
+                    return;
+                }
+                else
+                {
+                    if(existSdtCty)
+                    {
+                        const userIdFromCty = existSdtCty.userId;
+                        if(userIdFromCty != userId) // người này không là chủ sở hữu công ty 
+                        {
+                            req.flash("error", "Số điện thoại trùng, vui lòng nhập lại!");
+                            res.redirect("back");
+                            return;
+                        } 
+                    }
+                }
+            }
+            
+            
             inforUser.gioiTinh = 1;
             if(req.body.gioiTinh == "Nữ")
             {
@@ -72,18 +114,16 @@ module.exports.editPost = async (req, res) => {
                 inforUser.matKhau = md5(req.body.matKhau);
                 inforUser.token = generateHelper.generateRandomString(30);
                 query = `update NGUOIDUNG set ho=N'${inforUser.ho}', ten=N'${inforUser.ten}', email='${inforUser.email}', ngaySinh='${inforUser.ngaySinh}', sdt='${inforUser.sdt}', gioiTinh=${inforUser.gioiTinh}, matKhau=N'${inforUser.matKhau}', token='${inforUser.token}' where userId = ${userId}`
+                await UserModel.updateUser(query);
+                res.cookie("tokenUser", inforUser.token);
             }
             else
             {
                 query = `update NGUOIDUNG set ho=N'${inforUser.ho}', ten=N'${inforUser.ten}', email='${inforUser.email}', ngaySinh='${inforUser.ngaySinh}', sdt='${inforUser.sdt}', gioiTinh=${inforUser.gioiTinh} where userId = ${userId}`
+                await UserModel.updateUser(query);
             }
-
-            await UserModel.updateUser(query);
-            res.cookie("tokenUser", inforUser.token);
         }
-
-                
-
+        
         res.redirect("back");
     } catch (error) {
         console.log("update thông tin user + err: ", error);
@@ -118,10 +158,18 @@ module.exports.editAvatar = async (req, res) => {
 module.exports.editCompanyInfo = async (req, res) => {
 
     try {
+        const userId = res.locals.User.userId;
+        const sdt = res.locals.User.sdt;
+
+
         const companyId = req.params.companyId;
+        // console.log(companyId);
 
         const company = await CompanyModel.getCompanyById(companyId);
+        console.log(company);
+
         const oldEmail = company.emailCT;
+        const oldTenCT = company.tenCT;
 
         const slug = slugHelper.convertToSlug(req.body.tenCT);
         req.body.slug = slug;   
@@ -130,15 +178,73 @@ module.exports.editCompanyInfo = async (req, res) => {
 
         const infoCompany = req.body;
 
+        console.log(oldTenCT)
+        console.log(req.body.tenCT)
+
+        if(oldTenCT != req.body.tenCT)
+        {
+            const existTenCT = await CompanyModel.getCompanyByTenCT(req.body.tenCT);
+
+            console.log(existTenCT);
+
+            if(existTenCT)
+            {
+                req.flash("error", "Tên công ty trùng, vui lòng nhập lại!");
+                res.redirect("back");
+                return;
+            }
+        }
+
         if(oldEmail != infoCompany.emailCT)
         {
             const existCompany = await CompanyModel.getCompanyByEmail(infoCompany.emailCT);
+            const existEmailUser = await UserModel.getUserByEmail(infoCompany.emailCT);
 
             if(existCompany)
             {
                 req.flash("error", "Email trùng, vui lòng nhập lại!");
                 res.redirect("back");
                 return;
+            }
+            else
+            {
+                if(existEmailUser)
+                {
+                    const userIdFromCty = existCompany.userId;
+                    if(userId != userIdFromCty)
+                    {
+                        req.flash("error", "Email trùng, vui lòng nhập lại!");
+                        res.redirect("back");
+                        return;
+                    }
+                }
+            }
+        }
+
+        const oldSdt = company.sdtCT;
+        const existSdt = await CompanyModel.getCompanyBySdt(req.body.sdtCT);
+        const existSdtUser = await UserModel.getUserBySdt(sdt);
+
+        if(oldSdt != req.body.sdtCT)
+        {
+            if(existSdt) 
+            {
+                req.flash("error", "Số điện thoại trùng, vui lòng nhập lại!");
+                res.redirect("back");
+                return;
+            }
+            else
+            {
+                if(existSdtUser)
+                {
+                    const userIdFromCty = existSdt.userId;
+                    if(userIdFromCty != userId) // người này không là chủ sở hữu công ty 
+                    {
+                        req.flash("error", "Số điện thoại trùng, vui lòng nhập lại!");
+                        res.redirect("back");
+                        return;
+                    } 
+                }
             }
         }
 
@@ -166,19 +272,68 @@ module.exports.createCompany = async (req, res) => {
         req.body.quyMo = parseInt(req.body.quyMo);
 
         const userId = res.locals.User.userId;
+        const sdt = res.locals.User.sdt;
 
         const slug = slugHelper.convertToSlug(req.body.tenCT);
         req.body.slug = slug;
 
         const infoCompany = req.body;
 
+
+        const existTenCT = await CompanyModel.getCompanyByTenCT(req.body.tenCT);
+        if(existTenCT)
+        {
+            req.flash("error", "Tên công ty trùng, vui lòng nhập lại!");
+            res.redirect("back");
+            return;
+        }
+        // const existEmailUser = await UserModel.getUserByEmail(infoCompany.emailCT);
+
+
         const existCompany = await CompanyModel.getCompanyByEmail(infoCompany.emailCT);
+        const existEmailUser = await UserModel.getUserByEmail(infoCompany.emailCT);
 
         if(existCompany)
         {
             req.flash("error", "Email trùng, vui lòng nhập lại!");
             res.redirect("back");
             return;
+        }
+        else
+        {
+            if(existEmailUser)
+            {
+                const userIdFromCty = existCompany.userId;
+                if(userId != userIdFromCty)
+                {
+                    req.flash("error", "Email trùng, vui lòng nhập lại!");
+                    res.redirect("back");
+                    return;
+                }
+            }
+        }
+
+        const existSdt = await CompanyModel.getCompanyBySdt(req.body.sdtCT);
+        const existSdtUser = await UserModel.getUserBySdt(sdt);
+
+        if(existSdt) 
+        {
+            req.flash("error", "Số điện thoại trùng, vui lòng nhập lại!");
+            res.redirect("back");
+            return;
+        }
+        else
+        {
+            if(existSdtUser)
+            {
+                const userIdFromCty = existSdt.userId;
+                if(userIdFromCty != userId) // người này không là chủ sở hữu công ty 
+                {
+                    req.flash("error", "Số điện thoại trùng, vui lòng nhập lại!");
+                    res.redirect("back");
+                    return;
+                } 
+            }
         }
 
         if(req.file && req.file.filename)

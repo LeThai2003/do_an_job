@@ -8,6 +8,7 @@ block main
     .section-list.container
         +box-head("Danh sách công việc")
         div(class="swiper-contain")
+            div(jobs=jobs)
             +swiper(jobs)
         button(class="read-all") 
             a(href=`/jobs`) 

@@ -50,7 +50,8 @@ const getUserByToken = async (token) => {
 
 const getUserByEmail = async (email) => {
     try {
-        const result = await sql.query`select * from NGUOIDUNG where email = ${email}`;
+        const stringQuery = `select * from NGUOIDUNG where email = '${email}'`;
+        const result = await sql.query(stringQuery);
         return result.recordset[0];
     } catch (err) {
         console.log('Error getting user by email:', err);
@@ -58,9 +59,21 @@ const getUserByEmail = async (email) => {
     }
 }
 
+const getUserBySdt = async (sdt) => {
+    try {
+        const stringQuery = `select * from NGUOIDUNG where sdt = '${sdt}'`
+        const result = await sql.query(stringQuery);
+        return result.recordset[0];
+    } catch (err) {
+        console.log('Error getting user by sdt:', err);
+        return [];
+    }
+}
+
 const getInfoUserByUserId = async (userId) => {
     try {
-        const result = await sql.query`select userId, (ho+' '+ten) as hoTen, sdt, email from NGUOIDUNG where userId = ${userId}`;
+        const stringQuery = `select userId, (ho+' '+ten) as hoTen, sdt, email from NGUOIDUNG where userId = ${userId}`;
+        const result = await sql.query(stringQuery);
         return result.recordset[0];
     } catch (err) {
         console.log('Error getting getInfoUserByUserId:', err);
@@ -73,6 +86,7 @@ module.exports = {
     insertUser,
     getUserByToken,
     getUserByEmail,
+    getUserBySdt,
     updateUser,
     updateAvatarUser,
     getInfoUserByUserId,

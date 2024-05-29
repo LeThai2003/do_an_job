@@ -22,7 +22,7 @@ const getCompanyById = async (companyId) => {
 
 const getCompanyBySlug = async (slugCom) => {
     try {
-        const result = await sql.query`select * from CONGTY where slug = ${slugCom}`;
+        const result = await sql.query`select * from CONGTY where slug = '${slugCom}'`;
         return result.recordset[0];
     } catch (err) {
         console.error('Error getting detail Companies by slug:', err);
@@ -32,10 +32,45 @@ const getCompanyBySlug = async (slugCom) => {
 
 const getCompanyByEmail = async (emailCT) => {
     try {
-        const result = await sql.query`select * from CONGTY where emailCT = ${emailCT}`;
+        const stringQuery = `select * from CONGTY where emailCT = '${emailCT}'`;
+        console.log(stringQuery);
+        const result = await sql.query(stringQuery);
         return result.recordset[0];
     } catch (err) {
         console.error('Error getting detail Companies by email:', err);
+        return [];
+    }
+}
+
+const getCompanyByTenCT = async (tenCT) => {
+    try {
+        const stringQuery = `select * from CONGTY where tenCT like '${tenCT}'`
+        const result = await sql.query(stringQuery);
+        console.log("-------")
+        return result.recordset[0];
+    } catch (err) {
+        console.error('Error getting detail Companies by tenCT:', err);
+        return [];
+    }
+}
+
+const getCompanyBySdt = async (sdtCT) => {
+    try {
+        const stringQuery = `select * from CONGTY where sdtCT = '${sdtCT}'`;
+        const result = await sql.query(stringQuery);
+        return result.recordset[0];
+    } catch (err) {
+        console.error('Error getting detail Companies by sdt:', err);
+        return [];
+    }
+}
+
+const getCompanyByTenCty = async (tenCT) => {
+    try {
+        const result = await sql.query`select * from CONGTY where tenCT like '%${tenCT}%'`;
+        return result.recordset[0];
+    } catch (err) {
+        console.error('Error getting detail Companies by tenCT:', err);
         return [];
     }
 }
@@ -135,6 +170,9 @@ module.exports = {
     getCompanyById,
     getCompanyBySlug,
     getCompanyByEmail,
+    getCompanyByTenCT,
+    getCompanyByTenCty,
+    getCompanyBySdt,
     getCompanyByMaCV,
     getInfoUserOfCompany,
     getAllCompaniesBySearch,

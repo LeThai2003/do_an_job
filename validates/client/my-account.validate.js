@@ -1,5 +1,6 @@
 module.exports.infoUser = (req, res, next) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const regexPhoneNumber = /0[35789][0-9]{8}\b/g;
 
     if(!req.body.name.trim())
     {
@@ -29,6 +30,25 @@ module.exports.infoUser = (req, res, next) => {
         return;
     }
 
+    if(!req.body.sdt.trim())
+    {
+        req.flash("error", "Số điện thoại không được để trống!");
+        res.redirect("back");
+        return;
+    }
+    if(req.body.sdt.trim().length != 10)
+    {
+        req.flash("error", "Số điện thoại không đủ 10 số!");
+        res.redirect("back");
+        return;
+    }
+
+    if(!req.body.sdt.trim().match(regexPhoneNumber))
+    {
+        req.flash("error", "Số điện thoại đúng định dạng!");
+        res.redirect("back");
+        return;
+    } 
 
     const ngaySinh = new Date(req.body.ngaySinh);
     const ngayHienTai = new Date();
@@ -47,6 +67,7 @@ module.exports.infoUser = (req, res, next) => {
 
 module.exports.createCompany = (req, res, next) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const regexPhoneNumber = /0[35789][0-9]{8}\b/g;
 
     if(!req.body.tenCT.trim())
     {
@@ -78,6 +99,14 @@ module.exports.createCompany = (req, res, next) => {
         res.redirect("back");
         return;
     }
+
+    if(!req.body.sdtCT.trim().match(regexPhoneNumber))
+    {
+        req.flash("error", "Số điện thoại đúng định dạng!");
+        res.redirect("back");
+        return;
+    } 
+
     if(!req.body.emailCT.trim())
     {
         req.flash("error", "Email không được để trống!");

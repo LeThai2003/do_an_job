@@ -1,5 +1,6 @@
 const generateHelper = require("../../helpers/generate.helper");
 const UserModel = require("../../models/User.model");
+const CompanyModel = require("../../models/Company.model");
 const ForgotPassword = require("../../models/ForgotPassword.model")
 const md5 = require("md5");
 const mailHelper = require("../../helpers/send-mail.helper"); 
@@ -26,8 +27,9 @@ module.exports.registerPost = async (req, res) => {
 
     // check email trung
     const existUser = await UserModel.getUserByEmail(inforUser.email);
+    const existEmailCty = await CompanyModel.getCompanyByEmail(inforUser.email);
 
-    if(existUser)
+    if(existUser || existEmailCty)
     {
         req.flash("error", "Email trùng, vui lòng nhập lại!");
         res.redirect("back");
@@ -35,6 +37,17 @@ module.exports.registerPost = async (req, res) => {
     }
 
     inforUser.sdt = req.body.phone
+
+    const existSdt = await UserModel.getUserBySdt(inforUser.sdt);
+    const existSdtCty = await CompanyModel.getCompanyBySdt(inforUser.sdt);
+    
+    if(existSdt || existSdtCty)  // Đăng kí thì chưa có công ty nên không cần phải kiểm tra người đó có phải là chủ của công ty hay không
+    {
+        req.flash("error", "Số điện thoại trùng, vui lòng nhập lại!");
+        res.redirect("back");
+        return;
+    }
+
     inforUser.gioiTinh = 1;
     if(req.body.gender == "nữ")
     {

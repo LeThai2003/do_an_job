@@ -1,5 +1,7 @@
 module.exports.editInfo = (req, res, next) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const regexPhoneNumber = /0[35789][0-9]{8}\b/g;
+
 
     if(!req.body.tenCT.trim())
     {
@@ -25,6 +27,12 @@ module.exports.editInfo = (req, res, next) => {
         res.redirect("back");
         return;
     }
+    if(!req.body.sdtCT.trim().match(regexPhoneNumber))
+    {
+        req.flash("error", "Số điện thoại đúng định dạng!");
+        res.redirect("back");
+        return;
+    } 
     if(!req.body.emailCT.trim())
     {
         req.flash("error", "Email không được để trống!");

@@ -258,7 +258,8 @@ module.exports.edit = async(req, res) => {
             job: job,
             objKinhNghiem,
             areas,
-            specialities
+            specialities,
+            congTyId
         })
 
     } catch (error) {
@@ -269,6 +270,9 @@ module.exports.edit = async(req, res) => {
 //[POST]/manage/job-management/:congTyId/edit/:maCV
 module.exports.postEdit = async(req, res) => {
     try {
+
+        console.log("^^^^^^^^^^^^^^^^^^^^^^^6666666")
+
         const congTyId = req.params.congTyId;
         const maCV = req.params.maCV;
 
@@ -306,11 +310,18 @@ module.exports.postEdit = async(req, res) => {
             }
         }
 
+
+        console.log("^^^^^^^^^^^^^^^^^^^^^^^6666666")
+
+
         //--KV--
         for (const maKV of areas) {
             await JobEreaModel.insertJobArea(maCV, maKV);
         }
         
+
+        console.log("^^^^^^^^^^^^^^^^^^^^^^^11111")
+
         req.flash("success", "Chỉnh sửa công việc thành công!");
         res.redirect("back");
 

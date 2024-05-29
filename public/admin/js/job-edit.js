@@ -20,6 +20,8 @@ let areas = JSON.parse(areasAtt);
 
 let tenKhuVuc = divContent.getAttribute("areas-name");  // lấy danh sách ban đầu đã tạo
 
+console.log(tenKhuVuc);
+
 // console.log(areas)    
 
 selectBtn.addEventListener("click", () => {
@@ -35,6 +37,9 @@ if(tenKhuVuc != "")
     let btnText = document.querySelector(".btn-text");
     btnText.innerHTML = tenKhuVuc;
 }
+
+// console.log(selectedItems);
+// console.log(selectedIds);
 
 const updateArraySelect = (item) => {
     const tenKV = item.querySelector(".item-text").innerText;
@@ -64,6 +69,11 @@ const addArea = () => {
                 </span>
             </li>
         `;
+        if(isChecked)
+        {
+            selectedIds.push(area.maKV);
+            console.log(area.tenKV);
+        }
     });
     options.innerHTML = html;
 
@@ -84,6 +94,9 @@ const addArea = () => {
     });
 };
 
+// console.log(selectedItems);
+// console.log(selectedIds);
+
 // Hàm cập nhật nút chọn
 const updateSelectedText = () => {
     let btnText = document.querySelector(".btn-text");
@@ -99,6 +112,9 @@ const updateSelectedText = () => {
 
 // Gọi hàm addCountry để gán sự kiện click cho danh sách ban đầu
 addArea();
+
+// console.log(selectedItems);
+// console.log(selectedIds);
 
 
 // Hàm gán sự kiện click cho các mục
@@ -242,10 +258,10 @@ const addTag = (e) => {
 
 inputTag.addEventListener("keydown", addTag);
 
-removeButton.addEventListener("click", () => {
-    tags.length = 0;
-    ul.querySelectorAll("li").forEach(li => li.remove());
-})
+// removeButton.addEventListener("click", () => {
+//     tags.length = 0;
+//     ul.querySelectorAll("li").forEach(li => li.remove());
+// })
 
 
 

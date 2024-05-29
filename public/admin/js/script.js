@@ -517,3 +517,24 @@ if (iconChangeImgCompany) {
         imagePreviewFunction();
     });
 }
+
+
+// -------------sider active ----------
+const liSiderElement = document.querySelectorAll(".sider .inner-menu ul li");
+if(liSiderElement.length > 0)
+{
+    liSiderElement.forEach(li => {
+        let url = new URL(window.location.href);
+        const aElement = li.querySelector("a");
+        const hrefA = aElement.getAttribute("href");
+        if(url.href.includes(hrefA))
+        {
+            li.classList.add("active"); 
+        }
+        else
+        {
+            li.classList.remove("active");
+        }
+    })
+}
+// -------------sider active ----------

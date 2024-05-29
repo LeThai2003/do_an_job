@@ -1,7 +1,4 @@
 module.exports.infoUser = (req, res, next) => {
-
-    console.log(req.body)
-
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if(!req.body.name.trim())

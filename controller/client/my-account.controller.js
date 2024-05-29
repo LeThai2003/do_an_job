@@ -1,6 +1,7 @@
 const UserModel = require("../../models/User.model");
 const CompanyModel = require("../../models/Company.model");
 const slugHelper = require("../../helpers/convert-to-slug.helper");
+const generateHelper = require("../../helpers/generate.helper");
 
 const md5 = require("md5");
 
@@ -69,7 +70,8 @@ module.exports.editPost = async (req, res) => {
             if(req.body.matKhau != "")
             {
                 inforUser.matKhau = md5(req.body.matKhau);
-                query = `update NGUOIDUNG set ho=N'${inforUser.ho}', ten=N'${inforUser.ten}', email='${inforUser.email}', ngaySinh='${inforUser.ngaySinh}', sdt='${inforUser.sdt}', gioiTinh=${inforUser.gioiTinh}, matKhau=N'${inforUser.matKhau}' where userId = ${userId}`
+                inforUser.token = generateHelper.generateRandomString(30);
+                query = `update NGUOIDUNG set ho=N'${inforUser.ho}', ten=N'${inforUser.ten}', email='${inforUser.email}', ngaySinh='${inforUser.ngaySinh}', sdt='${inforUser.sdt}', gioiTinh=${inforUser.gioiTinh}, matKhau=N'${inforUser.matKhau}', token='${inforUser.token}' where userId = ${userId}`
             }
             else
             {
@@ -77,6 +79,7 @@ module.exports.editPost = async (req, res) => {
             }
 
             await UserModel.updateUser(query);
+            res.cookie("tokenUser", inforUser.token);
         }
 
                 

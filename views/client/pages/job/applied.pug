@@ -14,6 +14,7 @@ block main
                     th Tên công ty 
                     th Ngày nộp đơn 
                     th Ngày nhận kết quả
+                    th CV ứng tuyển
                     th Kết quả 
                 tbody 
                     each item, index in jobDetails
@@ -29,6 +30,8 @@ block main
                                     | #{item.thoiGianGui}
                                 else 
                                     b Chưa có 
+                            td 
+                                a(href=item.pdf target="_blank") CV   
                             td 
                                 if(item.thoiGianGui)
                                     if(item.ketQua)

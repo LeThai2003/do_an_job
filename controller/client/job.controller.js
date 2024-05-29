@@ -2,12 +2,14 @@ const JobModel = require("../../models/Job.model");
 const CompanyModel = require("../../models/Company.model");
 const JobDetailModel = require("../../models/Job-detail.model");
 const JobAreaModel = require("../../models/Job-area.model");
+const AnnounceModel = require("../../models/Announce.model");
 const timeApplyHelper = require("../../helpers/time-apply.helper")
 const searchFormHelper = require("../../helpers/form-search.helper")
 const paginationHelper = require("../../helpers/pagination.helper")
 const filterStatusHelper = require("../../helpers/filter-status.helper");
 const selectionSortHelper = require("../../helpers/selection-sort.helper");
 const applyAnimationHelper = require("../../helpers/apply-animation.helper");
+const timeHelper = require("../../helpers/date.helper");
 
 // [GET] /jobs
 module.exports.getAllJobs = async (req, res) => {
@@ -162,5 +164,46 @@ module.exports.applyJob = async(req, res) => {
     } catch (error) {
             console.log("lỗi ở nộp đơn")
             redirect("/");
+    }
+}
+
+//[GET] /jobs/applied/:userId
+module.exports.jobApplied = async(req, res) => {
+    try {
+        const userId = req.params.userId;
+        // ---announce of user---
+        let announces = await AnnounceModel.getAnnounceOfUser(userId);   
+        if(announces)
+        {
+            for (const announce of announces) {
+                const infoCT_CV = await CompanyModel.getCompanyByMaCV(announce.maCV);
+                announce.infoCT_CV = infoCT_CV;
+                announce.thoiGianGui = timeHelper.getDate2(announce.thoiGianGui);   // -> "2/1/2013 7:37:08 AM"
+
+                const jobDetail = await JobDetailModel.getDetailJobByMaCV_UserId(announce.maCV, announce.userId);
+                const thoiGianNopDon = timeHelper.getDate2(jobDetail[0].thoiGianNop);
+                announce.thoiGianNop = thoiGianNopDon;
+            }
+        }
+
+        const countAnnounces = announces.length;
+
+        const objPagination = paginationHelper(req.query, countAnnounces);
+
+        const startIndex = (objPagination.currentPage - 1) * objPagination.limitPerPage;
+        const endIndex = startIndex + objPagination.limitPerPage;
+
+        announces = announces.reverse();
+
+        announces = announces.slice(startIndex, endIndex);
+
+        res.render("client/pages/job/applied", {
+            title: "Trang danh sách công việc đã nộp",
+            announces: announces,
+            pagination: JSON.stringify(objPagination),
+        })
+    } catch (error) {
+        console.log("xem danh sách công việc đã nộp đơn");
+        console.log(error);
     }
 }

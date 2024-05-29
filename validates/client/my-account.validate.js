@@ -57,6 +57,12 @@ module.exports.createCompany = (req, res, next) => {
         res.redirect("back");
         return;
     }
+    if(req.body.quyMo.trim().startsWith("-"))
+    {
+        req.flash("error", "Số lượng nhân viên không hợp lệ!");
+        res.redirect("back");
+        return;
+    } 
     if(!req.body.diaDiem.trim())
     {
         req.flash("error", "Địa chỉ công ty không được để trống!");

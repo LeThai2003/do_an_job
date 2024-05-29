@@ -17,4 +17,7 @@ router.get("/detail/:slug", controller.detail);
 
 router.post("/apply-job/:maCV", upload.single('file'), validate.applyJob, controller.applyJob);
 
+router.get("/applied/:userId", controller.jobApplied);
+
+
 module.exports = router;

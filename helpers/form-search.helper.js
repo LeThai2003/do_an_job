@@ -1,4 +1,5 @@
 module.exports.search = (query) => {
+    console.log(query);
     // lương
     let luong1, luong2;
     if(query.luong == "all")
@@ -14,7 +15,7 @@ module.exports.search = (query) => {
     // kinh nghiệm
     let kn = "";
     let kinhNghiem = query.kinhnghiem;
-    if(kinhNghiem == "all")
+    if(kinhNghiem == "1000")
     {
         kn = '>= 0';
     }
@@ -22,7 +23,7 @@ module.exports.search = (query) => {
     {
         kn = '= 0';
     }
-    else if(kinhNghiem == "less1")
+    else if(kinhNghiem == "-1")
     {
         kn = '< 1';
     }
@@ -46,7 +47,7 @@ module.exports.search = (query) => {
     {
         kn = '= 5';
     }
-    else if(kinhNghiem == "over5")
+    else if(kinhNghiem == "6")
     {
         kn = '> 5';
     }
@@ -62,11 +63,13 @@ module.exports.search = (query) => {
     if(kv == "all")
     {
         querySql = `select * from CONGVIEC where (CONGVIEC.tenCV like '%${vitri}%') and (luong >= ${luong1} and luong <= ${luong2}) and (kinhNghiem ${kn})`;
+        console.log("------1---------");
     }
     else
     {
         kv = parseInt(kv);
         querySql = `select * from CONGVIEC, CONGVIEC_KHUVUC where (CONGVIEC.tenCV like '%${vitri}%') and (luong >= ${luong1} and luong <= ${luong2}) and (kinhNghiem ${kn}) and (CONGVIEC.maCV = CONGVIEC_KHUVUC.maCV) and (maKV = ${kv})`;       
+        console.log("------2---------");
     }
 
     // console.log(querySql);

@@ -29,11 +29,12 @@ const getAllJobsPagi = async (limitPerPage, skip) => {
 const getJobsByForm = async (query) => {
     try {
         const queryString = query.toString();
+        console.log(query);
         const result = await sql.query(queryString);
         console.log("okko")
         return result.recordset;
     } catch (error) {
-        console.log("Error getting jobs by form search", error);
+        console.log("Error getting jobs by form search------", error);
         return [];
     }
 }
